@@ -4094,58 +4094,58 @@
 
           <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 2.8%; flex: 1; min-height: 0;">
             <!-- 1. PROBLEM -->
-            <div class="card" style="border-top: 4px solid #de567c; background: #ffffff; padding: 16px; display: flex; flex-direction: column; justify-content: space-between;">
+            <div class="card" style="border-top: 4px solid #de567c; background: #ffffff; padding: 14px 16px; display: flex; flex-direction: column; justify-content: space-between;">
               <div>
                 <span class="icon-label" style="color: #de567c; border-color: rgba(222, 86, 124, 0.3);">01 · PROBLEM</span>
-                <h3 style="font-size: clamp(16px, 1.15vw, 19px); color: #1e293b; margin-top: 8px;">서버 디스크 용량 부족</h3>
-                <p style="font-size: clamp(12.5px, 0.88vw, 14.5px); color: #475569; margin-top: 6px; line-height: 1.48;">
+                <h3 style="font-size: clamp(16px, 1.15vw, 19px); color: #1e293b; margin-top: 6px;">서버 디스크 용량 부족</h3>
+                <p style="font-size: clamp(12.5px, 0.88vw, 14.5px); color: #475569; margin-top: 4px; line-height: 1.45;">
                   지속적 배포(CI/CD) 시 새 Docker 이미지를 pull 받을 때 기존 이미지가 삭제되지 않고 <code style="color:#de567c; font-weight:700;">&lt;none&gt;:&lt;none&gt;</code> Dangling 이미지로 수십 GB 이상 계속 누적되어 서버 자원 부족 위기 발생.
                 </p>
               </div>
-              <div class="image-frame" onclick="openImageModal('core_scenario_03/1.png', '01 PROBLEM - 서버 디스크 용량 부족')" style="margin-top: 10px; height: 130px; cursor: zoom-in; padding: 4px; border-radius: 8px; border: 1px solid rgba(222,86,124,0.2);">
+              <div class="image-frame" onclick="openImageModal('core_scenario_03/1.png', '01 PROBLEM - 서버 디스크 용량 부족')" style="margin-top: 8px; height: 195px; cursor: zoom-in; padding: 4px; border-radius: 8px; border: 1px solid rgba(222,86,124,0.2);">
                 <img src="core_scenario_03/1.png" alt="01 PROBLEM 이미지" style="width: 100%; height: 100%; object-fit: contain;" />
               </div>
             </div>
 
             <!-- 2. CAUSE -->
-            <div class="card" style="border-top: 4px solid #d48b21; background: #ffffff; padding: 16px; display: flex; flex-direction: column; justify-content: space-between;">
+            <div class="card" style="border-top: 4px solid #d48b21; background: #ffffff; padding: 14px 16px; display: flex; flex-direction: column; justify-content: space-between;">
               <div>
                 <span class="icon-label" style="color: #d48b21; border-color: rgba(212, 139, 33, 0.3);">02 · CAUSE</span>
-                <h3 style="font-size: clamp(16px, 1.15vw, 19px); color: #1e293b; margin-top: 8px;">Docker Tag Overwrite</h3>
-                <p style="font-size: clamp(12.5px, 0.88vw, 14.5px); color: #475569; margin-top: 6px; line-height: 1.48;">
+                <h3 style="font-size: clamp(16px, 1.15vw, 19px); color: #1e293b; margin-top: 6px;">Docker Tag Overwrite</h3>
+                <p style="font-size: clamp(12.5px, 0.88vw, 14.5px); color: #475569; margin-top: 4px; line-height: 1.45;">
                   동일한 태그(<code style="color:#d48b21; font-weight:700;">:latest</code>)로 이미지 업데이트 시 이전 이미지가 삭제되는 것이 아니라 태그만 해제되어 Dangling 상태로 남아 디스크를 차지. 배포 스크립트에 자동 정리 미비.
                 </p>
               </div>
-              <div class="image-frame" onclick="openImageModal('core_scenario_03/2.png', '02 CAUSE - Docker Tag Overwrite')" style="margin-top: 10px; height: 130px; cursor: zoom-in; padding: 4px; border-radius: 8px; border: 1px solid rgba(212,139,33,0.2);">
+              <div class="image-frame" onclick="openImageModal('core_scenario_03/2.png', '02 CAUSE - Docker Tag Overwrite')" style="margin-top: 8px; height: 195px; cursor: zoom-in; padding: 4px; border-radius: 8px; border: 1px solid rgba(212,139,33,0.2);">
                 <img src="core_scenario_03/2.png" alt="02 CAUSE 이미지" style="width: 100%; height: 100%; object-fit: contain;" />
               </div>
             </div>
 
             <!-- 3. ACTION -->
-            <div class="card" style="border-top: 4px solid #3266c8; background: #ffffff; padding: 16px; display: flex; flex-direction: column; justify-content: space-between;">
+            <div class="card" style="border-top: 4px solid #3266c8; background: #ffffff; padding: 14px 16px; display: flex; flex-direction: column; justify-content: space-between;">
               <div>
                 <span class="icon-label" style="color: #3266c8; border-color: rgba(50, 102, 200, 0.3);">03 · ACTION</span>
-                <h3 style="font-size: clamp(16px, 1.15vw, 19px); color: #1e293b; margin-top: 8px;">자동 Cleanup 스크립트</h3>
-                <p style="font-size: clamp(12.5px, 0.88vw, 14.5px); color: #475569; margin-top: 6px; line-height: 1.48;">
+                <h3 style="font-size: clamp(16px, 1.15vw, 19px); color: #1e293b; margin-top: 6px;">자동 Cleanup 스크립트</h3>
+                <p style="font-size: clamp(12.5px, 0.88vw, 14.5px); color: #475569; margin-top: 4px; line-height: 1.45;">
                   CI/CD 배포 파이프라인 후속 단계에 <code style="color:#3266c8; font-weight:700;">docker image prune -f</code> 및 <code style="color:#3266c8; font-weight:700;">docker system prune -f</code> 명령어를 추가하여 배포 직후 잔여 이미지를 자동 삭제되도록 개선.
                 </p>
               </div>
-              <div class="image-frame" onclick="openImageModal('core_scenario_03/3.png', '03 ACTION - 자동 Cleanup 스크립트')" style="margin-top: 10px; height: 130px; cursor: zoom-in; padding: 4px; border-radius: 8px; border: 1px solid rgba(50,102,200,0.2);">
-                <img src="core_scenario_03/3.png" alt="03 ACTION 이미지" style="width: 100%; height: 100%; object-fit: contain;" />
+              <div class="image-frame" onclick="openImageModal('core_scenario_03/4.png', '03 ACTION - 자동 Cleanup 스크립트')" style="margin-top: 8px; height: 195px; cursor: zoom-in; padding: 4px; border-radius: 8px; border: 1px solid rgba(50,102,200,0.2);">
+                <img src="core_scenario_03/4.png" alt="03 ACTION 이미지" style="width: 100%; height: 100%; object-fit: contain;" />
               </div>
             </div>
 
             <!-- 4. RESULT -->
-            <div class="card" style="border-top: 4px solid #138c73; background: linear-gradient(145deg, rgba(19,140,115,0.06), rgba(63,242,203,0.02)); padding: 16px; display: flex; flex-direction: column; justify-content: space-between; border-color: rgba(19,140,115,0.3);">
+            <div class="card" style="border-top: 4px solid #138c73; background: linear-gradient(145deg, rgba(19,140,115,0.06), rgba(63,242,203,0.02)); padding: 14px 16px; display: flex; flex-direction: column; justify-content: space-between; border-color: rgba(19,140,115,0.3);">
               <div>
                 <span class="icon-label" style="color: #138c73; border-color: rgba(19, 140, 115, 0.3);">04 · RESULT</span>
-                <h3 style="font-size: clamp(16px, 1.15vw, 19px); color: #1e293b; margin-top: 8px;">2.1GB 용량 확보 & 안정화</h3>
-                <p style="font-size: clamp(12.5px, 0.88vw, 14.5px); color: #475569; margin-top: 6px; line-height: 1.48;">
+                <h3 style="font-size: clamp(16px, 1.15vw, 19px); color: #1e293b; margin-top: 6px;">2.1GB 용량 확보 & 안정화</h3>
+                <p style="font-size: clamp(12.5px, 0.88vw, 14.5px); color: #475569; margin-top: 4px; line-height: 1.45;">
                   누적되던 Dangling 이미지 일괄 정리로 <b>2.101 GB 디스크 즉시 확보</b>. 배포가 반복되어도 서버 용량이 일정하게 유지되는 무중단 배포 안정성 확보.
                 </p>
               </div>
-              <div class="image-frame" onclick="openImageModal('core_scenario_03/4.png', '04 RESULT - 2.1GB 용량 확보')" style="margin-top: 10px; height: 130px; cursor: zoom-in; padding: 4px; border-radius: 8px; border: 1px solid rgba(19,140,115,0.3);">
-                <img src="core_scenario_03/4.png" alt="04 RESULT 이미지" style="width: 100%; height: 100%; object-fit: contain;" />
+              <div class="image-frame" onclick="openImageModal('core_scenario_03/3.png', '04 RESULT - 2.1GB 용량 확보')" style="margin-top: 8px; height: 195px; cursor: zoom-in; padding: 4px; border-radius: 8px; border: 1px solid rgba(19,140,115,0.3);">
+                <img src="core_scenario_03/3.png" alt="04 RESULT 이미지" style="width: 100%; height: 100%; object-fit: contain;" />
               </div>
             </div>
           </div>
@@ -4285,6 +4285,86 @@
         </aside>
       </section>
 
+
+      <!-- APPENDIX SECTION INTRO SLIDE -->
+      <section class="slide section-slide" data-title="Appendix">
+        <div class="slide-inner" style="justify-content: center; align-items: center; text-align: center;">
+          <h1 style="font-size: clamp(64px, 8.5vw, 130px); font-weight: 900; color: #ffffff; letter-spacing: 0.08em; text-transform: uppercase; margin: 0;">
+            APPENDIX
+          </h1>
+          <div class="footer" style="width: 100%;">
+            <span class="brand-mark"><i class="brand-dot" style="background:var(--mint);"></i> ALPHATRAGEN</span>
+            <span>34</span>
+          </div>
+        </div>
+        <aside class="speaker-note">
+          부록(Appendix) 파트입니다.
+        </aside>
+      </section>
+
+      <!-- COLLABORATION & DEV TOOLS SLIDE -->
+      <section class="slide light" data-title="팀 협업 툴 및 개발 자동화">
+        <div class="slide-inner">
+          <div class="topline">
+            <div class="eyebrow">COLLABORATION & AI DEV TOOLS</div>
+            <div class="section-number">TEAM WORKFLOW</div>
+          </div>
+          <h2>팀 문서화부터 알림·코드 리뷰까지<br><span class="mint">협업 툴 및 개발 자동화 파이프라인</span></h2>
+
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 2.2%; flex: 1; min-height: 0;">
+            <!-- 1. Notion -->
+            <div class="card" style="border-top: 4px solid #3266c8; background: #ffffff; padding: 18px; display: flex; flex-direction: column; justify-content: space-between;">
+              <div>
+                <span class="icon-label" style="color: #3266c8; border-color: rgba(50, 102, 200, 0.3); font-size: clamp(13px, 0.9vw, 15px); padding: 4px 10px;">NOTION · HUB</span>
+                <h3 style="font-size: clamp(19px, 1.35vw, 23px); color: #1e293b; margin-top: 8px;">팀 중앙 개발 문서 허브</h3>
+                <p style="font-size: clamp(14.5px, 1.05vw, 17.5px); color: #475569; margin-top: 8px; line-height: 1.5;">
+                  API 명세서, WBS, ERD, 트러블슈팅, 회의록 및 컨벤션을 노션에 일관되게 중앙 문서화하여 팀원 간 업무 싱크 유지를 보장.
+                </p>
+              </div>
+              <div class="image-frame" onclick="openImageModal('core_scenario_03/notion.png', 'Notion 팀 중앙 개발 문서 허브')" style="margin-top: 12px; height: 220px; cursor: zoom-in; padding: 4px; border-radius: 8px; border: 1px solid rgba(50,102,200,0.2);">
+                <img src="core_scenario_03/notion.png" alt="Notion 팀 개발 허브" style="width: 100%; height: 100%; object-fit: contain;" />
+              </div>
+            </div>
+
+            <!-- 2. Discord -->
+            <div class="card" style="border-top: 4px solid #7a60d6; background: #ffffff; padding: 18px; display: flex; flex-direction: column; justify-content: space-between;">
+              <div>
+                <span class="icon-label" style="color: #7a60d6; border-color: rgba(122, 96, 214, 0.3); font-size: clamp(13px, 0.9vw, 15px); padding: 4px 10px;">DISCORD · WEBHOOK</span>
+                <h3 style="font-size: clamp(19px, 1.35vw, 23px); color: #1e293b; margin-top: 8px;">Spidey Bot 병합 알림</h3>
+                <p style="font-size: clamp(14.5px, 1.05vw, 17.5px); color: #475569; margin-top: 8px; line-height: 1.5;">
+                  GitHub Webhook과 Discord 알림 봇을 연동하여 <code style="color:#7a60d6; font-weight:700;">dev</code> 브랜치 Merge 및 PR 이벤트를 팀 채널로 즉시 전송해 코드 커밋 공유.
+                </p>
+              </div>
+              <div class="image-frame" onclick="openImageModal('core_scenario_03/discorrd.png', 'Discord Spidey Bot 병합 알림')" style="margin-top: 12px; height: 220px; cursor: zoom-in; padding: 4px; border-radius: 8px; border: 1px solid rgba(122,96,214,0.2);">
+                <img src="core_scenario_03/discorrd.png" alt="Discord 병합 알림 봇" style="width: 100%; height: 100%; object-fit: contain;" />
+              </div>
+            </div>
+
+            <!-- 3. Gemini Code Review -->
+            <div class="card" style="border-top: 4px solid #138c73; background: #ffffff; padding: 18px; display: flex; flex-direction: column; justify-content: space-between;">
+              <div>
+                <span class="icon-label" style="color: #138c73; border-color: rgba(19, 140, 115, 0.3); font-size: clamp(13px, 0.9vw, 15px); padding: 4px 10px;">GEMINI · AI REVIEW</span>
+                <h3 style="font-size: clamp(19px, 1.35vw, 23px); color: #1e293b; margin-top: 8px;">Gemini AI 코드 리뷰 봇</h3>
+                <p style="font-size: clamp(14.5px, 1.05vw, 17.5px); color: #475569; margin-top: 8px; line-height: 1.5;">
+                  GitHub Actions와 Gemini AI를 연결해 Pull Request 발생 시 가독성, 상태 관리(<code style="color:#138c73; font-weight:700;">useState/useRef</code>) 및 리팩토링 자동 피드백 제공.
+                </p>
+              </div>
+              <div class="image-frame" onclick="openImageModal('core_scenario_03/codereview.png', 'Gemini AI 자동 코드 리뷰 봇')" style="margin-top: 12px; height: 220px; cursor: zoom-in; padding: 4px; border-radius: 8px; border: 1px solid rgba(19,140,115,0.3);">
+                <img src="core_scenario_03/codereview.png" alt="Gemini AI 자동 코드 리뷰" style="width: 100%; height: 100%; object-fit: contain;" />
+              </div>
+            </div>
+          </div>
+
+          <div class="footer">
+            <span class="brand-mark"><i class="brand-dot" style="background:#138c73;"></i> ALPHATRAGEN</span>
+            <span>35</span>
+          </div>
+        </div>
+        <aside class="speaker-note">
+          팀 개발 문서화와 협업 자동화 도구입니다.
+          Notion으로 API 명세서와 트러블슈팅을 중앙에서 관리하고, Discord Spidey Bot으로 dev 브랜치 Merge 이벤트를 공유하며, GitHub Actions와 연동된 Gemini AI Bot이 PR마다 상태 관리와 리팩토링 포인트를 자동 리뷰하였습니다.
+        </aside>
+      </section>
 
       <!-- 27 -->
       <section class="slide light" data-title="Appendix 안내">
@@ -5078,26 +5158,47 @@
       <!-- CLOSING -->
       <section class="slide section-slide" data-title="마무리">
         <div class="slide-inner">
-          <div class="eyebrow">ALPHATRAGEN · Q&A</div>
-          <h2>생활 업무는 더 간단하게,<br><span class="mint">관리 업무는 더 명확하게</span></h2>
-          <p class="lead" style="max-width:860px; margin-top:3%;">
-            AI가 생활 업무를 처리하고, 알림이 진행 상황을 전달하며,<br>
-            필요한 순간에는 관리자가 실시간으로 이어서 대응합니다.
-          </p>
-          <div class="tags" style="margin-top:3.5%;">
-            <span class="tag">AI 생활업무 처리</span>
-            <span class="tag" style="--tag-color:var(--amber);">처리 과정 자동 알림</span>
-            <span class="tag" style="--tag-color:var(--cyan);">관리자 실시간 대응</span>
+          <div class="topline">
+            <div class="eyebrow" style="color:var(--mint);">ALPHATRAGEN · Q&A</div>
+            <div class="section-number">THANK YOU</div>
           </div>
-          <div class="section-bg">Q&A</div>
-          <div class="footer">
-            <span class="brand-mark"><i class="brand-dot"></i> ALPHATRAGEN</span>
-            <span>33</span>
+
+          <div style="display: flex; gap: 36px; align-items: center; margin-top: 2%; flex: 1; min-height: 0; z-index: 2; position: relative;">
+            <!-- Left: Whiteboard done.jpg image (Fit / Cover / Zero Padding) -->
+            <div class="image-frame" onclick="openImageModal('core_scenario_03/done.jpg', '프로젝트 완료 보드')" style="flex: 1.2; height: 88%; max-height: 460px; cursor: zoom-in; padding: 0; overflow: hidden; background: #000000; border-radius: 14px; border: 1.5px solid rgba(63, 242, 203, 0.4); box-shadow: 0 20px 50px rgba(0,0,0,0.5); display: flex;">
+              <img src="core_scenario_03/done.jpg" alt="프로젝트 완료 화이트보드" style="width: 100%; height: 100%; object-fit: cover; object-position: center; border-radius: 12px;" />
+            </div>
+
+            <!-- Right: Clean & High-contrast Q&A text -->
+            <div style="flex: 1; display: flex; flex-direction: column; justify-content: center; padding-left: 8px;">
+              <h2 style="line-height: 1.2; margin: 0;">
+                <span style="color: #ffffff; font-size: clamp(24px, 2.0vw, 30px); font-weight: 700; display: block;">프로젝트를 마치며</span>
+                <span class="mint" style="font-size: clamp(48px, 4.2vw, 68px); font-weight: 900; display: block; margin-top: 6px; letter-spacing: 0.02em;">Q&A</span>
+              </h2>
+
+              <p style="font-size: clamp(16px, 1.2vw, 20px); color: #f1f5f9; font-weight: 500; margin-top: 24px; line-height: 1.6;">
+                입주민의 더 스마트한 생활과 관리자의 효율적인 운영을 돕는 <strong style="color: var(--mint); font-weight: 800;">ALPHATRAGEN</strong> 발표를 들어주셔서 감사합니다.
+              </p>
+
+              <div style="margin-top: 28px;">
+                <span class="tag" style="font-size: clamp(14px, 0.95vw, 16px); padding: 10px 20px; background: rgba(63, 242, 203, 0.15); color: var(--mint); border: 1.5px solid rgba(63, 242, 203, 0.4); font-weight: 800; border-radius: 30px; display: inline-flex; align-items: center; gap: 8px;">
+                  💬 자유로운 Q&A
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Background Watermark Graphic: Q&A -->
+          <div class="section-bg" style="right: 4%; bottom: 4%; font-size: clamp(160px, 26vw, 380px); color: rgba(255,255,255,0.038); pointer-events: none; user-select: none;">Q&A</div>
+
+          <div class="footer" style="position: relative; z-index: 2;">
+            <span class="brand-mark"><i class="brand-dot" style="background:var(--mint);"></i> ALPHATRAGEN</span>
+            <span>36</span>
           </div>
         </div>
         <aside class="speaker-note">
-          ALPHATRAGEN은 입주민의 생활 업무를 단순하게 만들고 관리자의 반복 업무와 대응 시간을 줄이기 위한 플랫폼입니다.
-          이상으로 발표를 마치겠습니다. 감사합니다.
+          이상으로 ALPHATRAGEN 발표를 마치겠습니다.
+          질의응답(Q&A) 시간입니다. 질문이 있으시면 자유롭게 말씀해 주시기 바랍니다.
         </aside>
       </section>
     </div>
@@ -5174,9 +5275,9 @@
         "Git Branch & Commit Strategy",
         "k6 부하 테스트 시연",
         "개발 과정과 작업 방식",
-        "테스트와 부하 테스트",
         "주요 트러블슈팅",
-        "성과 및 개선 방향",
+        "Appendix",
+        "팀 협업 툴 및 개발 자동화",
         "Appendix 안내",
         "마무리",
       ];
