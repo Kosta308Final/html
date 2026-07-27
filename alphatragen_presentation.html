@@ -4083,11 +4083,11 @@
 
       
       <!-- 24 -->
-      <!-- 32: TROUBLESHOOTING -->
-      <section class="slide light" data-title="주요 트러블슈팅">
+      <!-- 32: TROUBLESHOOTING 1 -->
+      <section class="slide light" data-title="주요 트러블슈팅 (Docker)">
         <div class="slide-inner">
           <div class="topline">
-            <div class="eyebrow">TROUBLESHOOTING CASE STUDY</div>
+            <div class="eyebrow">TROUBLESHOOTING CASE STUDY 01</div>
             <div class="section-number">DOCKER CI/CD AUTOMATION</div>
           </div>
           <h2>배포 자동화 과정의 <br><span class="mint">Docker Dangling 이미지 누적 & 디스크 용량 문제 해결</span></h2>
@@ -4158,6 +4158,93 @@
         <aside class="speaker-note">
           CI/CD 배포 과정에서 Docker 이미지가 태그 덮어쓰기로 인해 &lt;none&gt; Dangling 상태로 디스크를 점유하던 트러블슈팅 사례입니다.
           배포 파이프라인에 docker image prune -f 자동 정리 명령어를 반영하여 2.1GB의 디스크 공간을 즉시 확보하고 연속 배포 안정성을 확보했습니다.
+        </aside>
+      </section>
+
+      <!-- 33: TROUBLESHOOTING 2 -->
+      <section class="slide light" data-title="주요 트러블슈팅 (Tool Calling Agent)">
+        <div class="slide-inner">
+          <div class="topline">
+            <div class="eyebrow">TROUBLESHOOTING CASE STUDY 02</div>
+            <div class="section-number">TOOL CALLING AGENT ROUTING</div>
+          </div>
+          <h2>AI Agent 지능형 라우팅 <br><span class="mint">Tool Description 최적화 및 LLM 라우팅 정확도 향상</span></h2>
+
+          <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 2.8%; flex: 1; min-height: 0;">
+            <!-- 1. PROBLEM -->
+            <div class="card" style="border-top: 4px solid #de567c; background: #ffffff; padding: 14px 16px; display: flex; flex-direction: column; justify-content: space-between;">
+              <div>
+                <span class="icon-label" style="color: #de567c; border-color: rgba(222, 86, 124, 0.3);">01 · PROBLEM</span>
+                <h3 style="font-size: clamp(16px, 1.15vw, 19px); color: #1e293b; margin-top: 6px;">관리비 질문 시 Tool 미호출</h3>
+                <p style="font-size: clamp(12.5px, 0.88vw, 14.5px); color: #475569; margin-top: 4px; line-height: 1.45;">
+                  입주민이 특정 월 관리비나 정산 내역을 문의했음에도 LLM이 DB 조회 Tool(<code style="color:#de567c; font-weight:700;">get_maintenance_fee</code>)을 호출하지 않고 일반 지식/환각(Hallucination) 기반 직접 답변을 생성하는 문제 발생.
+                </p>
+              </div>
+              <div style="margin-top: 8px; padding: 12px; background: #fff5f5; border-radius: 8px; border: 1px solid rgba(222,86,124,0.3); font-family: monospace; font-size: 11.5px; color: #991b1b; line-height: 1.5;">
+                <div style="color:#de567c; font-weight:800; margin-bottom:4px; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif; font-size:12px;">❌ ROUTING FAILURE</div>
+                <b>[User]</b> "7월 관리비 내역 알려줘"<br>
+                <b>[LLM]</b> (Tool Call ❌)<br>
+                <span style="color:#dc2626;">→ DB 조회 없이 추측성 일반 답변 출력 (환각 발생)</span>
+              </div>
+            </div>
+
+            <!-- 2. CAUSE -->
+            <div class="card" style="border-top: 4px solid #d48b21; background: #ffffff; padding: 14px 16px; display: flex; flex-direction: column; justify-content: space-between;">
+              <div>
+                <span class="icon-label" style="color: #d48b21; border-color: rgba(212, 139, 33, 0.3);">02 · CAUSE</span>
+                <h3 style="font-size: clamp(16px, 1.15vw, 19px); color: #1e293b; margin-top: 6px;">Tool Description 설명 부족</h3>
+                <p style="font-size: clamp(12.5px, 0.88vw, 14.5px); color: #475569; margin-top: 4px; line-height: 1.45;">
+                  Tool의 함수명과 Description이 지나치게 단순·추상적이어서, LLM이 사용자 질의 의도(Intent)와 해당 Tool 호출 간의 명확한 라우팅 연관성을 판단하지 못함.
+                </p>
+              </div>
+              <div style="margin-top: 8px; padding: 12px; background: #fffbeb; border-radius: 8px; border: 1px solid rgba(212,139,33,0.3); font-family: monospace; font-size: 11.5px; color: #92400e; line-height: 1.5;">
+                <div style="color:#d48b21; font-weight:800; margin-bottom:4px; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif; font-size:12px;">⚠️ VAGUE DESCRIPTION</div>
+                <code style="color:#b45309; font-weight:700;">@Tool("관리비를 조회합니다.")</code><br>
+                <span style="color:#78350f;">→ 사용 목적, 파라미터 요구조건, 호출 트리거 시점이 모호하여 라우팅 실패</span>
+              </div>
+            </div>
+
+            <!-- 3. SOLUTION -->
+            <div class="card" style="border-top: 4px solid #3266c8; background: #ffffff; padding: 14px 16px; display: flex; flex-direction: column; justify-content: space-between;">
+              <div>
+                <span class="icon-label" style="color: #3266c8; border-color: rgba(50, 102, 200, 0.3);">03 · SOLUTION</span>
+                <h3 style="font-size: clamp(16px, 1.15vw, 19px); color: #1e293b; margin-top: 6px;">Tool Description 정밀 강화</h3>
+                <p style="font-size: clamp(12.5px, 0.88vw, 14.5px); color: #475569; margin-top: 4px; line-height: 1.45;">
+                  Tool 설명에 사용 목적, 필수/선택 인자, 트리거 유저 키워드 및 Few-shot 예시를 구체화하고, System Prompt 내 Tool 라우팅 가이드라인을 명확하게 정의.
+                </p>
+              </div>
+              <div style="margin-top: 8px; padding: 12px; background: #eff6ff; border-radius: 8px; border: 1px solid rgba(50,102,200,0.3); font-family: monospace; font-size: 11.5px; color: #1e40af; line-height: 1.5;">
+                <div style="color:#3266c8; font-weight:800; margin-bottom:4px; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif; font-size:12px;">💡 ENHANCED TOOL SPEC</div>
+                <code style="color:#1d4ed8; font-weight:700;">@Tool("특정 입주민의 월별/상세 관리비 항목, 미납금 및 정산 내역 조회 시 반드시 호출해야 하는 툴")</code>
+              </div>
+            </div>
+
+            <!-- 4. RESULT -->
+            <div class="card" style="border-top: 4px solid #138c73; background: linear-gradient(145deg, rgba(19,140,115,0.06), rgba(63,242,203,0.02)); padding: 14px 16px; display: flex; flex-direction: column; justify-content: space-between; border-color: rgba(19,140,115,0.3);">
+              <div>
+                <span class="icon-label" style="color: #138c73; border-color: rgba(19, 140, 115, 0.3);">04 · RESULT</span>
+                <h3 style="font-size: clamp(16px, 1.15vw, 19px); color: #1e293b; margin-top: 6px;">라우팅 정확도 향상 & 응답 신뢰성</h3>
+                <p style="font-size: clamp(12.5px, 0.88vw, 14.5px); color: #475569; margin-top: 4px; line-height: 1.45;">
+                  관리비·시설 예약 등 DB 연동 질문 시 정확한 Tool Calling 라우팅 성공률 <b>100% 달성</b>. 환각 답변 차단 및 DB 실시간 데이터 기반 신뢰성 확보.
+                </p>
+              </div>
+              <div style="margin-top: 8px; padding: 12px; background: #f0fdf4; border-radius: 8px; border: 1px solid rgba(19,140,115,0.3); font-family: monospace; font-size: 11.5px; color: #065f46; line-height: 1.5;">
+                <div style="color:#138c73; font-weight:800; margin-bottom:4px; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif; font-size:12px;">✅ PERFECT ROUTING RESULT</div>
+                <b>[User]</b> "7월 관리비 내역 알려줘"<br>
+                <b>[LLM]</b> <span style="color:#047857; font-weight:700;">⚙️ Executing get_fee_details(month='07')</span><br>
+                <span style="color:#065f46;">→ "7월 관리비 총액은 142,500원입니다." ✅</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="footer">
+            <span class="brand-mark"><i class="brand-dot" style="background:#138c73;"></i> ALPHATRAGEN</span>
+            <span>33</span>
+          </div>
+        </div>
+        <aside class="speaker-note">
+          관리비 문의 시 LLM이 DB 조회 툴을 호출하지 않고 추측성 답변을 생성하던 라우팅 문제를 해결한 트러블슈팅 사례입니다.
+          Tool Description에 사용 목적과 호출 시점, 인자 요구조건을 정밀하게 강화함으로써 Agent의 Tool Calling 라우팅 정확도를 100%로 향상시키고 신뢰할 수 있는 DB 기반 응답을 구현했습니다.
         </aside>
       </section>
 
@@ -5275,7 +5362,8 @@
         "Git Branch & Commit Strategy",
         "k6 부하 테스트 시연",
         "개발 과정과 작업 방식",
-        "주요 트러블슈팅",
+        "주요 트러블슈팅 (Docker)",
+        "주요 트러블슈팅 (Tool Calling Agent)",
         "Appendix",
         "팀 협업 툴 및 개발 자동화",
         "Appendix 안내",
