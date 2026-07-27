@@ -861,14 +861,14 @@
 
     .arch-node strong {
       display: block;
-      font-size: clamp(13px, 1.1vw, 18px);
+      font-size: clamp(16px, 1.3vw, 22px);
     }
 
     .arch-node small {
       display: block;
-      margin-top: 4px;
+      margin-top: 5px;
       color: var(--muted);
-      font-size: clamp(10px, .85vw, 14px);
+      font-size: clamp(13px, 1.0vw, 16.5px);
     }
 
     .arch-main {
@@ -939,9 +939,13 @@
       margin-bottom: 14px;
     }
 
+    .path-label h3 {
+      font-size: clamp(17px, 1.35vw, 22px);
+    }
+
     .path-label span {
       color: var(--muted);
-      font-size: clamp(11px, .9vw, 14px);
+      font-size: clamp(13.5px, 1.05vw, 17px);
       font-weight: 800;
       letter-spacing: .08em;
     }
@@ -958,7 +962,7 @@
       border-radius: 11px;
       background: rgba(255,255,255,.055);
       color: #c7d4e9;
-      font-size: clamp(12px, .95vw, 15px);
+      font-size: clamp(15px, 1.15vw, 18.5px);
       font-weight: 750;
       line-height: 1.25;
       text-align: center;
@@ -4313,87 +4317,87 @@
             <div class="section-number">ERD DOMAINS</div>
           </div>
           <h2>핵심 도메인별 <br><span class="mint">데이터 구조 설계</span></h2><br/>
-          <p style="margin-top: -1%; color: #66758c; font-size: clamp(12px, 0.85vw, 15px); text-align: left;">도메인 카드를 클릭하면 각 도메인의 핵심 DB 테이블 구성과 상세 사양을 확인할 수 있습니다.</p>
+          <p style="margin-top: -1%; color: #66758c; font-size: clamp(15px, 1.1vw, 18px); text-align: left;">도메인 카드를 클릭하면 각 도메인의 핵심 DB 테이블 구성과 상세 사양을 확인할 수 있습니다.</p>
 
-          <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 3.5%; flex: 1;">
+          <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 2.2%; flex: 1;">
             <!-- Domain 1 -->
             <div class="erd-card-item" onclick="openErdModal(1)" style="background: #ffffff; border: 1.5px solid rgba(50, 102, 200, 0.2); border-radius: 12px; padding: 18px; cursor: pointer; transition: all 0.25s ease; display: flex; flex-direction: column; justify-content: space-between; --theme-color: #3266c8; --theme-bg: rgba(50, 102, 200, 0.08); --theme-hover-bg: rgba(50, 102, 200, 0.12);">
               <div>
-                <span style="font-size: 0.65rem; background: var(--theme-bg); color: var(--theme-color); padding: 3px 8px; border-radius: 4px; font-weight: 800; text-transform: uppercase;">Domain 01</span>
-                <h3 style="margin: 12px 0 6px 0; font-size: 1rem; color: #1e293b; font-weight: 800;">사용자 & 세대</h3>
-                <p style="margin: 0; font-size: 0.75rem; color: #64748b; line-height: 1.45;">입주민·동호수 매핑 및 차량 정보 마스터</p>
+                <span style="font-size: clamp(12.5px, 0.85vw, 14.5px); background: var(--theme-bg); color: var(--theme-color); padding: 4px 10px; border-radius: 4px; font-weight: 800; text-transform: uppercase;">Domain 01</span>
+                <h3 style="margin: 12px 0 6px 0; font-size: clamp(18px, 1.25vw, 22px); color: #1e293b; font-weight: 800;">사용자 & 세대</h3>
+                <p style="margin: 0; font-size: clamp(13.5px, 0.95vw, 16px); color: #64748b; line-height: 1.45;">입주민·동호수 매핑 및 차량 정보 마스터</p>
               </div>
-              <span style="font-size: 0.72rem; color: var(--theme-color); font-weight: 700; margin-top: 12px; display: inline-block;">상세 테이블 보기 →</span>
+              <span style="font-size: clamp(13px, 0.9vw, 15.5px); color: var(--theme-color); font-weight: 700; margin-top: 12px; display: inline-block;">상세 테이블 보기 →</span>
             </div>
 
             <!-- Domain 2 -->
             <div class="erd-card-item" onclick="openErdModal(2)" style="background: #ffffff; border: 1.5px solid rgba(122, 96, 214, 0.2); border-radius: 12px; padding: 18px; cursor: pointer; transition: all 0.25s ease; display: flex; flex-direction: column; justify-content: space-between; --theme-color: #7a60d6; --theme-bg: rgba(122, 96, 214, 0.08); --theme-hover-bg: rgba(122, 96, 214, 0.12);">
               <div>
-                <span style="font-size: 0.65rem; background: var(--theme-bg); color: var(--theme-color); padding: 3px 8px; border-radius: 4px; font-weight: 800; text-transform: uppercase;">Domain 02</span>
-                <h3 style="margin: 12px 0 6px 0; font-size: 1rem; color: #1e293b; font-weight: 800;">관리비</h3>
-                <p style="margin: 0; font-size: 0.75rem; color: #64748b; line-height: 1.45;">세대별 월 청구, 상세 항목 및 이의신청</p>
+                <span style="font-size: clamp(12.5px, 0.85vw, 14.5px); background: var(--theme-bg); color: var(--theme-color); padding: 4px 10px; border-radius: 4px; font-weight: 800; text-transform: uppercase;">Domain 02</span>
+                <h3 style="margin: 12px 0 6px 0; font-size: clamp(18px, 1.25vw, 22px); color: #1e293b; font-weight: 800;">관리비</h3>
+                <p style="margin: 0; font-size: clamp(13.5px, 0.95vw, 16px); color: #64748b; line-height: 1.45;">세대별 월 청구, 상세 항목 및 이의신청</p>
               </div>
-              <span style="font-size: 0.72rem; color: var(--theme-color); font-weight: 700; margin-top: 12px; display: inline-block;">상세 테이블 보기 →</span>
+              <span style="font-size: clamp(13px, 0.9vw, 15.5px); color: var(--theme-color); font-weight: 700; margin-top: 12px; display: inline-block;">상세 테이블 보기 →</span>
             </div>
 
             <!-- Domain 3 -->
             <div class="erd-card-item" onclick="openErdModal(3)" style="background: #ffffff; border: 1.5px solid rgba(15, 181, 174, 0.2); border-radius: 12px; padding: 18px; cursor: pointer; transition: all 0.25s ease; display: flex; flex-direction: column; justify-content: space-between; --theme-color: #0fb5ae; --theme-bg: rgba(15, 181, 174, 0.08); --theme-hover-bg: rgba(15, 181, 174, 0.12);">
               <div>
-                <span style="font-size: 0.65rem; background: var(--theme-bg); color: var(--theme-color); padding: 3px 8px; border-radius: 4px; font-weight: 800; text-transform: uppercase;">Domain 03</span>
-                <h3 style="margin: 12px 0 6px 0; font-size: 1rem; color: #1e293b; font-weight: 800;">공동시설 예약</h3>
-                <p style="margin: 0; font-size: 0.75rem; color: #64748b; line-height: 1.45;">커뮤니티 시설 등록, 예약 타임슬롯 관리</p>
+                <span style="font-size: clamp(12.5px, 0.85vw, 14.5px); background: var(--theme-bg); color: var(--theme-color); padding: 4px 10px; border-radius: 4px; font-weight: 800; text-transform: uppercase;">Domain 03</span>
+                <h3 style="margin: 12px 0 6px 0; font-size: clamp(18px, 1.25vw, 22px); color: #1e293b; font-weight: 800;">공동시설 예약</h3>
+                <p style="margin: 0; font-size: clamp(13.5px, 0.95vw, 16px); color: #64748b; line-height: 1.45;">커뮤니티 시설 등록, 예약 타임슬롯 관리</p>
               </div>
-              <span style="font-size: 0.72rem; color: var(--theme-color); font-weight: 700; margin-top: 12px; display: inline-block;">상세 테이블 보기 →</span>
+              <span style="font-size: clamp(13px, 0.9vw, 15.5px); color: var(--theme-color); font-weight: 700; margin-top: 12px; display: inline-block;">상세 테이블 보기 →</span>
             </div>
 
             <!-- Domain 4 -->
             <div class="erd-card-item" onclick="openErdModal(4)" style="background: #ffffff; border: 1.5px solid rgba(212, 139, 33, 0.2); border-radius: 12px; padding: 18px; cursor: pointer; transition: all 0.25s ease; display: flex; flex-direction: column; justify-content: space-between; --theme-color: #d48b21; --theme-bg: rgba(212, 139, 33, 0.08); --theme-hover-bg: rgba(212, 139, 33, 0.12);">
               <div>
-                <span style="font-size: 0.65rem; background: var(--theme-bg); color: var(--theme-color); padding: 3px 8px; border-radius: 4px; font-weight: 800; text-transform: uppercase;">Domain 04</span>
-                <h3 style="margin: 12px 0 6px 0; font-size: 1rem; color: #1e293b; font-weight: 800;">민원 (VOC)</h3>
-                <p style="margin: 0; font-size: 0.75rem; color: #64748b; line-height: 1.45;">텍스트/사진 민원 접수 및 관리자 답변 이력</p>
+                <span style="font-size: clamp(12.5px, 0.85vw, 14.5px); background: var(--theme-bg); color: var(--theme-color); padding: 4px 10px; border-radius: 4px; font-weight: 800; text-transform: uppercase;">Domain 04</span>
+                <h3 style="margin: 12px 0 6px 0; font-size: clamp(18px, 1.25vw, 22px); color: #1e293b; font-weight: 800;">민원 (VOC)</h3>
+                <p style="margin: 0; font-size: clamp(13.5px, 0.95vw, 16px); color: #64748b; line-height: 1.45;">텍스트/사진 민원 접수 및 관리자 답변 이력</p>
               </div>
-              <span style="font-size: 0.72rem; color: var(--theme-color); font-weight: 700; margin-top: 12px; display: inline-block;">상세 테이블 보기 →</span>
+              <span style="font-size: clamp(13px, 0.9vw, 15.5px); color: var(--theme-color); font-weight: 700; margin-top: 12px; display: inline-block;">상세 테이블 보기 →</span>
             </div>
 
             <!-- Domain 5 -->
             <div class="erd-card-item" onclick="openErdModal(5)" style="background: #ffffff; border: 1.5px solid rgba(19, 140, 115, 0.2); border-radius: 12px; padding: 18px; cursor: pointer; transition: all 0.25s ease; display: flex; flex-direction: column; justify-content: space-between; --theme-color: #138c73; --theme-bg: rgba(19, 140, 115, 0.08); --theme-hover-bg: rgba(19, 140, 115, 0.12);">
               <div>
-                <span style="font-size: 0.65rem; background: var(--theme-bg); color: var(--theme-color); padding: 3px 8px; border-radius: 4px; font-weight: 800; text-transform: uppercase;">Domain 05</span>
-                <h3 style="margin: 12px 0 6px 0; font-size: 1rem; color: #1e293b; font-weight: 800;">방문 차량</h3>
-                <p style="margin: 0; font-size: 0.75rem; color: #64748b; line-height: 1.45;">임시 방문 차량 예약 및 출입통제 로그</p>
+                <span style="font-size: clamp(12.5px, 0.85vw, 14.5px); background: var(--theme-bg); color: var(--theme-color); padding: 4px 10px; border-radius: 4px; font-weight: 800; text-transform: uppercase;">Domain 05</span>
+                <h3 style="margin: 12px 0 6px 0; font-size: clamp(18px, 1.25vw, 22px); color: #1e293b; font-weight: 800;">방문 차량</h3>
+                <p style="margin: 0; font-size: clamp(13.5px, 0.95vw, 16px); color: #64748b; line-height: 1.45;">임시 방문 차량 예약 및 출입통제 로그</p>
               </div>
-              <span style="font-size: 0.72rem; color: var(--theme-color); font-weight: 700; margin-top: 12px; display: inline-block;">상세 테이블 보기 →</span>
+              <span style="font-size: clamp(13px, 0.9vw, 15.5px); color: var(--theme-color); font-weight: 700; margin-top: 12px; display: inline-block;">상세 테이블 보기 →</span>
             </div>
 
             <!-- Domain 6 -->
             <div class="erd-card-item" onclick="openErdModal(6)" style="background: #ffffff; border: 1.5px solid rgba(222, 86, 124, 0.2); border-radius: 12px; padding: 18px; cursor: pointer; transition: all 0.25s ease; display: flex; flex-direction: column; justify-content: space-between; --theme-color: #de567c; --theme-bg: rgba(222, 86, 124, 0.08); --theme-hover-bg: rgba(222, 86, 124, 0.12);">
               <div>
-                <span style="font-size: 0.65rem; background: var(--theme-bg); color: var(--theme-color); padding: 3px 8px; border-radius: 4px; font-weight: 800; text-transform: uppercase;">Domain 06</span>
-                <h3 style="margin: 12px 0 6px 0; font-size: 1rem; color: #1e293b; font-weight: 800;">커뮤니티</h3>
-                <p style="margin: 0; font-size: 0.75rem; color: #64748b; line-height: 1.45;">단지 게시글, 댓글 및 입주민 소모임 정보</p>
+                <span style="font-size: clamp(12.5px, 0.85vw, 14.5px); background: var(--theme-bg); color: var(--theme-color); padding: 4px 10px; border-radius: 4px; font-weight: 800; text-transform: uppercase;">Domain 06</span>
+                <h3 style="margin: 12px 0 6px 0; font-size: clamp(18px, 1.25vw, 22px); color: #1e293b; font-weight: 800;">커뮤니티</h3>
+                <p style="margin: 0; font-size: clamp(13.5px, 0.95vw, 16px); color: #64748b; line-height: 1.45;">단지 게시글, 댓글 및 입주민 소모임 정보</p>
               </div>
-              <span style="font-size: 0.72rem; color: var(--theme-color); font-weight: 700; margin-top: 12px; display: inline-block;">상세 테이블 보기 →</span>
+              <span style="font-size: clamp(13px, 0.9vw, 15.5px); color: var(--theme-color); font-weight: 700; margin-top: 12px; display: inline-block;">상세 테이블 보기 →</span>
             </div>
 
             <!-- Domain 7 -->
             <div class="erd-card-item" onclick="openErdModal(7)" style="background: #ffffff; border: 1.5px solid rgba(224, 86, 56, 0.2); border-radius: 12px; padding: 18px; cursor: pointer; transition: all 0.25s ease; display: flex; flex-direction: column; justify-content: space-between; --theme-color: #e05638; --theme-bg: rgba(224, 86, 56, 0.08); --theme-hover-bg: rgba(224, 86, 56, 0.12);">
               <div>
-                <span style="font-size: 0.65rem; background: var(--theme-bg); color: var(--theme-color); padding: 3px 8px; border-radius: 4px; font-weight: 800; text-transform: uppercase;">Domain 07</span>
-                <h3 style="margin: 12px 0 6px 0; font-size: 1rem; color: #1e293b; font-weight: 800;">전자투표</h3>
-                <p style="margin: 0; font-size: 0.75rem; color: #64748b; line-height: 1.45;">의사결정 투표 안건, 항목 및 참여 세대 이력</p>
+                <span style="font-size: clamp(12.5px, 0.85vw, 14.5px); background: var(--theme-bg); color: var(--theme-color); padding: 4px 10px; border-radius: 4px; font-weight: 800; text-transform: uppercase;">Domain 07</span>
+                <h3 style="margin: 12px 0 6px 0; font-size: clamp(18px, 1.25vw, 22px); color: #1e293b; font-weight: 800;">전자투표</h3>
+                <p style="margin: 0; font-size: clamp(13.5px, 0.95vw, 16px); color: #64748b; line-height: 1.45;">의사결정 투표 안건, 항목 및 참여 세대 이력</p>
               </div>
-              <span style="font-size: 0.72rem; color: var(--theme-color); font-weight: 700; margin-top: 12px; display: inline-block;">상세 테이블 보기 →</span>
+              <span style="font-size: clamp(13px, 0.9vw, 15.5px); color: var(--theme-color); font-weight: 700; margin-top: 12px; display: inline-block;">상세 테이블 보기 →</span>
             </div>
 
             <!-- Domain 8 -->
             <div class="erd-card-item" onclick="openErdModal(8)" style="background: #ffffff; border: 1.5px solid rgba(37, 99, 235, 0.2); border-radius: 12px; padding: 18px; cursor: pointer; transition: all 0.25s ease; display: flex; flex-direction: column; justify-content: space-between; --theme-color: #2563eb; --theme-bg: rgba(37, 99, 235, 0.08); --theme-hover-bg: rgba(37, 99, 235, 0.12);">
               <div>
-                <span style="font-size: 0.65rem; background: var(--theme-bg); color: var(--theme-color); padding: 3px 8px; border-radius: 4px; font-weight: 800; text-transform: uppercase;">Domain 08</span>
-                <h3 style="margin: 12px 0 6px 0; font-size: 1rem; color: #1e293b; font-weight: 800;">알림 & 채팅</h3>
-                <p style="margin: 0; font-size: 0.75rem; color: #64748b; line-height: 1.45;">브로드캐스트 알림 히스토리, 1:1 상담 메시지</p>
+                <span style="font-size: clamp(12.5px, 0.85vw, 14.5px); background: var(--theme-bg); color: var(--theme-color); padding: 4px 10px; border-radius: 4px; font-weight: 800; text-transform: uppercase;">Domain 08</span>
+                <h3 style="margin: 12px 0 6px 0; font-size: clamp(18px, 1.25vw, 22px); color: #1e293b; font-weight: 800;">알림 & 채팅</h3>
+                <p style="margin: 0; font-size: clamp(13.5px, 0.95vw, 16px); color: #64748b; line-height: 1.45;">브로드캐스트 알림 히스토리, 1:1 상담 메시지</p>
               </div>
-              <span style="font-size: 0.72rem; color: var(--theme-color); font-weight: 700; margin-top: 12px; display: inline-block;">상세 테이블 보기 →</span>
+              <span style="font-size: clamp(13px, 0.9vw, 15.5px); color: var(--theme-color); font-weight: 700; margin-top: 12px; display: inline-block;">상세 테이블 보기 →</span>
             </div>
           </div>
 
@@ -4413,7 +4417,7 @@
                 <h3 id="erd-modal-title" style="margin: 0; font-size: 1.15rem; font-weight: 800; color: #fff;">도메인 상세</h3>
                 <button onclick="closeErdModal()" style="background: none; border: none; color: #ffffff; font-size: 1.8rem; cursor: pointer; line-height: 1; padding: 0 5px;">&times;</button>
               </div>
-              <div id="erd-modal-body" style="padding: 24px; overflow-y: auto; font-size: 0.88rem; line-height: 1.6; color: #3b4a61;">
+              <div id="erd-modal-body" style="padding: 24px; overflow-y: auto; font-size: clamp(15px, 1.05vw, 18px); line-height: 1.6; color: #3b4a61;">
                 <!-- Content injected by JS -->
               </div>
             </div>
