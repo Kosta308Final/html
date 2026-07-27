@@ -1,0 +1,3475 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="ALPHATRAGEN AI 기반 스마트 아파트 통합 관리 플랫폼 발표 자료" />
+  <title>ALPHATRAGEN — 공간에 지능을 입히다</title>
+  <style>
+    :root {
+      --ink: #f5f8ff;
+      --muted: #9eacc4;
+      --deep: #06101f;
+      --deep-2: #0a1830;
+      --panel: rgba(16, 35, 61, 0.74);
+      --line: rgba(169, 190, 220, 0.18);
+      --mint: #3ff2cb;
+      --cyan: #56c8ff;
+      --violet: #8777ff;
+      --amber: #ffc965;
+      --rose: #ff779f;
+      --green: #5ee79f;
+      --danger: #ff6e82;
+      --shadow: 0 24px 80px rgba(0, 0, 0, 0.34);
+      --radius: 28px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+      background: #020710;
+      color: var(--ink);
+      font-family: "Pretendard Variable", Pretendard, "Noto Sans KR", "Apple SD Gothic Neo",
+        Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      word-break: keep-all;
+    }
+
+    button { font: inherit; }
+
+    .deck {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      background:
+        radial-gradient(circle at 76% 14%, rgba(70, 214, 255, 0.1), transparent 30%),
+        radial-gradient(circle at 18% 86%, rgba(102, 77, 255, 0.13), transparent 35%),
+        #030814;
+    }
+
+    .stage {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      padding: 18px;
+    }
+
+    .slide {
+      --slide-w: min(calc(100vw - 36px), calc((100vh - 36px) * 16 / 9));
+      position: absolute;
+      display: none;
+      width: var(--slide-w);
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+      border: 1px solid rgba(159, 185, 225, 0.15);
+      border-radius: 18px;
+      background:
+        linear-gradient(145deg, rgba(255,255,255,0.025), transparent 35%),
+        linear-gradient(135deg, #081428 0%, #07101f 60%, #0d142c 100%);
+      box-shadow: var(--shadow);
+      isolation: isolate;
+    }
+
+    .slide.active {
+      display: block;
+      animation: reveal 480ms cubic-bezier(.21,.85,.28,1);
+    }
+
+    @keyframes reveal {
+      from { opacity: 0; transform: translateY(14px) scale(.992); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .slide::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -2;
+      background-image:
+        linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
+      background-size: 44px 44px;
+      mask-image: linear-gradient(to bottom right, rgba(0,0,0,.7), transparent 72%);
+      opacity: .62;
+    }
+
+    .slide::after {
+      content: "";
+      position: absolute;
+      width: 420px;
+      height: 420px;
+      right: -180px;
+      top: -190px;
+      z-index: -1;
+      border-radius: 50%;
+      border: 1px solid rgba(63, 242, 203, .22);
+      box-shadow: 0 0 90px rgba(63, 242, 203, .08);
+    }
+
+    .slide.light {
+      color: #142036;
+      background: linear-gradient(135deg, #f7f9fd 0%, #eef4fb 100%);
+      border-color: rgba(26, 53, 89, .1);
+    }
+
+    .slide.light::before {
+      background-image:
+        linear-gradient(rgba(13,40,74,.045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(13,40,74,.045) 1px, transparent 1px);
+    }
+
+    .slide.light::after { border-color: rgba(57, 100, 208, .16); }
+
+    .slide-inner {
+      position: absolute;
+      inset: 0;
+      padding: 5.2% 6.2% 4.5%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--mint);
+      font-size: clamp(10px, 1.05vw, 18px);
+      font-weight: 800;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 28px;
+      height: 2px;
+      border-radius: 99px;
+      background: currentColor;
+      box-shadow: 0 0 14px currentColor;
+    }
+
+    .light .eyebrow { color: #3266c8; }
+
+    h1, h2, h3, p { margin: 0; }
+
+    h1 {
+      font-size: clamp(38px, 6vw, 96px);
+      line-height: .98;
+      letter-spacing: -.055em;
+      font-weight: 900;
+    }
+
+    h2 {
+      max-width: 92%;
+      margin-top: 1.2%;
+      font-size: clamp(26px, 3.45vw, 55px);
+      line-height: 1.12;
+      letter-spacing: -.04em;
+      font-weight: 850;
+    }
+
+    h3 {
+      font-size: clamp(16px, 1.55vw, 26px);
+      line-height: 1.25;
+      letter-spacing: -.025em;
+      font-weight: 800;
+    }
+
+    .lead {
+      color: #c5d2e7;
+      font-size: clamp(15px, 1.45vw, 24px);
+      line-height: 1.55;
+      letter-spacing: -.015em;
+    }
+
+    .light .lead,
+    .light .muted { color: #58677c; }
+
+    .muted { color: var(--muted); }
+    .mint { color: var(--mint); }
+    .cyan { color: var(--cyan); }
+    .violet { color: #9f94ff; }
+    .amber { color: var(--amber); }
+    .rose { color: var(--rose); }
+
+    .accent-line {
+      width: 72px;
+      height: 5px;
+      margin: 2.2% 0;
+      border-radius: 99px;
+      background: linear-gradient(90deg, var(--mint), var(--cyan));
+      box-shadow: 0 0 28px rgba(63,242,203,.3);
+    }
+
+    .topline {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .section-number {
+      color: rgba(255,255,255,.22);
+      font-size: clamp(14px, 1.25vw, 21px);
+      font-weight: 900;
+      letter-spacing: .16em;
+    }
+
+    .light .section-number { color: rgba(26, 50, 83, .28); }
+
+    .footer {
+      position: absolute;
+      left: 6.2%;
+      right: 6.2%;
+      bottom: 3.1%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: rgba(188, 205, 230, .48);
+      font-size: clamp(8px, .76vw, 13px);
+      letter-spacing: .06em;
+    }
+
+    .light .footer { color: rgba(42, 62, 92, .52); }
+
+    .brand-mark {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 900;
+      letter-spacing: .12em;
+    }
+
+    .brand-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 2px;
+      transform: rotate(45deg);
+      background: var(--mint);
+      box-shadow: 0 0 16px rgba(63,242,203,.65);
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3.2%;
+      min-height: 0;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2%;
+      min-height: 0;
+    }
+
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.6%;
+      min-height: 0;
+    }
+
+    .card {
+      position: relative;
+      overflow: hidden;
+      padding: 5.5%;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: rgba(10, 24, 45, .62);
+      box-shadow: 0 14px 35px rgba(0,0,0,.12);
+    }
+
+    .light .card {
+      background: rgba(255,255,255,.73);
+      border-color: rgba(32,64,105,.1);
+      box-shadow: 0 14px 36px rgba(39, 65, 98, .08);
+    }
+
+    .card p {
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: clamp(11px, 1vw, 16px);
+      line-height: 1.5;
+    }
+
+    .light .card p { color: #68778b; }
+
+    .card::after {
+      content: "";
+      position: absolute;
+      width: 90px;
+      height: 90px;
+      right: -45px;
+      top: -48px;
+      border-radius: 50%;
+      background: var(--glow, rgba(63,242,203,.12));
+      filter: blur(2px);
+    }
+
+    .icon-label {
+      display: inline-grid;
+      place-items: center;
+      min-width: 42px;
+      height: 42px;
+      margin-bottom: 13px;
+      padding: 0 10px;
+      border: 1px solid rgba(95, 217, 255, .28);
+      border-radius: 12px;
+      background: rgba(67, 200, 255, .08);
+      color: var(--cyan);
+      font-size: clamp(10px, .88vw, 15px);
+      font-weight: 900;
+      letter-spacing: .05em;
+    }
+
+    .light .icon-label {
+      border-color: rgba(49,101,201,.2);
+      background: rgba(49,101,201,.07);
+      color: #3266c8;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 6px 10px;
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 99px;
+      color: #c8d4e8;
+      background: rgba(255,255,255,.035);
+      font-size: clamp(9px, .8vw, 13px);
+      font-weight: 700;
+    }
+
+    .tag::before {
+      content: "";
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--tag-color, var(--mint));
+    }
+
+    .light .tag {
+      color: #52647b;
+      border-color: rgba(35,64,100,.13);
+      background: rgba(255,255,255,.52);
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+    }
+
+    .metric {
+      padding: 5%;
+      border-left: 2px solid var(--metric-color, var(--mint));
+      background: linear-gradient(90deg, rgba(63,242,203,.08), transparent);
+    }
+
+    .metric strong {
+      display: block;
+      font-size: clamp(22px, 2.8vw, 45px);
+      letter-spacing: -.04em;
+    }
+
+    .metric span {
+      color: var(--muted);
+      font-size: clamp(10px, .92vw, 15px);
+      font-weight: 700;
+    }
+
+    .quote {
+      font-size: clamp(22px, 2.6vw, 43px);
+      line-height: 1.3;
+      letter-spacing: -.04em;
+      font-weight: 850;
+    }
+
+    .quote em {
+      font-style: normal;
+      color: var(--mint);
+    }
+
+    .big-number {
+      color: rgba(255,255,255,.08);
+      font-size: clamp(100px, 18vw, 290px);
+      line-height: .8;
+      font-weight: 950;
+      letter-spacing: -.09em;
+    }
+
+    .light .big-number { color: rgba(42,73,113,.075); }
+
+    .list {
+      display: grid;
+      gap: 11px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .list li {
+      position: relative;
+      padding-left: 23px;
+      color: #c6d3e7;
+      font-size: clamp(12px, 1.15vw, 19px);
+      line-height: 1.42;
+    }
+
+    .list li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: .62em;
+      width: 7px;
+      height: 7px;
+      border-radius: 2px;
+      transform: rotate(45deg);
+      background: var(--mint);
+      box-shadow: 0 0 12px rgba(63,242,203,.5);
+    }
+
+    .light .list li { color: #40516a; }
+
+    .placeholder {
+      position: relative;
+      display: grid;
+      place-items: center;
+      min-height: 0;
+      border: 1px dashed rgba(86,200,255,.42);
+      border-radius: 20px;
+      background:
+        linear-gradient(135deg, rgba(86,200,255,.07), rgba(135,119,255,.04)),
+        rgba(5,15,30,.35);
+      color: rgba(194,216,241,.55);
+      text-align: center;
+    }
+
+    .light .placeholder {
+      border-color: rgba(49,101,201,.3);
+      background: rgba(49,101,201,.045);
+      color: rgba(47,75,111,.55);
+    }
+
+    .placeholder span {
+      display: block;
+      font-size: clamp(11px, 1.02vw, 17px);
+      font-weight: 800;
+      letter-spacing: .08em;
+    }
+
+    .placeholder small {
+      display: block;
+      margin-top: 7px;
+      font-size: clamp(8px, .75vw, 12px);
+      letter-spacing: .03em;
+    }
+
+    .flow {
+      display: flex;
+      align-items: stretch;
+      gap: 1%;
+      min-height: 0;
+    }
+
+    .flow-node {
+      position: relative;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-width: 0;
+      padding: 2.2%;
+      border: 1px solid rgba(126,155,196,.18);
+      border-radius: 16px;
+      background: rgba(13,29,52,.7);
+      text-align: center;
+    }
+
+    .flow-node strong {
+      font-size: clamp(11px, 1.04vw, 17px);
+      line-height: 1.2;
+    }
+
+    .flow-node small {
+      margin-top: 5px;
+      color: var(--muted);
+      font-size: clamp(8px, .68vw, 11px);
+      line-height: 1.3;
+    }
+
+    .light .flow-node {
+      color: #23344d;
+      background: rgba(255,255,255,.72);
+      border-color: rgba(40,68,105,.1);
+    }
+
+    .flow-arrow {
+      flex: 0 0 auto;
+      display: grid;
+      place-items: center;
+      color: var(--mint);
+      font-size: clamp(16px, 1.65vw, 27px);
+      font-weight: 900;
+    }
+
+    .light .flow-arrow { color: #3266c8; }
+
+    .timeline {
+      position: relative;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 2%;
+    }
+
+    .timeline::before {
+      content: "";
+      position: absolute;
+      top: 21px;
+      left: 9%;
+      right: 9%;
+      height: 2px;
+      background: linear-gradient(90deg, var(--mint), var(--cyan), var(--violet));
+      opacity: .5;
+    }
+
+    .timeline-item {
+      position: relative;
+      padding-top: 55px;
+      text-align: center;
+    }
+
+    .timeline-dot {
+      position: absolute;
+      top: 8px;
+      left: 50%;
+      z-index: 2;
+      display: grid;
+      place-items: center;
+      width: 28px;
+      height: 28px;
+      transform: translateX(-50%);
+      border: 3px solid #0a1730;
+      border-radius: 50%;
+      background: var(--dot, var(--mint));
+      color: #07101f;
+      font-size: clamp(8px, .7vw, 11px);
+      font-weight: 950;
+      box-shadow: 0 0 0 1px var(--dot, var(--mint)), 0 0 20px color-mix(in srgb, var(--dot, var(--mint)) 45%, transparent);
+    }
+
+    .timeline-item h3 { font-size: clamp(12px, 1.15vw, 19px); }
+    .timeline-item p {
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: clamp(9px, .8vw, 13px);
+      line-height: 1.45;
+    }
+
+    .matrix {
+      display: grid;
+      grid-template-columns: 1.25fr repeat(3, .75fr);
+      gap: 1px;
+      overflow: hidden;
+      border: 1px solid rgba(137,162,197,.16);
+      border-radius: 16px;
+      background: rgba(137,162,197,.16);
+    }
+
+    .matrix > div {
+      display: grid;
+      place-items: center;
+      min-height: 46px;
+      padding: 8px;
+      background: #0b1930;
+      color: #bdcbe0;
+      font-size: clamp(9px, .82vw, 14px);
+      font-weight: 700;
+      text-align: center;
+    }
+
+    .matrix .head {
+      background: #132744;
+      color: #f4f7ff;
+      font-weight: 850;
+    }
+
+    .matrix .rowhead {
+      justify-content: start;
+      padding-left: 16px;
+      color: #eef3ff;
+    }
+
+    .matrix .yes { color: var(--mint); }
+    .matrix .own { color: var(--amber); }
+    .matrix .no { color: #65748a; }
+
+    .split-title {
+      display: grid;
+      grid-template-columns: 1.07fr .93fr;
+      gap: 5%;
+      align-items: center;
+      height: 100%;
+    }
+
+    .orbital {
+      position: relative;
+      aspect-ratio: 1;
+      max-height: 72%;
+      margin: auto;
+      border: 1px solid rgba(86,200,255,.18);
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at 50% 50%, rgba(63,242,203,.17) 0 13%, transparent 14%),
+        radial-gradient(circle at 50% 50%, transparent 0 33%, rgba(135,119,255,.13) 34%, transparent 35%),
+        radial-gradient(circle at 50% 50%, transparent 0 46%, rgba(86,200,255,.14) 47%, transparent 48%);
+      box-shadow: inset 0 0 65px rgba(83,178,255,.06), 0 0 60px rgba(63,242,203,.06);
+    }
+
+    .orbital-center {
+      position: absolute;
+      inset: 50% auto auto 50%;
+      transform: translate(-50%, -50%);
+      font-size: clamp(26px, 3.3vw, 54px);
+      font-weight: 950;
+      letter-spacing: -.06em;
+      text-shadow: 0 0 30px rgba(63,242,203,.38);
+    }
+
+    .orbit-chip {
+      position: absolute;
+      display: grid;
+      place-items: center;
+      width: 64px;
+      height: 64px;
+      border: 1px solid rgba(159,181,219,.2);
+      border-radius: 19px;
+      background: rgba(8,22,42,.92);
+      color: #c4d3ea;
+      font-size: clamp(9px, .75vw, 12px);
+      font-weight: 850;
+      text-align: center;
+      box-shadow: 0 12px 30px rgba(0,0,0,.2);
+    }
+
+    .orbit-chip:nth-of-type(1) { left: 6%; top: 16%; }
+    .orbit-chip:nth-of-type(2) { right: 4%; top: 24%; }
+    .orbit-chip:nth-of-type(3) { left: 13%; bottom: 8%; }
+    .orbit-chip:nth-of-type(4) { right: 13%; bottom: 5%; }
+
+    .section-slide .slide-inner {
+      justify-content: center;
+    }
+
+    .section-slide h2 {
+      max-width: 70%;
+      margin-top: 1.8%;
+      font-size: clamp(38px, 5.2vw, 84px);
+    }
+
+    .section-slide .section-bg {
+      position: absolute;
+      right: 6%;
+      bottom: 8%;
+      font-size: clamp(120px, 22vw, 340px);
+      line-height: .8;
+      font-weight: 950;
+      color: rgba(255,255,255,.035);
+      letter-spacing: -.1em;
+    }
+
+    .status {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 68px;
+      padding: 5px 9px;
+      border-radius: 99px;
+      font-size: clamp(8px, .67vw, 11px);
+      font-weight: 850;
+    }
+
+    .status.done { color: #082014; background: var(--green); }
+    .status.partial { color: #2b1c00; background: var(--amber); }
+    .status.next { color: #cad4e4; background: rgba(202,212,228,.13); }
+
+    .architecture {
+      position: relative;
+      display: grid;
+      grid-template-columns: .8fr 1.2fr .8fr;
+      gap: 3%;
+      align-items: center;
+      min-height: 0;
+    }
+
+    .arch-col {
+      display: grid;
+      gap: 12px;
+    }
+
+    .arch-node {
+      position: relative;
+      padding: 13px 14px;
+      border: 1px solid rgba(141,167,203,.19);
+      border-radius: 15px;
+      background: rgba(11,28,51,.78);
+      text-align: center;
+    }
+
+    .arch-node strong {
+      display: block;
+      font-size: clamp(11px, 1vw, 16px);
+    }
+
+    .arch-node small {
+      display: block;
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: clamp(8px, .7vw, 11px);
+    }
+
+    .arch-main {
+      padding: 5%;
+      border: 1px solid rgba(63,242,203,.23);
+      border-radius: 24px;
+      background: linear-gradient(145deg, rgba(63,242,203,.085), rgba(81,120,255,.06));
+      text-align: center;
+      box-shadow: inset 0 0 60px rgba(63,242,203,.035);
+    }
+
+    .arch-main .core {
+      display: grid;
+      place-items: center;
+      width: 76px;
+      height: 76px;
+      margin: 0 auto 14px;
+      border: 1px solid rgba(63,242,203,.34);
+      border-radius: 24px;
+      background: rgba(63,242,203,.09);
+      color: var(--mint);
+      font-size: clamp(19px, 2vw, 32px);
+      font-weight: 950;
+      box-shadow: 0 0 34px rgba(63,242,203,.12);
+    }
+
+    .arch-main h3 { font-size: clamp(15px, 1.45vw, 24px); }
+    .arch-main p {
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: clamp(9px, .8vw, 13px);
+      line-height: 1.4;
+    }
+
+    .arch-link {
+      position: absolute;
+      top: 50%;
+      width: 6%;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--cyan));
+    }
+
+    .arch-link.left { left: 27%; }
+    .arch-link.right { right: 27%; transform: rotate(180deg); }
+
+    .two-paths {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3%;
+    }
+
+    .path-box {
+      padding: 4%;
+      border-radius: 22px;
+      background: rgba(10,24,45,.58);
+      border: 1px solid rgba(137,162,197,.16);
+    }
+
+    .path-box.highlight {
+      border-color: rgba(63,242,203,.3);
+      background: linear-gradient(145deg, rgba(63,242,203,.09), rgba(70,112,255,.055));
+    }
+
+    .path-label {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+    }
+
+    .path-label span {
+      color: var(--muted);
+      font-size: clamp(9px, .8vw, 13px);
+      font-weight: 800;
+      letter-spacing: .08em;
+    }
+
+    .mini-flow {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .mini-flow div {
+      flex: 1;
+      padding: 12px 7px;
+      border-radius: 11px;
+      background: rgba(255,255,255,.055);
+      color: #c7d4e9;
+      font-size: clamp(8px, .68vw, 11px);
+      font-weight: 750;
+      line-height: 1.25;
+      text-align: center;
+    }
+
+    .mini-flow i {
+      color: var(--mint);
+      font-style: normal;
+      font-weight: 900;
+    }
+
+    .trouble {
+      display: grid;
+      grid-template-columns: .78fr 1fr 1fr .72fr;
+      gap: 1%;
+      align-items: stretch;
+    }
+
+    .trouble > div {
+      position: relative;
+      min-width: 0;
+      padding: 4%;
+      border: 1px solid rgba(139,166,202,.15);
+      border-radius: 15px;
+      background: rgba(11,26,48,.68);
+    }
+
+    .trouble > div:not(:last-child)::after {
+      content: "›";
+      position: absolute;
+      right: -10px;
+      top: 50%;
+      z-index: 2;
+      transform: translateY(-50%);
+      color: var(--mint);
+      font-size: clamp(18px, 1.8vw, 30px);
+      font-weight: 900;
+    }
+
+    .trouble small {
+      display: block;
+      margin-bottom: 7px;
+      color: var(--mint);
+      font-size: clamp(8px, .7vw, 11px);
+      font-weight: 900;
+      letter-spacing: .08em;
+    }
+
+    .trouble p {
+      color: #c7d3e6;
+      font-size: clamp(9px, .83vw, 14px);
+      line-height: 1.4;
+    }
+
+    .slide-cover {
+      background:
+        radial-gradient(circle at 72% 44%, rgba(63,242,203,.16), transparent 18%),
+        radial-gradient(circle at 73% 44%, rgba(86,200,255,.08), transparent 35%),
+        linear-gradient(135deg, #061120 0%, #08182d 52%, #091024 100%);
+    }
+
+    .slide-cover::before {
+      opacity: .86;
+      mask-image: radial-gradient(circle at 68% 45%, #000 0 45%, transparent 77%);
+    }
+
+    .cover-meta {
+      display: flex;
+      gap: 14px;
+      margin-top: 3%;
+      color: #9daec6;
+      font-size: clamp(10px, .9vw, 15px);
+      font-weight: 700;
+    }
+
+    .cover-meta span + span::before {
+      content: "·";
+      margin-right: 14px;
+      color: var(--mint);
+    }
+
+    .skyline {
+      position: absolute;
+      right: 4%;
+      bottom: 9%;
+      width: 43%;
+      height: 65%;
+      opacity: .88;
+    }
+
+    .building {
+      position: absolute;
+      bottom: 0;
+      width: 21%;
+      border: 1px solid rgba(102,217,255,.24);
+      border-bottom: 0;
+      background: linear-gradient(180deg, rgba(27,75,110,.55), rgba(8,24,45,.8));
+      box-shadow: 0 0 40px rgba(63,242,203,.04);
+    }
+
+    .building::before {
+      content: "";
+      position: absolute;
+      inset: 10% 16%;
+      background:
+        repeating-linear-gradient(to bottom, rgba(63,242,203,.36) 0 3%, transparent 3% 15%),
+        repeating-linear-gradient(to right, transparent 0 34%, rgba(86,200,255,.21) 34% 45%, transparent 45% 74%);
+      opacity: .75;
+    }
+
+    .building.b1 { left: 4%; height: 60%; }
+    .building.b2 { left: 26%; height: 82%; width: 27%; }
+    .building.b3 { left: 55%; height: 69%; width: 20%; }
+    .building.b4 { left: 76%; height: 48%; width: 17%; }
+
+    .ai-beacon {
+      position: absolute;
+      top: 24%;
+      left: 52%;
+      width: 11%;
+      aspect-ratio: 1;
+      border: 1px solid rgba(63,242,203,.4);
+      border-radius: 30%;
+      transform: rotate(45deg);
+      background: rgba(63,242,203,.09);
+      box-shadow: 0 0 60px rgba(63,242,203,.25), inset 0 0 24px rgba(86,200,255,.15);
+    }
+
+    .ai-beacon::after {
+      content: "AI";
+      position: absolute;
+      inset: 50% auto auto 50%;
+      transform: translate(-50%, -50%) rotate(-45deg);
+      color: var(--mint);
+      font-size: clamp(14px, 1.5vw, 24px);
+      font-weight: 950;
+    }
+
+    .agenda {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      margin-top: 3.5%;
+      max-width: 760px;
+    }
+
+    .agenda-item {
+      display: grid;
+      grid-template-columns: 48px 1fr;
+      gap: 14px;
+      align-items: center;
+      padding-bottom: 13px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .agenda-item b {
+      color: var(--mint);
+      font-size: clamp(13px, 1.25vw, 20px);
+      letter-spacing: .08em;
+    }
+
+    .agenda-item span {
+      font-size: clamp(13px, 1.23vw, 20px);
+      font-weight: 750;
+    }
+
+    .limit-slide .card {
+      background: rgba(255,255,255,.96);
+      border-color: rgba(28, 61, 108, .2);
+      box-shadow: 0 18px 42px rgba(28, 61, 108, .14);
+    }
+
+    .limit-slide .card h3 {
+      color: #13284a;
+    }
+
+    .limit-slide .card p {
+      color: #30445f;
+      font-weight: 650;
+    }
+
+    .limit-slide .icon-label {
+      border-color: rgba(30, 77, 164, .28);
+      background: rgba(30, 77, 164, .12);
+      color: #174fa9;
+    }
+
+    .brand-values {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2%;
+      margin-top: 4%;
+    }
+
+    .value {
+      padding-top: 14px;
+      border-top: 3px solid var(--value-color);
+    }
+
+    .value strong {
+      display: block;
+      color: var(--value-color);
+      font-size: clamp(20px, 2.35vw, 38px);
+      letter-spacing: -.04em;
+    }
+
+    .value span {
+      display: block;
+      margin-top: 6px;
+      color: var(--muted);
+      font-size: clamp(9px, .82vw, 14px);
+      line-height: 1.4;
+    }
+
+    .team-strip {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 1%;
+      margin-top: 3%;
+    }
+
+    .team-member {
+      padding: 13px 8px;
+      border: 1px solid rgba(142,169,207,.15);
+      border-radius: 13px;
+      background: rgba(255,255,255,.025);
+      color: #aebbd0;
+      font-size: clamp(8px, .72vw, 12px);
+      line-height: 1.35;
+      text-align: center;
+    }
+
+    .team-member strong {
+      display: block;
+      margin-bottom: 3px;
+      color: #eef4ff;
+      font-size: clamp(10px, .9vw, 15px);
+    }
+
+    .problem-map {
+      display: grid;
+      grid-template-columns: 1fr 70px 1fr;
+      gap: 2%;
+      align-items: center;
+    }
+
+    .problem-list, .solution-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .problem-item, .solution-item {
+      padding: 12px 15px;
+      border-radius: 13px;
+      font-size: clamp(10px, .93vw, 15px);
+      font-weight: 750;
+    }
+
+    .problem-item {
+      color: #e6bac4;
+      background: rgba(255,110,130,.08);
+      border-left: 3px solid var(--danger);
+    }
+
+    .solution-item {
+      color: #c6f4e7;
+      background: rgba(63,242,203,.08);
+      border-right: 3px solid var(--mint);
+      text-align: right;
+    }
+
+    .bridge {
+      display: grid;
+      place-items: center;
+      color: var(--mint);
+      font-size: clamp(24px, 3vw, 48px);
+      font-weight: 950;
+    }
+
+    .tech-layout {
+      display: grid;
+      grid-template-columns: .9fr 1.1fr;
+      gap: 4%;
+      min-height: 0;
+    }
+
+    .stack-groups {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .stack-group {
+      padding: 13px;
+      border: 1px solid rgba(140,166,201,.14);
+      border-radius: 14px;
+      background: rgba(10,26,48,.62);
+    }
+
+    .stack-group b {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--stack-color, var(--mint));
+      font-size: clamp(10px, .9vw, 15px);
+    }
+
+    .stack-group span {
+      display: block;
+      color: #aebdd2;
+      font-size: clamp(8px, .73vw, 12px);
+      line-height: 1.65;
+    }
+
+    .domain-map {
+      position: relative;
+      display: grid;
+      place-items: center;
+      min-height: 0;
+      border: 1px solid rgba(138,165,200,.14);
+      border-radius: 22px;
+      background: rgba(8,22,42,.55);
+    }
+
+    .domain-core {
+      display: grid;
+      place-items: center;
+      width: 110px;
+      height: 110px;
+      border: 1px solid rgba(63,242,203,.3);
+      border-radius: 50%;
+      background: rgba(63,242,203,.08);
+      color: var(--mint);
+      font-size: clamp(12px, 1.2vw, 20px);
+      font-weight: 900;
+      text-align: center;
+      box-shadow: 0 0 35px rgba(63,242,203,.1);
+    }
+
+    .domain-label {
+      position: absolute;
+      padding: 7px 9px;
+      border: 1px solid rgba(150,175,210,.14);
+      border-radius: 9px;
+      background: rgba(17,37,64,.9);
+      color: #b9c7db;
+      font-size: clamp(8px, .7vw, 11px);
+      font-weight: 750;
+    }
+
+    .domain-label:nth-of-type(1) { top: 12%; left: 13%; }
+    .domain-label:nth-of-type(2) { top: 11%; right: 13%; }
+    .domain-label:nth-of-type(3) { top: 43%; left: 6%; }
+    .domain-label:nth-of-type(4) { top: 43%; right: 6%; }
+    .domain-label:nth-of-type(5) { bottom: 11%; left: 15%; }
+    .domain-label:nth-of-type(6) { bottom: 10%; right: 14%; }
+    .domain-label:nth-of-type(7) { top: 4%; left: 45%; }
+    .domain-label:nth-of-type(8) { bottom: 4%; left: 43%; }
+
+    .pipeline {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 1%;
+      align-items: stretch;
+    }
+
+    .pipeline-step {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-width: 0;
+      padding: 14px 7px;
+      border: 1px solid rgba(143,170,207,.15);
+      border-radius: 14px;
+      background: rgba(11,27,50,.72);
+      text-align: center;
+    }
+
+    .pipeline-step:not(:last-child)::after {
+      content: "›";
+      position: absolute;
+      right: -11px;
+      top: 50%;
+      z-index: 3;
+      transform: translateY(-50%);
+      color: var(--mint);
+      font-size: clamp(17px, 1.65vw, 27px);
+      font-weight: 900;
+    }
+
+    .pipeline-step b {
+      color: var(--step, var(--mint));
+      font-size: clamp(9px, .84vw, 14px);
+      line-height: 1.2;
+    }
+
+    .pipeline-step small {
+      margin-top: 5px;
+      color: var(--muted);
+      font-size: clamp(7px, .6vw, 10px);
+      line-height: 1.25;
+    }
+
+    .phone {
+      position: relative;
+      width: 37%;
+      height: 100%;
+      min-height: 0;
+      margin: auto;
+      padding: 18px 10px;
+      border: 1px solid rgba(183,205,234,.3);
+      border-radius: 28px;
+      background: linear-gradient(160deg, #1a2a43, #071222 65%);
+      box-shadow: 0 22px 45px rgba(0,0,0,.28);
+    }
+
+    .phone::before {
+      content: "";
+      position: absolute;
+      top: 7px;
+      left: 50%;
+      width: 28%;
+      height: 5px;
+      transform: translateX(-50%);
+      border-radius: 99px;
+      background: rgba(196,212,236,.2);
+    }
+
+    .phone-screen {
+      height: 100%;
+      overflow: hidden;
+      border-radius: 20px;
+      background:
+        linear-gradient(180deg, rgba(63,242,203,.1), transparent 35%),
+        #0d1b31;
+    }
+
+    .phone-ui {
+      display: grid;
+      gap: 8px;
+      padding: 16px 12px;
+    }
+
+    .phone-ui .bar {
+      width: 45%;
+      height: 7px;
+      border-radius: 99px;
+      background: rgba(63,242,203,.65);
+    }
+
+    .phone-ui .hero-mini {
+      height: 64px;
+      border-radius: 13px;
+      background: linear-gradient(135deg, rgba(86,200,255,.22), rgba(135,119,255,.2));
+    }
+
+    .phone-ui .row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 7px;
+    }
+
+    .phone-ui .tile {
+      height: 45px;
+      border-radius: 10px;
+      background: rgba(255,255,255,.065);
+    }
+
+    .browser {
+      position: relative;
+      min-height: 0;
+      border: 1px solid rgba(174,198,229,.22);
+      border-radius: 18px;
+      background: #09172a;
+      box-shadow: 0 22px 50px rgba(0,0,0,.24);
+    }
+
+    .browser-top {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      height: 27px;
+      padding: 0 10px;
+      border-bottom: 1px solid rgba(175,197,225,.12);
+      background: rgba(255,255,255,.025);
+    }
+
+    .browser-top i {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #718097;
+    }
+
+    .browser-content {
+      display: grid;
+      grid-template-columns: 23% 1fr;
+      height: calc(100% - 27px);
+    }
+
+    .browser-nav { border-right: 1px solid rgba(175,197,225,.1); }
+    .browser-nav::before {
+      content: "";
+      display: block;
+      width: 58%;
+      height: 7px;
+      margin: 18px 12px;
+      border-radius: 99px;
+      background: rgba(63,242,203,.5);
+      box-shadow: 0 24px 0 rgba(255,255,255,.08), 0 48px 0 rgba(255,255,255,.08), 0 72px 0 rgba(255,255,255,.08), 0 96px 0 rgba(255,255,255,.08);
+    }
+
+    .browser-main {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: 38% 1fr;
+      gap: 10px;
+      padding: 14px;
+    }
+
+    .browser-card {
+      border-radius: 10px;
+      background: rgba(255,255,255,.055);
+    }
+
+    .browser-card.wide {
+      grid-column: 1 / -1;
+      background: linear-gradient(135deg, rgba(86,200,255,.15), rgba(135,119,255,.12));
+    }
+
+    .load-chart {
+      position: relative;
+      overflow: hidden;
+      min-height: 0;
+      border: 1px solid rgba(139,166,202,.15);
+      border-radius: 18px;
+      background: rgba(8,22,42,.6);
+    }
+
+    .load-chart::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,.045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.045) 1px, transparent 1px);
+      background-size: 100% 25%, 10% 100%;
+    }
+
+    .bars {
+      position: absolute;
+      inset: 12% 7% 13%;
+      display: flex;
+      align-items: end;
+      gap: 3%;
+    }
+
+    .bars i {
+      flex: 1;
+      height: var(--h);
+      border-radius: 5px 5px 0 0;
+      background: linear-gradient(180deg, var(--cyan), rgba(86,200,255,.14));
+      box-shadow: 0 0 18px rgba(86,200,255,.12);
+    }
+
+    .line-chart {
+      position: absolute;
+      inset: 13% 7% 14%;
+    }
+
+    .line-chart svg { width: 100%; height: 100%; overflow: visible; }
+
+    .achievement-grid {
+      display: grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap: 4%;
+      min-height: 0;
+    }
+
+    .feature-status {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .feature-status > div {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 9px 11px;
+      border: 1px solid rgba(139,165,201,.14);
+      border-radius: 11px;
+      background: rgba(255,255,255,.028);
+      color: #c5d2e6;
+      font-size: clamp(8px, .74vw, 12px);
+      font-weight: 700;
+    }
+
+    .result-metrics {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .result-metric {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 13px;
+      border: 1px solid rgba(63,242,203,.16);
+      border-radius: 14px;
+      background: rgba(63,242,203,.045);
+    }
+
+    .result-metric strong {
+      color: var(--mint);
+      font-size: clamp(17px, 1.8vw, 29px);
+      line-height: 1;
+    }
+
+    .result-metric span {
+      margin-top: 6px;
+      color: var(--muted);
+      font-size: clamp(8px, .7vw, 11px);
+      font-weight: 700;
+    }
+
+    .qa {
+      background:
+        radial-gradient(circle at 50% 46%, rgba(63,242,203,.14), transparent 25%),
+        radial-gradient(circle at 50% 46%, rgba(135,119,255,.08), transparent 45%),
+        linear-gradient(135deg, #061120 0%, #08172b 100%);
+    }
+
+    .qa .slide-inner {
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .qa h1 { font-size: clamp(48px, 7vw, 112px); }
+    .qa .tagline {
+      margin-top: 2%;
+      color: #b6c5db;
+      font-size: clamp(17px, 1.8vw, 29px);
+      font-weight: 650;
+    }
+
+    .qa .thanks {
+      margin-top: 5%;
+      color: var(--mint);
+      font-size: clamp(13px, 1.1vw, 18px);
+      font-weight: 850;
+      letter-spacing: .28em;
+    }
+
+    .controls {
+      position: fixed;
+      right: 22px;
+      bottom: 20px;
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px;
+      border: 1px solid rgba(164,185,214,.16);
+      border-radius: 15px;
+      background: rgba(3,10,21,.78);
+      backdrop-filter: blur(14px);
+      box-shadow: 0 12px 38px rgba(0,0,0,.28);
+      transition: opacity .25s ease;
+    }
+
+    .controls button {
+      display: grid;
+      place-items: center;
+      width: 34px;
+      height: 34px;
+      border: 0;
+      border-radius: 10px;
+      background: rgba(255,255,255,.06);
+      color: #d5e0f0;
+      cursor: pointer;
+    }
+
+    .controls button:hover { background: rgba(63,242,203,.14); color: var(--mint); }
+
+    .counter {
+      min-width: 66px;
+      color: #a9b8cd;
+      font-size: 12px;
+      font-variant-numeric: tabular-nums;
+      text-align: center;
+    }
+
+    .progress {
+      position: fixed;
+      left: 0;
+      bottom: 0;
+      z-index: 55;
+      width: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--mint), var(--cyan), var(--violet));
+      box-shadow: 0 0 12px rgba(63,242,203,.4);
+      transition: width .35s ease;
+    }
+
+    .overview {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      display: none;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+      overflow: auto;
+      padding: 28px;
+      background: rgba(2,7,16,.96);
+    }
+
+    .overview.open { display: grid; }
+
+    .overview-card {
+      position: relative;
+      aspect-ratio: 16/9;
+      overflow: hidden;
+      border: 1px solid rgba(164,185,214,.18);
+      border-radius: 12px;
+      background: #091426;
+      color: #dbe6f5;
+      cursor: pointer;
+    }
+
+    .overview-card:hover { border-color: var(--mint); transform: translateY(-2px); }
+    .overview-card b {
+      position: absolute;
+      left: 15px;
+      top: 13px;
+      color: var(--mint);
+      font-size: 12px;
+    }
+
+    .overview-card span {
+      position: absolute;
+      left: 15px;
+      right: 15px;
+      bottom: 15px;
+      font-size: 15px;
+      font-weight: 800;
+    }
+
+    .notes-panel {
+      position: fixed;
+      left: 50%;
+      bottom: 22px;
+      z-index: 60;
+      display: none;
+      width: min(800px, calc(100vw - 200px));
+      max-height: 32vh;
+      overflow: auto;
+      padding: 18px 22px;
+      transform: translateX(-50%);
+      border: 1px solid rgba(160,184,216,.2);
+      border-radius: 16px;
+      background: rgba(4,12,25,.94);
+      box-shadow: 0 18px 55px rgba(0,0,0,.38);
+      color: #c6d3e7;
+      font-size: 14px;
+      line-height: 1.65;
+      backdrop-filter: blur(18px);
+    }
+
+    .notes-panel.open { display: block; }
+    .speaker-note { display: none; }
+
+    .help {
+      position: fixed;
+      left: 22px;
+      bottom: 20px;
+      z-index: 50;
+      padding: 9px 12px;
+      border: 1px solid rgba(164,185,214,.13);
+      border-radius: 11px;
+      background: rgba(3,10,21,.65);
+      color: #8291a8;
+      font-size: 11px;
+      backdrop-filter: blur(12px);
+    }
+
+    /* =========================================================
+       WHITE MODERN THEME
+       ========================================================= */
+    :root {
+      --ink: #111827;
+      --muted: #64748b;
+      --deep: #ffffff;
+      --deep-2: #f8fafc;
+      --panel: #ffffff;
+      --line: #e2e8f0;
+      --mint: #0fbaa3;
+      --cyan: #2586f5;
+      --violet: #7668ed;
+      --amber: #e9a735;
+      --rose: #e65b84;
+      --green: #2bbf78;
+      --danger: #e9576d;
+      --shadow: 0 28px 80px rgba(34, 55, 88, .14);
+    }
+
+    .deck {
+      background:
+        radial-gradient(circle at 12% 16%, rgba(37, 134, 245, .07), transparent 25%),
+        radial-gradient(circle at 88% 82%, rgba(15, 186, 163, .07), transparent 28%),
+        #edf2f7;
+    }
+
+    .slide,
+    .slide.light,
+    .slide-cover,
+    .qa {
+      color: #111827;
+      background:
+        radial-gradient(circle at 92% 8%, rgba(37, 134, 245, .055), transparent 28%),
+        radial-gradient(circle at 8% 95%, rgba(15, 186, 163, .045), transparent 25%),
+        #ffffff !important;
+      border-color: rgba(45, 67, 99, .12);
+      box-shadow: 0 28px 80px rgba(34, 55, 88, .14);
+    }
+
+    .slide::before,
+    .slide.light::before,
+    .slide-cover::before {
+      background-image:
+        linear-gradient(rgba(30, 72, 118, .035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(30, 72, 118, .035) 1px, transparent 1px);
+      background-size: 46px 46px;
+      mask-image: linear-gradient(135deg, rgba(0,0,0,.64), transparent 68%);
+      opacity: .72;
+    }
+
+    .slide::after,
+    .slide.light::after {
+      right: -185px;
+      top: -205px;
+      border-color: rgba(37, 134, 245, .13);
+      box-shadow: 0 0 90px rgba(37, 134, 245, .035);
+    }
+
+    .eyebrow,
+    .light .eyebrow {
+      color: #1f6fd5;
+    }
+
+    .section-number,
+    .light .section-number {
+      color: rgba(47, 69, 101, .3);
+    }
+
+    .lead,
+    .light .lead,
+    .muted,
+    .light .muted {
+      color: #64748b;
+    }
+
+    .slide-cover .lead strong {
+      color: #172033 !important;
+    }
+
+    .mint { color: #0b9f8d; }
+    .cyan { color: #1d74d6; }
+    .violet { color: #6858d9; }
+    .amber { color: #c8871b; }
+    .rose { color: #d94f78; }
+
+    .accent-line {
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(90deg, #0fbaa3, #2586f5);
+      box-shadow: none;
+    }
+
+    .accent-line::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      transform: translateX(-120%);
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,.85), transparent);
+    }
+
+    .footer,
+    .light .footer {
+      color: rgba(71, 85, 105, .58);
+    }
+
+    .brand-dot {
+      background: #0fbaa3;
+      box-shadow: 0 0 0 5px rgba(15, 186, 163, .09);
+    }
+
+    .card,
+    .light .card {
+      color: #152238;
+      border-color: #e3eaf3;
+      background: rgba(255,255,255,.88);
+      box-shadow: 0 13px 34px rgba(31, 56, 91, .075);
+    }
+
+    .card::after {
+      opacity: .48;
+      filter: blur(9px);
+    }
+
+    .card p,
+    .light .card p {
+      color: #65758a;
+    }
+
+    .icon-label,
+    .light .icon-label {
+      color: #1f6fd5;
+      border-color: rgba(37, 134, 245, .18);
+      background: rgba(37, 134, 245, .065);
+    }
+
+    .tag,
+    .light .tag {
+      color: #526176;
+      border-color: #dde6f0;
+      background: rgba(248,250,252,.88);
+    }
+
+    .metric {
+      background: linear-gradient(90deg, color-mix(in srgb, var(--metric-color, var(--mint)) 10%, white), transparent);
+    }
+
+    .metric span { color: #6b7a8e; }
+    .big-number,
+    .light .big-number { color: rgba(41, 72, 112, .06); }
+
+    .list li,
+    .light .list li {
+      color: #40516a;
+    }
+
+    .list li::before {
+      box-shadow: none;
+    }
+
+    .placeholder,
+    .light .placeholder {
+      color: rgba(45, 72, 107, .57);
+      border-color: rgba(37, 134, 245, .27);
+      background:
+        linear-gradient(135deg, rgba(37,134,245,.045), rgba(118,104,237,.025)),
+        #fbfdff;
+    }
+
+    .flow-node,
+    .light .flow-node {
+      color: #23344d;
+      border-color: #e0e8f1;
+      background: rgba(255,255,255,.9);
+      box-shadow: 0 8px 24px rgba(31,56,91,.05);
+    }
+
+    .flow-node small { color: #6b7b90; }
+    .flow-arrow,
+    .light .flow-arrow { color: #0fbaa3; }
+    .timeline-dot { border-color: #ffffff; }
+    .timeline-item p { color: #6b7a8e; }
+
+    .matrix {
+      border-color: #dfe7f0;
+      background: #dfe7f0;
+    }
+
+    .matrix > div {
+      color: #53647b;
+      background: #ffffff;
+    }
+
+    .matrix .head {
+      color: #1d2a3d;
+      background: #eef4fb;
+    }
+
+    .matrix .rowhead { color: #26374f; }
+    .matrix .no { color: #9aa7b8; }
+
+    .section-slide .section-bg {
+      color: rgba(44, 83, 130, .045);
+    }
+
+    .orbital {
+      border-color: rgba(37,134,245,.16);
+      background:
+        radial-gradient(circle at 50% 50%, rgba(15,186,163,.12) 0 13%, transparent 14%),
+        radial-gradient(circle at 50% 50%, transparent 0 33%, rgba(118,104,237,.1) 34%, transparent 35%),
+        radial-gradient(circle at 50% 50%, transparent 0 46%, rgba(37,134,245,.1) 47%, transparent 48%);
+      box-shadow: inset 0 0 65px rgba(37,134,245,.035);
+    }
+
+    .orbit-chip {
+      color: #41536b;
+      border-color: #dfe7f0;
+      background: rgba(255,255,255,.96);
+      box-shadow: 0 12px 28px rgba(31,56,91,.08);
+    }
+
+    .arch-node {
+      color: #23344d;
+      border-color: #e0e8f1;
+      background: rgba(255,255,255,.92);
+      box-shadow: 0 8px 22px rgba(31,56,91,.05);
+    }
+
+    .arch-node small { color: #6b7b90; }
+
+    .arch-main {
+      color: #16243a;
+      border-color: rgba(15,186,163,.23);
+      background: linear-gradient(145deg, rgba(15,186,163,.075), rgba(37,134,245,.045));
+      box-shadow: inset 0 0 60px rgba(15,186,163,.025), 0 12px 32px rgba(31,56,91,.055);
+    }
+
+    .arch-main .core {
+      color: #0b9f8d;
+      border-color: rgba(15,186,163,.25);
+      background: rgba(15,186,163,.075);
+      box-shadow: 0 12px 28px rgba(15,186,163,.08);
+    }
+
+    .arch-main p { color: #68788d; }
+
+    .path-box {
+      color: #1e2d43;
+      border-color: #e0e8f1;
+      background: rgba(255,255,255,.86);
+      box-shadow: 0 10px 28px rgba(31,56,91,.05);
+    }
+
+    .path-box.highlight {
+      border-color: rgba(15,186,163,.24);
+      background: linear-gradient(145deg, rgba(15,186,163,.065), rgba(37,134,245,.035));
+    }
+
+    .path-label span { color: #718096; }
+
+    .mini-flow div {
+      color: #40516a;
+      background: #f2f6fb;
+    }
+
+    .trouble > div {
+      border-color: #e1e9f2;
+      background: rgba(255,255,255,.9);
+      box-shadow: 0 8px 22px rgba(31,56,91,.045);
+    }
+
+    .trouble p { color: #40516a; }
+
+    .cover-meta { color: #6b7b90; }
+    .cover-meta span + span::before { color: #0fbaa3; }
+
+    .building {
+      border-color: rgba(37,134,245,.22);
+      background: linear-gradient(180deg, rgba(214,236,255,.82), rgba(237,245,252,.96));
+      box-shadow: 0 10px 40px rgba(37,134,245,.065);
+    }
+
+    .building::before {
+      background:
+        repeating-linear-gradient(to bottom, rgba(15,186,163,.27) 0 3%, transparent 3% 15%),
+        repeating-linear-gradient(to right, transparent 0 34%, rgba(37,134,245,.18) 34% 45%, transparent 45% 74%);
+    }
+
+    .ai-beacon {
+      border-color: rgba(15,186,163,.32);
+      background: rgba(15,186,163,.07);
+      box-shadow: 0 18px 48px rgba(15,186,163,.13), inset 0 0 24px rgba(37,134,245,.08);
+    }
+
+    .ai-beacon::after { color: #0b9f8d; }
+    .agenda-item { border-color: #e1e8f0; }
+    .team-member {
+      color: #6c7b8f;
+      border-color: #e1e8f0;
+      background: rgba(248,250,252,.74);
+    }
+    .team-member strong { color: #213149; }
+
+    .stack-group {
+      border-color: #e1e8f0;
+      background: rgba(255,255,255,.9);
+      box-shadow: 0 8px 22px rgba(31,56,91,.04);
+    }
+
+    .stack-group span { color: #66768b; }
+
+    .domain-map {
+      border-color: #e1e8f0;
+      background: linear-gradient(145deg, rgba(37,134,245,.035), rgba(15,186,163,.025));
+    }
+
+    .domain-label {
+      color: #4f6076;
+      border-color: #dce6f0;
+      background: rgba(255,255,255,.96);
+      box-shadow: 0 7px 18px rgba(31,56,91,.05);
+    }
+
+    .pipeline-step {
+      color: #203149;
+      border-color: #dfe7f0;
+      background: rgba(255,255,255,.92);
+      box-shadow: 0 8px 22px rgba(31,56,91,.045);
+    }
+
+    .pipeline-step small { color: #718096; }
+
+    .phone {
+      border-color: #d6e0eb;
+      background: linear-gradient(160deg, #edf4fb, #dce8f4 65%);
+      box-shadow: 0 22px 45px rgba(31,56,91,.13);
+    }
+
+    .phone-screen {
+      background: linear-gradient(180deg, rgba(15,186,163,.08), transparent 35%), #ffffff;
+    }
+
+    .phone-ui .tile { background: #edf2f7; }
+
+    .browser {
+      border-color: #dce5ef;
+      background: #ffffff;
+      box-shadow: 0 22px 50px rgba(31,56,91,.12);
+    }
+
+    .browser-top {
+      border-color: #e5ebf2;
+      background: #f7f9fc;
+    }
+
+    .browser-content,
+    .browser-nav { border-color: #e5ebf2; }
+    .browser-card { background: #edf2f7; }
+
+    .load-chart {
+      border-color: #dfe7f0;
+      background: linear-gradient(180deg, #ffffff, #f8fbfe);
+    }
+
+    .load-chart::before {
+      background-image:
+        linear-gradient(rgba(53,82,118,.07) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(53,82,118,.07) 1px, transparent 1px);
+    }
+
+    .bars i {
+      background: linear-gradient(180deg, #2586f5, rgba(37,134,245,.12));
+      box-shadow: none;
+    }
+
+    .feature-status > div {
+      color: #40516a;
+      border-color: #e0e8f1;
+      background: #ffffff;
+    }
+
+    .result-metric {
+      border-color: rgba(15,186,163,.18);
+      background: rgba(15,186,163,.045);
+    }
+
+    .result-metric strong { color: #0b9f8d; }
+    .result-metric span { color: #6b7b90; }
+    .qa .tagline { color: #66768b; }
+
+    .controls {
+      border-color: rgba(61, 83, 113, .14);
+      background: rgba(255,255,255,.88);
+      box-shadow: 0 12px 38px rgba(31,56,91,.14);
+    }
+
+    .controls button {
+      color: #53647a;
+      background: #f0f4f8;
+    }
+
+    .controls button:hover {
+      color: #0b9f8d;
+      background: rgba(15,186,163,.1);
+    }
+
+    .counter { color: #617187; }
+
+    .help {
+      color: #6b7b90;
+      border-color: rgba(61,83,113,.12);
+      background: rgba(255,255,255,.84);
+      box-shadow: 0 8px 28px rgba(31,56,91,.08);
+    }
+
+    .notes-panel {
+      color: #40516a;
+      border-color: #dce5ef;
+      background: rgba(255,255,255,.96);
+      box-shadow: 0 18px 55px rgba(31,56,91,.16);
+    }
+
+    .overview { background: rgba(239,244,249,.98); }
+
+    .overview-card {
+      color: #25364e;
+      border-color: #dce5ef;
+      background: #ffffff;
+      box-shadow: 0 12px 32px rgba(31,56,91,.08);
+    }
+
+    .overview-card:hover { border-color: #0fbaa3; }
+    .overview-card b { color: #0b9f8d; }
+    .progress { background: linear-gradient(90deg, #0fbaa3, #2586f5, #7668ed); }
+
+    /* =========================================================
+       MOTION SYSTEM
+       ========================================================= */
+    @keyframes modernSlideIn {
+      from { opacity: 0; transform: translateY(12px) scale(.995); filter: blur(2px); }
+      to { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+    }
+
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes riseIn {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes scaleIn {
+      from { opacity: 0; transform: scale(.94); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    @keyframes lineShimmer {
+      0%, 28% { transform: translateX(-120%); }
+      62%, 100% { transform: translateX(120%); }
+    }
+
+    @keyframes softPulse {
+      0%, 100% { opacity: .58; transform: translateX(0); }
+      50% { opacity: 1; transform: translateX(2px); }
+    }
+
+    @keyframes beaconFloat {
+      0%, 100% { transform: rotate(45deg) translate(0, 0); }
+      50% { transform: rotate(45deg) translate(-6px, -6px); }
+    }
+
+    @keyframes buildingRise {
+      from { opacity: 0; transform: translateY(38px); }
+      to { opacity: .88; transform: translateY(0); }
+    }
+
+    @keyframes barGrow {
+      from { transform: scaleY(.04); opacity: .2; }
+      to { transform: scaleY(1); opacity: 1; }
+    }
+
+    @keyframes drawLine {
+      from { stroke-dashoffset: 900; }
+      to { stroke-dashoffset: 0; }
+    }
+
+    @keyframes dotPulse {
+      0%, 100% { box-shadow: 0 0 0 5px rgba(15,186,163,.08); }
+      50% { box-shadow: 0 0 0 9px rgba(15,186,163,.02); }
+    }
+
+    .slide.active {
+      animation: modernSlideIn 430ms cubic-bezier(.2,.8,.2,1);
+    }
+
+    .slide.active .eyebrow {
+      animation: fadeDown 520ms 70ms both cubic-bezier(.2,.8,.2,1);
+    }
+
+    .slide.active h1,
+    .slide.active h2 {
+      animation: riseIn 620ms 120ms both cubic-bezier(.16,.84,.25,1);
+    }
+
+    .slide.active > .slide-inner > .lead,
+    .slide.active .split-title .lead,
+    .slide.active > .slide-inner > .quote {
+      animation: riseIn 580ms 210ms both cubic-bezier(.2,.8,.2,1);
+    }
+
+    .slide.active .accent-line {
+      animation: scaleIn 480ms 190ms both cubic-bezier(.2,.8,.2,1);
+    }
+
+    .slide.active .accent-line::after {
+      animation: lineShimmer 1.7s 480ms both ease;
+    }
+
+    .slide.active :is(.grid-2, .grid-3, .grid-4, .brand-values, .team-strip, .agenda) > *,
+    .slide.active :is(.timeline, .pipeline, .flow) > *,
+    .slide.active :is(.problem-list, .solution-list, .feature-status, .result-metrics) > *,
+    .slide.active .trouble {
+      animation: riseIn 560ms both cubic-bezier(.2,.8,.2,1);
+    }
+
+    .slide.active :is(.grid-2, .grid-3, .grid-4, .brand-values, .team-strip, .agenda) > *:nth-child(1),
+    .slide.active :is(.timeline, .pipeline, .flow) > *:nth-child(1),
+    .slide.active :is(.problem-list, .solution-list, .feature-status, .result-metrics) > *:nth-child(1),
+    .slide.active .trouble:nth-child(1) { animation-delay: 220ms; }
+
+    .slide.active :is(.grid-2, .grid-3, .grid-4, .brand-values, .team-strip, .agenda) > *:nth-child(2),
+    .slide.active :is(.timeline, .pipeline, .flow) > *:nth-child(2),
+    .slide.active :is(.problem-list, .solution-list, .feature-status, .result-metrics) > *:nth-child(2),
+    .slide.active .trouble:nth-child(2) { animation-delay: 285ms; }
+
+    .slide.active :is(.grid-2, .grid-3, .grid-4, .brand-values, .team-strip, .agenda) > *:nth-child(3),
+    .slide.active :is(.timeline, .pipeline, .flow) > *:nth-child(3),
+    .slide.active :is(.problem-list, .solution-list, .feature-status, .result-metrics) > *:nth-child(3),
+    .slide.active .trouble:nth-child(3) { animation-delay: 350ms; }
+
+    .slide.active :is(.grid-2, .grid-3, .grid-4, .brand-values, .team-strip, .agenda) > *:nth-child(4),
+    .slide.active :is(.timeline, .pipeline, .flow) > *:nth-child(4),
+    .slide.active :is(.problem-list, .solution-list, .feature-status, .result-metrics) > *:nth-child(4),
+    .slide.active .trouble:nth-child(4) { animation-delay: 415ms; }
+
+    .slide.active :is(.grid-2, .grid-3, .grid-4, .brand-values, .team-strip, .agenda) > *:nth-child(5),
+    .slide.active :is(.timeline, .pipeline, .flow) > *:nth-child(5) { animation-delay: 480ms; }
+
+    .slide.active :is(.grid-2, .grid-3, .grid-4, .brand-values, .team-strip, .agenda) > *:nth-child(n+6),
+    .slide.active :is(.timeline, .pipeline, .flow) > *:nth-child(n+6) { animation-delay: 545ms; }
+
+    .slide.active .flow-arrow,
+    .slide.active .pipeline-step:not(:last-child)::after,
+    .slide.active .trouble > div:not(:last-child)::after {
+      animation: softPulse 1.35s 800ms infinite ease-in-out;
+    }
+
+    .slide.active .ai-beacon {
+      animation: scaleIn 650ms 300ms both cubic-bezier(.2,.8,.2,1),
+                 beaconFloat 3.4s 1s infinite ease-in-out;
+    }
+
+    .slide.active .building {
+      transform-origin: bottom;
+      animation: buildingRise 780ms both cubic-bezier(.16,.84,.25,1);
+    }
+
+    .slide.active .building.b1 { animation-delay: 210ms; }
+    .slide.active .building.b2 { animation-delay: 300ms; }
+    .slide.active .building.b3 { animation-delay: 390ms; }
+    .slide.active .building.b4 { animation-delay: 480ms; }
+
+    .slide.active .bars i {
+      transform-origin: bottom;
+      animation: barGrow 650ms both cubic-bezier(.2,.8,.2,1);
+    }
+
+    .slide.active .bars i:nth-child(1) { animation-delay: 260ms; }
+    .slide.active .bars i:nth-child(2) { animation-delay: 300ms; }
+    .slide.active .bars i:nth-child(3) { animation-delay: 340ms; }
+    .slide.active .bars i:nth-child(4) { animation-delay: 380ms; }
+    .slide.active .bars i:nth-child(5) { animation-delay: 420ms; }
+    .slide.active .bars i:nth-child(6) { animation-delay: 460ms; }
+    .slide.active .bars i:nth-child(7) { animation-delay: 500ms; }
+    .slide.active .bars i:nth-child(8) { animation-delay: 540ms; }
+    .slide.active .bars i:nth-child(9) { animation-delay: 580ms; }
+    .slide.active .bars i:nth-child(10) { animation-delay: 620ms; }
+
+    .line-chart polyline {
+      stroke-dasharray: 900;
+      stroke-dashoffset: 900;
+    }
+
+    .slide.active .line-chart polyline {
+      animation: drawLine 1.25s 440ms both ease-out;
+    }
+
+    .slide.active .brand-dot {
+      animation: dotPulse 2.2s infinite ease-in-out;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        scroll-behavior: auto !important;
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+      }
+    }
+
+    @media (max-width: 900px) {
+      .overview { grid-template-columns: repeat(2, 1fr); }
+      .help { display: none; }
+      .controls { right: 10px; bottom: 10px; }
+      .notes-panel { width: calc(100vw - 30px); }
+    }
+
+    @media print {
+      html, body { overflow: visible; background: #fff; }
+      .deck { width: auto; height: auto; background: #fff; }
+      .stage { position: static; display: block; padding: 0; }
+      .slide, .slide.active {
+        position: relative;
+        display: block;
+        width: 13.333in;
+        height: 7.5in;
+        margin: 0;
+        border: 0;
+        border-radius: 0;
+        box-shadow: none;
+        break-after: page;
+        page-break-after: always;
+        animation: none !important;
+      }
+      .slide *, .slide *::before, .slide *::after { animation: none !important; }
+      .controls, .progress, .overview, .notes-panel, .help { display: none !important; }
+      @page { size: 13.333in 7.5in; margin: 0; }
+    }
+  </style>
+</head>
+<body>
+  <main class="deck" aria-label="ALPHATRAGEN 발표 자료">
+    <div class="stage">
+
+      <!-- 01 -->
+      <section class="slide slide-cover active" data-title="표지">
+        <div class="slide-inner">
+          <div class="eyebrow">AI SMART LIVING PLATFORM</div>
+          <div class="split-title">
+            <div style="z-index:2;">
+              <h1>ALPHA<br><span class="mint">TRAGEN</span></h1>
+              <div class="accent-line"></div>
+              <p class="lead" style="max-width:590px;">
+                공간에 지능을 입히다<br>
+                <strong style="color:#f4f7ff;">사는 곳을 넘어, 살아가는 공간으로</strong>
+              </p>
+              <div class="cover-meta">
+                <span>AI 기반 스마트 아파트</span>
+                <span>오진다 TEAM</span>
+                <span>FINAL PROJECT</span>
+              </div>
+            </div>
+            <div class="skyline" aria-hidden="true">
+              <div class="building b1"></div>
+              <div class="building b2"></div>
+              <div class="building b3"></div>
+              <div class="building b4"></div>
+              <div class="ai-beacon"></div>
+            </div>
+          </div>
+          <div class="footer">
+            <span class="brand-mark"><i class="brand-dot"></i> ALPHATRAGEN</span>
+            <span>01</span>
+          </div>
+        </div>
+        <aside class="speaker-note">
+          안녕하세요. AI 기반 스마트 아파트 통합 관리 플랫폼, ALPHATRAGEN을 개발한 오진다 팀입니다.
+          저희는 아파트를 단순히 거주하는 장소가 아니라, 입주민의 요청을 이해하고 필요한 생활 업무를 연결해 주는 지능적인 공간으로 만들고자 했습니다.
+        </aside>
+      </section>
+
+      <!-- 02 -->
+      <section class="slide" data-title="발표 순서">
+        <div class="slide-inner">
+          <div class="topline">
+            <div class="eyebrow">AGENDA</div>
+            <div class="section-number">00 — 05</div>
+          </div>
+          <h2>한계에서 출발해<br><span class="mint">프로젝트 구조</span>까지</h2>
+          <div class="agenda">
+            <div class="agenda-item"><b>01</b><span>프로젝트 개요 · 기존 시스템의 한계와 문제점</span></div>
+            <div class="agenda-item"><b>02</b><span>기획 배경 및 전략 · 문제 해결 방향과 ALPHATRAGEN 기획</span></div>
+            <div class="agenda-item"><b>03</b><span>프로젝트 소개 · 핵심 기능 세 가지</span></div>
+            <div class="agenda-item"><b>04</b><span>설계 및 아키텍처 · 인프라, 시스템 구조, 동작 흐름</span></div>
+            <div class="agenda-item"><b>05</b><span>전체 일정 및 작업 방식 · 일정 구성과 협업 흐름</span></div>
+          </div>
+          <p class="lead" style="margin-top:auto; max-width:680px;">
+            발표 흐름은 <strong class="mint">한계 → 기획 → 기능 → 설계 → 작업 과정</strong> 순서로 진행됩니다.
+          </p>
+          <div class="footer">
+            <span class="brand-mark"><i class="brand-dot"></i> ALPHATRAGEN</span>
+            <span>02</span>
+          </div>
+        </div>
+        <aside class="speaker-note">
+          발표는 먼저 기존 시스템의 한계와 문제점을 짚고, 그 문제를 해결하기 위해 어떤 배경에서 ALPHATRAGEN을 기획했는지 설명드리겠습니다.
+          이후 핵심 기능 세 가지, 설계와 아키텍처, 마지막으로 전체 일정과 작업 방식을 차례대로 말씀드리겠습니다.
+        </aside>
+      </section>
+
+      <!-- 03 -->
+      <section class="slide light limit-slide" data-title="기존 서비스 한계">
+        <div class="slide-inner">
+          <div class="topline">
+            <div class="eyebrow">WHY WE STARTED</div>
+            <div class="section-number">01 · DISCOVERY</div>
+          </div>
+          <h2>기존 서비스는 있었지만,<br><span style="color:#3266c8;">문제는 계속 반복됐다</span></h2>
+          <div class="grid-3" style="margin-top:4%; flex:1;">
+            <div class="card" style="--glow:rgba(255,119,159,.15)">
+              <span class="icon-label">입주민</span>
+              <h3>진행 상태 불투명</h3>
+              <p>민원이 어디까지 처리됐는지 알기 어렵고, 업무별 절차가 달라 매번 새로 확인해야 함</p>
+            </div>
+            <div class="card" style="--glow:rgba(86,200,255,.13)">
+              <span class="icon-label">관리자</span>
+              <h3>반복 문의 과중</h3>
+              <p>공통 민원에 같은 답변을 반복하고, 접수된 내용을 수동으로 분류하며 처리 시간이 증가</p>
+            </div>
+            <div class="card" style="--glow:rgba(135,119,255,.14)">
+              <span class="icon-label">시스템</span>
+              <h3>업무 흐름 단절</h3>
+              <p>민원, 시설, 알림, 채팅이 분리되어 입주민 응대와 관리자 후속 처리가 이어지지 않음</p>
+            </div>
+          </div>
+          <p class="quote" style="margin-top:3%;">
+            핵심은 기능 추가가 아니라, <em style="color:#3266c8;">입주민과 관리자의 반복 문제를 줄이는 것</em>
+          </p>
+          <div class="footer">
+            <span class="brand-mark"><i class="brand-dot" style="background:#3266c8;"></i> ALPHATRAGEN</span>
+            <span>03</span>
+          </div>
+        </div>
+        <aside class="speaker-note">
+          프로젝트는 기존 아파트 관리 서비스의 한계를 살펴보는 것에서 시작했습니다.
+          입주민은 민원 진행 상태가 불투명하고 업무별 절차가 달라 불편을 겪었고, 관리자는 반복 문의와 수동 분류 처리, 단절된 업무 시스템 때문에 공통 민원에 많은 시간을 소비하고 있었습니다.
+        </aside>
+      </section>
+
+      <!-- 04 -->
+      <section class="slide" data-title="해결 전략">
+        <div class="slide-inner">
+          <div class="topline">
+            <div class="eyebrow">PROBLEM → STRATEGY</div>
+            <div class="section-number">02 · STRATEGY</div>
+          </div>
+          <h2>기존 서비스 한계를<br><span class="mint">네 가지 전략</span>으로 해결</h2>
+          <div class="problem-map" style="margin-top:3.5%; flex:1;">
+            <div class="problem-list">
+              <div class="problem-item">민원 진행 상태 불투명</div>
+              <div class="problem-item">업무별 절차 상이</div>
+              <div class="problem-item">반복 문의·수동 분류</div>
+              <div class="problem-item">업무 시스템 단절</div>
+            </div>
+            <div class="bridge">→</div>
+            <div class="solution-list">
+              <div class="solution-item">실시간 처리 현황 알림</div>
+              <div class="solution-item">대화형 통합 접수</div>
+              <div class="solution-item">AI 민원 분류 자동화</div>
+              <div class="solution-item">서비스·업무 흐름 통합</div>
+            </div>
+          </div>
+          <p class="lead" style="margin-top:2%;">
+            입주민은 진행 상황을 바로 확인하고, 관리자는 <strong class="mint">반복 처리 시간을 줄이는 구조</strong>로 전환합니다.
+          </p>
+          <div class="footer">
+            <span class="brand-mark"><i class="brand-dot"></i> ALPHATRAGEN</span>
+            <span>04</span>
+          </div>
+        </div>
+        <aside class="speaker-note">
+          ALPHATRAGEN은 기존 서비스 한계를 네 가지 전략으로 해결합니다.
+          실시간 처리 현황 알림, 대화형 통합 접수, AI 민원 분류 자동화, 서비스와 업무 흐름 통합을 통해 입주민과 관리자의 반복 문제를 줄였습니다.
+        </aside>
+      </section>
+
+      <!-- 05 -->
+      <section class="slide section-slide" data-title="프로젝트 소개">
+        <div class="slide-inner">
+          <div class="eyebrow">01 · PROJECT OVERVIEW</div>
+          <h2>그래서 저희는<br><span class="mint">ALPHATRAGEN</span>을 만들었습니다</h2>
+          <p class="lead" style="max-width:760px; margin-top:2.5%;">
+            입주민의 요청 의도를 이해하고, 민원 접수부터 분류·알림·후속 처리까지 하나의 흐름으로 연결하는 AI 기반 스마트 아파트 통합 관리 플랫폼입니다.
+          </p>
+          <div class="tags" style="margin-top:3%;">
+            <span class="tag">생활 서비스 통합</span>
+            <span class="tag" style="--tag-color:var(--cyan)">AI 민원 분류</span>
+            <span class="tag" style="--tag-color:var(--violet)">실시간 처리 현황</span>
+            <span class="tag" style="--tag-color:var(--amber)">입주민 · 관리자 연결</span>
+          </div>
+          <div class="section-bg">01</div>
+          <div class="footer">
+            <span class="brand-mark"><i class="brand-dot"></i> ALPHATRAGEN</span>
+            <span>05</span>
+          </div>
+        </div>
+        <aside class="speaker-note">
+          이런 한계를 해결하기 위해 저희는 ALPHATRAGEN을 만들었습니다.
+          ALPHATRAGEN은 입주민의 자연어와 음성 요청을 이해하고, 민원 접수와 분류, 처리 현황 알림, 관리자 후속 업무를 하나의 서비스 흐름으로 연결하는 프로젝트입니다.
+        </aside>
+      </section>
+
+      <!-- 06 -->
+      <section class="slide light" data-title="핵심 기능 세 가지">
+        <div class="slide-inner">
+          <div class="topline">
+            <div class="eyebrow">CORE FEATURES</div>
+            <div class="section-number">THREE VALUE POINTS</div>
+          </div>
+          <h2>ALPHATRAGEN의<br><span style="color:#138c73;">핵심 기능 세 가지</span></h2>
+          <div class="grid-3" style="margin-top:4%; flex:1;">
+            <div class="card" style="--glow:rgba(19,140,115,.15);">
+              <span class="icon-label">01</span>
+              <h3>AI 통합 생활 도우미</h3>
+              <div class="tags">
+                <span class="tag">관리비 조회</span><span class="tag">시설 예약</span>
+                <span class="tag">민원 접수</span><span class="tag">방문차량 등록</span>
+              </div>
+              <p>관리비 조회, 시설 예약, 민원 접수, 방문차량 등록 등을 대화로 처리합니다.</p>
+            </div>
+            <div class="card" style="--glow:rgba(50,102,200,.14);">
+              <span class="icon-label">02</span>
+              <h3>생활·관리 업무 통합</h3>
+              <div class="tags">
+                <span class="tag">입주민 신청</span><span class="tag">관리자 운영</span>
+                <span class="tag">업무 현황</span>
+              </div>
+              <p>입주민 신청 업무와 관리자 운영 업무를 한곳에서 관리합니다.</p>
+            </div>
+            <div class="card" style="--glow:rgba(135,119,255,.14);">
+              <span class="icon-label">03</span>
+              <h3>입주민 소통과 참여</h3>
+              <div class="tags">
+                <span class="tag">게시판</span><span class="tag">소모임</span>
+                <span class="tag">실시간 채팅</span><span class="tag">전자투표</span>
+                <span class="tag">알림</span>
+              </div>
+              <p>게시판, 소모임, 실시간 채팅, 전자투표, 알림으로 입주민 참여를 연결합니다.</p>
+            </div>
+          </div>
+          <div class="footer">
+            <span class="brand-mark"><i class="brand-dot" style="background:#138c73;"></i> ALPHATRAGEN</span>
+            <span>06</span>
+          </div>
+        </div>
+        <aside class="speaker-note">
+          ALPHATRAGEN의 핵심 기능은 세 가지입니다.
+          첫째, 관리비 조회와 시설 예약, 민원 접수, 방문차량 등록을 대화로 처리하는 AI 통합 생활 도우미입니다.
+          둘째, 입주민 신청 업무와 관리자 운영 업무를 한곳에서 관리하는 생활·관리 업무 통합입니다.
+          셋째, 게시판과 소모임, 실시간 채팅, 전자투표, 알림을 제공하는 입주민 소통과 참여 기능입니다.
+        </aside>
+      </section>
+
+      <!-- 07 -->
+      <section class="slide light" data-title="차별화 기술 개요">
+        <div class="slide-inner">
+          <div class="topline">
+            <div class="eyebrow">DIFFERENTIATED TECH</div>
+            <div class="section-number">AI · KAFKA · WEBSOCKET</div>
+          </div>
+          <h2>세 가지 기술이<br><span style="color:#138c73;">상황별 연결 방식</span>을 담당</h2>
+          <div class="architecture" style="margin-top:3.2%; flex:1; grid-template-columns:.85fr 1.1fr .85fr;">
+            <div class="arch-col">
+              <div class="arch-node" style="background:#eaf2ff; color:#17233f;"><strong>입주민 화면</strong><small>Next.js · React · TypeScript</small></div>
+              <div class="arch-node" style="background:#eaf2ff; color:#17233f;"><strong>관리자 화면</strong><small>업무 처리 · 상담 응대</small></div>
+            </div>
+            <div class="arch-main" style="background:linear-gradient(145deg,rgba(19,140,115,.1),rgba(50,102,200,.05)); border-color:rgba(19,140,115,.25);">
+              <div class="core" style="color:#138c73; border-color:rgba(19,140,115,.3); background:rgba(19,140,115,.08);">API</div>
+              <h3 style="color:#15243b;">Spring Boot Main Backend</h3>
+              <p style="color:#58677c;">JWT 인증 · 업무 규칙 · 이벤트 발행</p>
+              <div class="tags" style="justify-content:center; margin-top:14px;">
+                <span class="tag">AI Agent</span>
+                <span class="tag" style="--tag-color:#f29a32;">Kafka Producer</span>
+                <span class="tag" style="--tag-color:#3266c8;">WebSocket</span>
+              </div>
+            </div>
+            <div class="arch-col">
+              <div class="arch-node" style="background:#fff1df; color:#17233f;"><strong>Kafka</strong><small>Event Broker · 알림 중계</small></div>
+              <div class="arch-node" style="background:#e6f7f4; color:#17233f;"><strong>알림 서버</strong><small>Consumer · 저장 · 전송</small></div>
+              <div class="arch-node" style="background:#f3f6fa; color:#17233f;"><strong>PostgreSQL</strong><small>업무 데이터 · pgvector</small></div>
+            </div>
+            <i class="arch-link left"></i><i class="arch-link right"></i>
+          </div>
+          <p class="quote" style="margin-top:2.3%; color:#15243b; font-size:clamp(18px,1.8vw,30px);">
+            AI 자동 처리, 이벤트 알림, 사람과의 실시간 상담을 <em style="color:#138c73;">하나의 서비스 안에서 연결</em>합니다.
+          </p>
+          <div class="footer">
+            <span class="brand-mark"><i class="brand-dot" style="background:#138c73;"></i> ALPHATRAGEN</span>
+            <span>07</span>
+          </div>
+        </div>
+        <aside class="speaker-note">
+          ALPHATRAGEN의 차별화 기술은 AI Agent Orchestration, Kafka 기반 비동기 알림, STOMP/WebSocket 기반 실시간 채팅입니다.
+          세 기술은 각각 자동 처리, 안정적인 알림 전달, 사람과 사람의 즉각적인 상담을 담당합니다.
+        </aside>
+      </section>
+
+      <!-- 08 -->
+      <section class="slide" data-title="AI Agent Orchestration">
+        <div class="slide-inner">
+          <div class="topline">
+            <div class="eyebrow">AI AGENT ORCHESTRATION</div>
+            <div class="section-number">ORCHESTRATOR · SPECIALISTS</div>
+          </div>
+          <h2>한 개의 AI가 아니라<br><span class="mint">전문 Agent가 나눠 처리</span></h2>
+          <div class="grid-2" style="margin-top:3%; flex:1; grid-template-columns:.86fr 1.14fr;">
+            <div class="card" style="border-color:rgba(63,242,203,.25);">
+              <span class="icon-label" style="color:var(--mint); border-color:rgba(63,242,203,.32);">CENTER</span>
+              <h3>OrchestratorAgent</h3>
+              <p>사용자의 의도와 현재 대화 도메인을 판단하고, 가장 적합한 전문 Agent에게 작업을 위임합니다.</p>
+              <ul class="list" style="margin-top:18px;">
+                <li>상태 변경은 최종 확인 후 실행</li>
+                <li>관리규약 검색은 pgvector 사용</li>
+                <li>소모임 추천은 CommunityTools 사용</li>
+              </ul>
+            </div>
+            <div class="grid-2" style="gap:12px;">
+              <div class="card"><span class="icon-label">FEE</span><h3>MaintenanceFeeAgent</h3><p>관리비 조회 · 분석 · 이의신청</p></div>
+              <div class="card"><span class="icon-label">FAC</span><h3>FacilityAgent</h3><p>공동시설 검색 · 예약 · 취소</p></div>
+              <div class="card"><span class="icon-label">VOC</span><h3>ComplaintAgent</h3><p>민원 분류 · 접수 · 조회</p></div>
+              <div class="card"><span class="icon-label">LIFE</span><h3>LivingConvenienceAgent</h3><p>방문차량 · 주차 · 이사 · 스마트홈</p></div>
+            </div>
+          </div>
+          <p class="lead" style="margin-top:2%;">도메인별 규칙과 도구를 분리해 <strong class="mint">정확도, 유지보수성, 확장성</strong>을 높입니다.</p>
+          <div class="footer">
+            <span class="brand-mark"><i class="brand-dot"></i> ALPHATRAGEN</span>
+            <span>08</span>
+          </div>
+        </div>
+        <aside class="speaker-note">
+          AI Agent Orchestration은 중앙 오케스트레이터가 요청을 판단하고 전문 Agent에게 맡기는 구조입니다.
+          전문 Agent는 필요한 경우 서버의 업무 Tool을 호출하며, 예약이나 취소 같은 중요한 변경은 사용자 확인 후 수행합니다.
+        </aside>
+      </section>
+
+      <!-- 09 -->
+      <section class="slide light" data-title="AI Agent 처리 흐름">
+        <div class="slide-inner">
+          <div class="topline">
+            <div class="eyebrow">AI AGENT FLOW</div>
+            <div class="section-number">HTTP REQUEST · SSE RESPONSE</div>
+          </div>
+          <h2>질문이 실제 업무 처리로<br><span style="color:#138c73;">이어지는 순서</span></h2>
+          <div class="pipeline" style="margin-top:3%; grid-template-columns:repeat(6,1fr);">
+            <div class="pipeline-step"><b>입주민 질문</b><small>대화 입력</small></div>
+            <div class="pipeline-step"><b>/api/chatbot/chat</b><small>HTTP 요청</small></div>
+            <div class="pipeline-step"><b>JWT · 세션 확인</b><small>사용자와 대화 맥락</small></div>
+            <div class="pipeline-step"><b>의도 판단</b><small>현재 도메인 확인</small></div>
+            <div class="pipeline-step"><b>전문 Agent 선택</b><small>업무 담당 지정</small></div>
+            <div class="pipeline-step"><b>Tool · 검색 호출</b><small>업무 API 또는 지식 검색</small></div>
+          </div>
+          <div class="pipeline" style="margin-top:14px; grid-template-columns:repeat(5,1fr);">
+            <div class="pipeline-step"><b>Service 검증</b><small>권한 · 업무 규칙</small></div>
+            <div class="pipeline-step"><b>PostgreSQL 처리</b><small>조회 또는 변경</small></div>
+            <div class="pipeline-step"><b>자연어 답변</b><small>처리 결과 설명</small></div>
+            <div class="pipeline-step"><b>SSE 전달</b><small>진행 상태 · 최종 답변</small></div>
+            <div class="pipeline-step"><b>대화 기록 저장</b><small>질문 · 답변 · Tool · 토큰</small></div>
+          </div>
+          <div class="grid-3" style="margin-top:3%; flex:1;">
+            <div class="card"><h3>짧은 후속 답변</h3><p>“응”, “그대로 예약해 줘”도 conversationId와 직전 도메인으로 이어서 처리합니다.</p></div>
+            <div class="card"><h3>긴급 신고</h3><p>화재·가스 누출은 라우팅 오판을 피하기 위해 ComplaintAgent로 바로 전달합니다.</p></div>
+            <div class="card"><h3>복합 요청</h3><p>한 문장에 여러 요청이 있으면 필요한 Agent 작업을 순서대로 처리합니다.</p></div>
+          </div>
+          <div class="footer">
+            <span class="brand-mark"><i class="brand-dot" style="background:#138c73;"></i> ALPHATRAGEN</span>
+            <span>09</span>
+          </div>
+        </div>
+        <aside class="speaker-note">
+          AI 요청은 HTTP로 들어오고, 진행 상태와 최종 답변은 SSE로 전달됩니다.
+          같은 대화 세션과 직전 활성 도메인을 저장하기 때문에 짧은 후속 답변도 같은 Agent가 이어서 처리할 수 있습니다.
+        </aside>
+      </section>
+
+      <!-- 10 -->
+      <section class="slide" data-title="Kafka 기반 비동기 알림">
+        <div class="slide-inner">
+          <div class="topline">
+            <div class="eyebrow">KAFKA NOTIFICATION</div>
+            <div class="section-number">ASYNC EVENT DELIVERY</div>
+          </div>
+          <h2>업무 처리와 알림 전송을<br><span class="amber">Kafka로 분리</span></h2>
+          <div class="grid-3" style="margin-top:4%; flex:1;">
+            <div class="card" style="border-top:4px solid var(--mint);">
+              <span class="icon-label" style="color:var(--mint); border-color:rgba(63,242,203,.3);">Producer</span>
+              <h3>메인 백엔드</h3>
+              <p>민원 답변, 시설 승인·취소, 댓글, 소모임 승인, 투표 시작, 관리비 고지·납부 이벤트를 생산합니다.</p>
+            </div>
+            <div class="card" style="border-top:4px solid var(--amber);">
+              <span class="icon-label" style="color:var(--amber); border-color:rgba(255,201,101,.35);">Kafka</span>
+              <h3>notification-events</h3>
+              <p>Kafka를 Event Broker로 두고 apartmentId를 메시지 키로 사용합니다.</p>
+            </div>
+            <div class="card" style="border-top:4px solid var(--cyan);">
+              <span class="icon-label" style="color:var(--cyan); border-color:rgba(86,200,255,.35);">Consumer</span>
+              <h3>별도 알림 서버</h3>
+              <p>이벤트 소비, 알림 저장, 수신자 결정, SSE·Web Push 전송을 담당합니다.</p>
+            </div>
+          </div>
+          <p class="lead" style="margin-top:2%;">알림 서버가 느리거나 일시 실패해도 <strong class="amber">핵심 업무 흐름과 분리</strong>할 수 있습니다.</p>
+          <div class="footer">
+            <span class="brand-mark"><i class="brand-dot"></i> ALPHATRAGEN</span>
+            <span>10</span>
+          </div>
+        </div>
+        <aside class="speaker-note">
+          Kafka 기반 알림은 업무 처리와 알림 전송을 분리하기 위한 구조입니다.
+          메인 백엔드는 직접 Web Push를 보내지 않고 이벤트만 발행하며, 별도 알림 서버가 저장과 전송을 담당합니다.
+        </aside>
+      </section>
+
+      <!-- 11 -->
+      <section class="slide light" data-title="Kafka 알림 처리 흐름">
+        <div class="slide-inner">
+          <div class="topline">
+            <div class="eyebrow">KAFKA NOTIFICATION FLOW</div>
+            <div class="section-number">PRODUCER · BROKER · CONSUMER</div>
+          </div>
+          <h2>업무 이벤트가 알림으로<br><span style="color:#d48b21;">도착하는 순서</span></h2>
+          <div class="tags" style="margin-top:2%;">
+            <span class="tag" style="--tag-color:#138c73;">메인 백엔드 = Producer</span>
+            <span class="tag" style="--tag-color:#d48b21;">Kafka = Event Broker</span>
+            <span class="tag" style="--tag-color:#3266c8;">알림 서버 = Consumer + 저장 + 전송</span>
+          </div>
+          <div class="pipeline" style="margin-top:2.5%; grid-template-columns:repeat(6,1fr);">
+            <div class="pipeline-step"><b>1 업무 발생</b><small>민원 등록 · 상태 변경</small></div>
+            <div class="pipeline-step"><b>2 DB 완료</b><small>업무 트랜잭션 먼저 완료</small></div>
+            <div class="pipeline-step"><b>3 AFTER_COMMIT</b><small>NotificationEvent 생성</small></div>
+            <div class="pipeline-step"><b>4 Event 구성</b><small>eventId · type · recipient · urgent</small></div>
+            <div class="pipeline-step"><b>5 Kafka 발행</b><small>notification-events JSON</small></div>
+            <div class="pipeline-step"><b>6 Consumer 수신</b><small>notification-group</small></div>
+          </div>
+          <div class="pipeline" style="margin-top:14px; grid-template-columns:repeat(6,1fr);">
+            <div class="pipeline-step"><b>7 검증</b><small>역직렬화 · 필수값</small></div>
+            <div class="pipeline-step"><b>8 중복 방지</b><small>eventId 검사</small></div>
+            <div class="pipeline-step"><b>9 알림 저장</b><small>수신자 정보까지 트랜잭션</small></div>
+            <div class="pipeline-step"><b>10 채널 선택</b><small>사용자 설정 확인</small></div>
+            <div class="pipeline-step"><b>11 전달</b><small>SSE · Web Push · BOTH</small></div>
+            <div class="pipeline-step"><b>12 화면 이동</b><small>actionUrl로 이동</small></div>
+          </div>
+          <p class="lead" style="margin-top:2%;">메인 백엔드는 업무와 이벤트 생산만 담당하고, 알림 전송은 알림 서버가 책임집니다.</p>
+          <div class="footer">
+            <span class="brand-mark"><i class="brand-dot" style="background:#d48b21;"></i> ALPHATRAGEN</span>
+            <span>11</span>
+          </div>
+        </div>
+        <aside class="speaker-note">
+          업무 데이터는 먼저 DB 트랜잭션으로 완료하고, 커밋 이후 이벤트를 발행합니다.
+          알림 서버는 eventId 중복 검사를 통해 같은 이벤트의 중복 알림 생성을 막고, 사용자 설정에 따라 SSE 또는 Web Push로 전달합니다.
+        </aside>
+      </section>
+
+      <!-- 12 -->
+      <section class="slide" data-title="STOMP WebSocket 실시간 채팅">
+        <div class="slide-inner">
+          <div class="topline">
+            <div class="eyebrow">STOMP · WEBSOCKET CHAT</div>
+            <div class="section-number">REALTIME ADMIN COMMUNICATION</div>
+          </div>
+          <h2>새로고침 없이 주고받는<br><span class="cyan">입주민-관리자 실시간 상담</span></h2>
+          <div class="pipeline" style="margin-top:3%; grid-template-columns:repeat(5,1fr);">
+            <div class="pipeline-step"><b>/ws-chat 연결</b><small>WebSocket 양방향 연결</small></div>
+            <div class="pipeline-step"><b>STOMP CONNECT</b><small>Authorization JWT 검증</small></div>
+            <div class="pipeline-step"><b>Principal 생성</b><small>인증 사용자 식별</small></div>
+            <div class="pipeline-step"><b>방 구독</b><small>/topic/chat-rooms/{roomId}</small></div>
+            <div class="pipeline-step"><b>메시지 발행</b><small>/app/chat.send/{roomId}</small></div>
+          </div>
+          <div class="pipeline" style="margin-top:14px; grid-template-columns:repeat(4,1fr);">
+            <div class="pipeline-step"><b>권한 검증</b><small>접근 권한 · 발신 가능 여부</small></div>
+            <div class="pipeline-step"><b>DB 저장</b><small>메시지 · 읽음 상태</small></div>
+            <div class="pipeline-step"><b>방 브로드캐스트</b><small>구독자에게 즉시 전달</small></div>
+            <div class="pipeline-step"><b>목록 갱신</b><small>/user/queue/chat-updates</small></div>
+          </div>
+          <div class="grid-3" style="margin-top:3%; flex:1;">
+            <div class="card"><h3>관리자 채팅방</h3><p>입주민별 하나의 방을 만들고, AdminChatDrawer에서 생성하거나 조회합니다.</p></div>
+            <div class="card"><h3>권한 변경 · 오류</h3><p>권한 변경은 room 토픽, 오류는 /user/queue/chat-errors로 전달합니다.</p></div>
+            <div class="card"><h3>연결 안정성</h3><p>연결이 끊기면 3초 후 재연결하고 10초 heartbeat를 사용합니다.</p></div>
+          </div>
+          <p class="lead" style="margin-top:2%;">Socket.IO가 아니라 <strong class="cyan">Spring WebSocket의 STOMP 메시지 브로커</strong>입니다.</p>
+          <div class="footer">
+            <span class="brand-mark"><i class="brand-dot"></i> ALPHATRAGEN</span>
+            <span>12</span>
+          </div>
+        </div>
+        <aside class="speaker-note">
+          채팅은 입주민과 관리자가 새로고침 없이 메시지를 주고받기 위한 양방향 통신입니다.
+          기존 메시지는 REST API로 한 번 조회하고, 새 메시지와 방 상태 변경은 WebSocket으로 실시간 수신합니다.
+        </aside>
+      </section>
+
+      <!-- 13 -->
+      <section class="slide light" data-title="세 기술의 역할과 기대 효과">
+        <div class="slide-inner">
+          <div class="topline">
+            <div class="eyebrow">ROLE & IMPACT</div>
+            <div class="section-number">AI · EVENT · CHAT</div>
+          </div>
+          <h2>각 기술은<br><span style="color:#138c73;">서로 다른 문제</span>를 해결</h2>
+          <div class="grid-3" style="margin-top:3%; flex:1;">
+            <div class="card" style="border-top:4px solid #138c73;">
+              <h3>AI Agent Orchestration</h3>
+              <ul class="list" style="margin-top:14px;">
+                <li>목적: 복합 생활 업무 자동 처리</li>
+                <li>통신: HTTP 요청 + SSE 응답</li>
+                <li>효과: 전문 처리, 맥락 유지, 업무 API 연결</li>
+              </ul>
+            </div>
+            <div class="card" style="border-top:4px solid #d48b21;">
+              <h3>Kafka Notification</h3>
+              <ul class="list" style="margin-top:14px;">
+                <li>목적: 업무 이벤트를 알림 서비스에 전달</li>
+                <li>통신: Kafka 메시지 + Web Push 또는 SSE</li>
+                <li>효과: 책임 분리, 확장성, 중복 방지</li>
+              </ul>
+            </div>
+            <div class="card" style="border-top:4px solid #3266c8;">
+              <h3>STOMP/WebSocket Chat</h3>
+              <ul class="list" style="margin-top:14px;">
+                <li>목적: 입주민과 관리자의 즉시 상담</li>
+                <li>통신: WebSocket 양방향 연결</li>
+                <li>효과: 실시간 메시지, 방 단위 전달, JWT 통제</li>
+              </ul>
+            </div>
+          </div>
+          <p class="quote" style="margin-top:2.5%; color:#15243b; font-size:clamp(18px,1.75vw,30px);">
+            AI가 반복 업무를 처리하고, Kafka가 중요한 변화를 전달하며,<br>
+            <em style="color:#138c73;">WebSocket이 사람의 즉각적인 소통을 완성합니다.</em>
+          </p>
+          <div class="footer">
+            <span class="brand-mark"><i class="brand-dot" style="background:#138c73;"></i> ALPHATRAGEN</span>
+            <span>13</span>
+          </div>
+        </div>
+        <aside class="speaker-note">
+          세 기술은 목적이 다릅니다.
+          AI는 반복 업무 자동 처리, Kafka는 중요한 변화의 안정적 전달, WebSocket은 사람과 사람의 즉각적인 소통을 담당합니다.
+        </aside>
+      </section>
+
+      <!-- 14 -->
+      <section class="slide" data-title="사용자와 권한">
+        <div class="slide-inner">
+          <div class="topline">
+            <div class="eyebrow">AUTHORIZATION MODEL</div>
+            <div class="section-number">WHO CAN DO WHAT?</div>
+          </div>
+          <h2>화면이 아니라<br><span class="mint">백엔드에서 다시 검증</span></h2>
+          <div class="grid-2" style="margin-top:3.3%; flex:1; grid-template-columns:.92fr 1.08fr;">
+            <div>
+              <div class="grid-2" style="gap:12px;">
+                <div class="card"><span class="icon-label">R</span><h3>입주민</h3><p>본인 및 본인 세대 범위</p></div>
+                <div class="card"><span class="icon-label">O</span><h3>운영 담당</h3><p>지정된 관리 업무 범위</p></div>
+                <div class="card"><span class="icon-label">A</span><h3>관리자</h3><p>권한별 전체 관리 범위</p></div>
+                <div class="card"><span class="icon-label">AI</span><h3>AI 시스템</h3><p>현재 사용자의 권한을 위임</p></div>
+              </div>
+            </div>
+            <div class="matrix">
+              <div class="head">접근 범위</div><div class="head">NONE</div><div class="head">OWN</div><div class="head">ALL</div>
+              <div class="rowhead">본인 정보</div><div class="no">—</div><div class="own">●</div><div class="yes">●</div>
+              <div class="rowhead">세대 데이터</div><div class="no">—</div><div class="own">●</div><div class="yes">●</div>
+              <div class="rowhead">단지 전체</div><div class="no">—</div><div class="no">—</div><div class="yes">●</div>
+              <div class="rowhead">관리 작업</div><div class="no">—</div><div class="own">조건부</div><div class="yes">●</div>
+            </div>
+          </div>
+          <div class="footer">
+            <span class="brand-mark"><i class="brand-dot"></i> ALPHATRAGEN</span>
+            <span>14</span>
+          </div>
+        </div>
+        <aside class="speaker-note">
+          입주민은 본인과 본인 세대의 정보만 확인하고, 관리자는 권한에 따라 전체 데이터를 관리합니다.
+          화면에서 메뉴를 숨기는 데 그치지 않고 모든 요청을 백엔드에서 다시 검증했습니다.
+        </aside>
+      </section>
+
+      <!-- 15 -->
+      <section class="slide" data-title="비즈니스 룰과 기능 범위">
+        <div class="slide-inner">
+          <div class="topline">
+            <div class="eyebrow">BUSINESS RULES</div>
+            <div class="section-number">SAFE BY DESIGN</div>
+          </div>
+          <h2>AI도 예외 없이<br><span class="mint">같은 업무 규칙</span>을 따른다</h2>
+          <div class="grid-2" style="margin-top:3.2%; flex:1; grid-template-columns:1.08fr .92fr;">
+            <div class="grid-2" style="gap:10px;">
+              <div class="card"><h3>민원 상태</h3><p>접수 → 확인 → 처리 → 완료</p></div>
+              <div class="card"><h3>시설 예약</h3><p>시간 중복 · 잔여 인원 검증</p></div>
+              <div class="card"><h3>관리비</h3><p>본인 세대 데이터만 조회</p></div>
+              <div class="card"><h3>전자투표</h3><p>동일 사용자 중복 참여 차단</p></div>
+              <div class="card"><h3>방문 차량</h3><p>날짜 · 차량 번호 형식 검증</p></div>
+              <div class="card"><h3>토큰</h3><p>JWT 인증 · 만료 시 재발급</p></div>
+            </div>
+            <div class="card" style="border-color:rgba(63,242,203,.28); background:linear-gradient(145deg,rgba(63,242,203,.08),rgba(135,119,255,.04));">
+              <span class="icon-label" style="color:var(--mint); border-color:rgba(63,242,203,.3);">AI RULE</span>
+              <h3 style="font-size:clamp(18px,1.8vw,30px);">조회와 변경을 구분</h3>
+              <ul class="list" style="margin-top:18px;">
+                <li>사용자 정보는 인증 컨텍스트에서 확인</li>
+                <li>명시적 요청 없이 데이터 변경 금지</li>
+                <li>변경 작업은 사용자 확인 후 실행</li>
+                <li>기존 서비스 계층의 검증 로직 재사용</li>
+              </ul>
+            </div>
+          </div>
+          <div class="footer">
+            <span class="brand-mark"><i class="brand-dot"></i> ALPHATRAGEN</span>
+            <span>15</span>
+          </div>
+        </div>
+        <aside class="speaker-note">
+          민원 상태, 시설 예약 중복, 관리비 접근 범위, 전자투표 중복 참여 같은 규칙을 먼저 정의했습니다.
+          AI도 동일한 규칙을 따르며 등록·수정·취소는 사용자가 명확하게 요청하고 확인한 경우에만 실행합니다.
+        </aside>
+      </section>
+
+      <!-- 16 -->
+      <section class="slide" data-title="서비스 플로우와 시스템 아키텍처">
+        <div class="slide-inner">
+          <div class="topline">
+            <div class="eyebrow">SYSTEM FLOW</div>
+            <div class="section-number">ONE BUSINESS CORE</div>
+          </div>
+          <h2>화면 요청과 AI 요청이<br><span class="mint">같은 비즈니스 로직</span>을 사용</h2>
+          <div class="two-paths" style="margin-top:3.2%;">
+            <div class="path-box">
+              <div class="path-label"><h3>화면 요청</h3><span>STANDARD API</span></div>
+              <div class="mini-flow">
+                <div>UI</div><i>›</i><div>API</div><i>›</i><div>인증</div><i>›</i><div>서비스</div>
+              </div>
+            </div>
+            <div class="path-box highlight">
+              <div class="path-label"><h3>AI 요청</h3><span class="mint">ORCHESTRATED</span></div>
+              <div class="mini-flow">
+                <div>대화</div><i>›</i><div>의도</div><i>›</i><div>Tool</div><i>›</i><div>서비스</div>
+              </div>
+            </div>
+          </div>
+          <div class="architecture" style="margin-top:3%; flex:1;">
+            <div class="arch-col">
+              <div class="arch-node"><strong>Next.js</strong><small>Web · PWA · Voice</small></div>
+              <div class="arch-node"><strong>Spring Security</strong><small>JWT · Role · Scope</small></div>
+            </div>
+            <div class="arch-main">
+              <div class="core">API</div>
+              <h3>Spring Boot Domain Services</h3>
+              <p>권한 · 검증 · 상태 변경 · 트랜잭션</p>
+            </div>
+            <div class="arch-col">
+              <div class="arch-node"><strong>PostgreSQL</strong><small>Domain Data · pgvector</small></div>
+              <div class="arch-node"><strong>Kafka + Push</strong><small>Event · Notification</small></div>
+            </div>
+            <i class="arch-link left"></i><i class="arch-link right"></i>
+          </div>
+          <div class="footer">
+            <span class="brand-mark"><i class="brand-dot"></i> ALPHATRAGEN</span>
+            <span>16</span>
+          </div>
+        </div>
+        <aside class="speaker-note">
+          일반 화면 요청과 AI 요청이 최종적으로 동일한 백엔드 도메인 서비스를 사용하도록 설계했습니다.
+          따라서 버튼을 누르든 AI에게 요청하든 동일한 권한과 업무 규칙이 적용됩니다.
+        </aside>
+      </section>
+
+      <!-- 17 -->
+      <section class="slide light" data-title="기술 스택과 데이터 구조">
+        <div class="slide-inner">
+          <div class="topline">
+            <div class="eyebrow">TECH & DATA</div>
+            <div class="section-number">MODULAR FOUNDATION</div>
+          </div>
+          <h2>확장 가능한 기술과<br><span style="color:#3266c8;">도메인 중심 데이터 구조</span></h2>
+          <div class="tech-layout" style="margin-top:3.2%; flex:1;">
+            <div class="stack-groups">
+              <div class="stack-group" style="--stack-color:#3266c8;"><b>FRONTEND</b><span>Next.js · React<br>TypeScript · React Query · PWA</span></div>
+              <div class="stack-group" style="--stack-color:#138c73;"><b>BACKEND</b><span>Java 17 · Spring Boot<br>Security · JPA · Spring AI</span></div>
+              <div class="stack-group" style="--stack-color:#7a60d6;"><b>DATA</b><span>PostgreSQL · pgvector<br>Domain Modeling</span></div>
+              <div class="stack-group" style="--stack-color:#d48b21;"><b>REALTIME</b><span>WebSocket · STOMP<br>Kafka · Web Push</span></div>
+              <div class="stack-group" style="--stack-color:#de567c;"><b>INFRA</b><span>Docker · AWS<br>GitHub Actions · Discord</span></div>
+              <div class="stack-group" style="--stack-color:#487ab7;"><b>TEST</b><span>JUnit · Vitest<br>Playwright · k6</span></div>
+            </div>
+            <div class="domain-map">
+              <div class="domain-core">USER<br>& HOME</div>
+              <span class="domain-label">민원</span>
+              <span class="domain-label">시설</span>
+              <span class="domain-label">관리비</span>
+              <span class="domain-label">방문 차량</span>
+              <span class="domain-label">커뮤니티</span>
+              <span class="domain-label">전자투표</span>
+              <span class="domain-label">AI</span>
+              <span class="domain-label">알림</span>
+            </div>
+          </div>
+          <div class="footer">
+            <span class="brand-mark"><i class="brand-dot" style="background:#3266c8;"></i> ALPHATRAGEN</span>
+            <span>17</span>
+          </div>
+        </div>
+        <aside class="speaker-note">
+          프론트엔드는 Next.js와 React, 백엔드는 Java 17과 Spring Boot를 사용했습니다.
+          Spring AI와 pgvector로 AI와 문서 검색을, WebSocket과 Kafka로 실시간 통신과 이벤트 처리를 구현했습니다.
+        </aside>
+      </section>
+
+      <!-- 18 -->
+      <section class="slide" data-title="인프라와 CI/CD">
+        <div class="slide-inner">
+          <div class="topline">
+            <div class="eyebrow">INFRASTRUCTURE & DELIVERY</div>
+            <div class="section-number">PUBLIC ENTRY · PRIVATE CORE</div>
+          </div>
+          <h2>진입점만 공개하고<br><span class="mint">데이터와 내부 서비스를 분리</span></h2>
+          <div class="grid-2" style="margin-top:3%; flex:1; grid-template-columns:1.18fr .82fr;">
+            <div class="card" style="padding:3.5%;">
+              <div class="flow" style="min-height:115px;">
+                <div class="flow-node"><strong>User</strong><small>HTTPS</small></div>
+                <div class="flow-arrow">›</div>
+                <div class="flow-node"><strong>Public</strong><small>Nginx</small></div>
+                <div class="flow-arrow">›</div>
+                <div class="flow-node"><strong>Private App</strong><small>Front · Back</small></div>
+                <div class="flow-arrow">›</div>
+                <div class="flow-node"><strong>RDS</strong><small>PostgreSQL</small></div>
+              </div>
+              <div class="flow" style="margin-top:12px; min-height:105px;">
+                <div class="flow-node"><strong>Backend</strong><small>Event publish</small></div>
+                <div class="flow-arrow">›</div>
+                <div class="flow-node"><strong>Kafka</strong><small>notification-events</small></div>
+                <div class="flow-arrow">›</div>
+                <div class="flow-node"><strong>Notification</strong><small>Consumer</small></div>
+                <div class="flow-arrow">›</div>
+                <div class="flow-node"><strong>Web Push</strong><small>User device</small></div>
+              </div>
+              <div class="tags" style="margin-top:14px;">
+                <span class="tag">AWS 3-Tier</span>
+                <span class="tag" style="--tag-color:var(--cyan)">Docker</span>
+                <span class="tag" style="--tag-color:var(--amber)">Security Group</span>
+              </div>
+            </div>
+            <div class="placeholder">
+              <div>
+                <span>실제 AWS 아키텍처 이미지</span>
+                <small>완성된 인프라 다이어그램 삽입 영역</small>
+              </div>
+            </div>
+          </div>
+          <div class="footer">
+            <span class="brand-mark"><i class="brand-dot"></i> ALPHATRAGEN</span>
+            <span>18</span>
+          </div>
+        </div>
+        <aside class="speaker-note">
+          외부 사용자가 접근하는 영역과 내부 서비스 영역을 분리했습니다.
+          메인 백엔드가 Kafka에 이벤트를 발행하고 알림 서버가 소비해 Web Push를 전송합니다.
+        </aside>
+      </section>
+
+      <!-- 19 -->
+      <section class="slide" data-title="CI/CD 흐름">
+        <div class="slide-inner">
+          <div class="topline">
+            <div class="eyebrow">CONTINUOUS DELIVERY</div>
+            <div class="section-number">CODE → CLOUD</div>
+          </div>
+          <h2>병합 이후의 과정을<br><span class="mint">자동화된 파이프라인</span>으로</h2>
+          <div class="pipeline" style="margin-top:4%;">
+            <div class="pipeline-step" style="--step:var(--cyan)"><b>feature</b><small>기능 개발</small></div>
+            <div class="pipeline-step" style="--step:var(--violet)"><b>PR</b><small>리뷰 · 체크</small></div>
+            <div class="pipeline-step" style="--step:var(--mint)"><b>dev merge</b><small>통합 기준</small></div>
+            <div class="pipeline-step" style="--step:var(--amber)"><b>Test</b><small>자동 검증</small></div>
+            <div class="pipeline-step" style="--step:var(--cyan)"><b>Build</b><small>Docker · ECR</small></div>
+            <div class="pipeline-step" style="--step:var(--mint)"><b>Deploy</b><small>AWS EC2</small></div>
+            <div class="pipeline-step" style="--step:var(--rose)"><b>Notify</b><small>Discord</small></div>
+          </div>
+          <div class="grid-2" style="margin-top:3.3%; flex:1;">
+            <div class="placeholder">
+              <div><span>GitHub Actions 실행 화면</span><small>워크플로우 성공 로그 캡처</small></div>
+            </div>
+            <div class="placeholder">
+              <div><span>Discord 배포 알림</span><small>성공 · 실패 메시지 캡처</small></div>
+            </div>
+          </div>
+          <div class="footer">
+            <span class="brand-mark"><i class="brand-dot"></i> ALPHATRAGEN</span>
+            <span>19</span>
+          </div>
+        </div>
+        <aside class="speaker-note">
+          dev 병합을 기준으로 GitHub Actions가 테스트와 빌드를 수행하고 서버에 반영합니다.
+          실패 시 배포를 중단하고 성공과 실패 결과를 Discord로 전달하도록 구성했습니다.
+        </aside>
+      </section>
+
+      <!-- 20 -->
+      <section class="slide" data-title="민원 지능화와 실시간 소통">
+        <div class="slide-inner">
+          <div class="topline">
+            <div class="eyebrow">INTELLIGENT COMPLAINT</div>
+            <div class="section-number">DETECT · CONNECT · NOTIFY</div>
+          </div>
+          <h2>하나의 민원이<br><span class="mint">단지 전체의 대응</span>으로 연결</h2>
+          <div class="pipeline" style="margin-top:3.2%; grid-template-columns:repeat(6,1fr);">
+            <div class="pipeline-step"><b>민원 입력</b><small>텍스트 · 음성</small></div>
+            <div class="pipeline-step"><b>AI 분류</b><small>유형 · 긴급도</small></div>
+            <div class="pipeline-step"><b>유사 검색</b><small>중복 민원 연결</small></div>
+            <div class="pipeline-step"><b>관리 처리</b><small>상태 · 담당자</small></div>
+            <div class="pipeline-step"><b>안내 확장</b><small>공지 · 방송</small></div>
+            <div class="pipeline-step"><b>실시간 알림</b><small>Push · Chat</small></div>
+          </div>
+          <div class="grid-3" style="margin-top:3%; flex:1;">
+            <div class="placeholder"><div><span>민원 분석 화면</span><small>분류 · 긴급도 · 요약</small></div></div>
+            <div class="placeholder"><div><span>중복 민원 화면</span><small>유사도 · 그룹화</small></div></div>
+            <div class="placeholder"><div><span>알림 · 방송 화면</span><small>Kafka · Web Push</small></div></div>
+          </div>
+          <div class="footer">
+            <span class="brand-mark"><i class="brand-dot"></i> ALPHATRAGEN</span>
+            <span>20</span>
+          </div>
+        </div>
+        <aside class="speaker-note">
+          사용자가 민원을 입력하면 AI가 내용을 요약하고 유형과 긴급도를 분석합니다.
+          유사 민원과 연결하고, 관리자가 처리한 결과는 안내 방송과 Web Push, 실시간 채팅으로 이어집니다.
+        </aside>
+      </section>
+
+      <!-- 21 -->
+      <section class="slide" data-title="대표 시연 시나리오">
+        <div class="slide-inner">
+          <div class="topline">
+            <div class="eyebrow">DEMO JOURNEY</div>
+            <div class="section-number">ONE RESIDENT · FIVE MOMENTS</div>
+          </div>
+          <h2>기능 목록이 아닌<br><span class="mint">한 사람의 생활 흐름</span>으로 시연</h2>
+          <div class="timeline" style="margin-top:5%; flex:1;">
+            <div class="timeline-item" style="--dot:var(--mint)">
+              <i class="timeline-dot">1</i><h3>음성 시설 예약</h3><p>자연어 요청<br>시간 확인 · 예약</p>
+            </div>
+            <div class="timeline-item" style="--dot:var(--cyan)">
+              <i class="timeline-dot">2</i><h3>방문 차량 등록</h3><p>차량 번호 · 날짜<br>검증 후 등록</p>
+            </div>
+            <div class="timeline-item" style="--dot:var(--violet)">
+              <i class="timeline-dot">3</i><h3>관리비 분석</h3><p>증가 원인 파악<br>이의신청 연결</p>
+            </div>
+            <div class="timeline-item" style="--dot:var(--amber)">
+              <i class="timeline-dot">4</i><h3>AI 민원 등록</h3><p>유형 분류<br>중복 민원 확인</p>
+            </div>
+            <div class="timeline-item" style="--dot:var(--rose)">
+              <i class="timeline-dot">5</i><h3>방송 · 알림</h3><p>관리자 처리<br>실시간 Push</p>
+            </div>
+          </div>
+          <div class="card" style="padding:2.2% 3%; border-color:rgba(63,242,203,.25);">
+            <p style="margin:0; color:#40516a; font-size:clamp(12px,1.15vw,19px);">
+              <strong class="mint">시연 메시지</strong>　AI가 대답에 머무르지 않고, 권한과 비즈니스 룰을 지키며 실제 업무를 끝까지 연결합니다.
+            </p>
+          </div>
+          <div class="footer">
+            <span class="brand-mark"><i class="brand-dot"></i> ALPHATRAGEN</span>
+            <span>21</span>
+          </div>
+        </div>
+        <aside class="speaker-note">
+          시연에서는 음성 시설 예약, 방문 차량 등록, 관리비 분석과 이의신청, 민원 등록과 중복 확인,
+          민원 기반 안내 방송과 실시간 알림까지 한 명의 입주자가 이용하는 흐름으로 보여드리겠습니다.
+        </aside>
+      </section>
+
+      <!-- 22 -->
+      <section class="slide light" data-title="핵심 구현">
+        <div class="slide-inner">
+          <div class="topline">
+            <div class="eyebrow">IMPLEMENTATION</div>
+            <div class="section-number">BACKEND · AI · FRONTEND</div>
+          </div>
+          <h2>AI를 별도 기능이 아닌<br><span style="color:#3266c8;">기존 시스템의 안전한 인터페이스</span>로</h2>
+          <div class="grid-3" style="margin-top:3.3%; flex:1;">
+            <div class="card">
+              <span class="icon-label">BE</span>
+              <h3>Backend Core</h3>
+              <ul class="list" style="margin-top:15px;">
+                <li>JWT 인증 · 권한</li>
+                <li>도메인 서비스 구조</li>
+                <li>예약 중복 검증</li>
+                <li>Kafka 이벤트 발행</li>
+                <li>WebSocket 통신</li>
+              </ul>
+            </div>
+            <div class="card" style="border-color:rgba(19,140,115,.25);">
+              <span class="icon-label" style="color:#138c73; border-color:rgba(19,140,115,.22);">AI</span>
+              <h3>AI Orchestration</h3>
+              <ul class="list" style="margin-top:15px;">
+                <li>도메인별 에이전트</li>
+                <li>Tool Calling</li>
+                <li>Pending Action</li>
+                <li>대화 상태 관리</li>
+                <li>RAG 문서 검색</li>
+              </ul>
+            </div>
+            <div class="card">
+              <span class="icon-label">FE</span>
+              <h3>Frontend UX</h3>
+              <ul class="list" style="margin-top:15px;">
+                <li>반응형 UI</li>
+                <li>입주민 · 관리자 분리</li>
+                <li>PWA 설치</li>
+                <li>음성 입력 · TTS</li>
+                <li>Push · 실시간 채팅</li>
+              </ul>
+            </div>
+          </div>
+          <div class="flow" style="margin-top:2.5%; min-height:70px;">
+            <div class="flow-node" style="background:rgba(49,101,201,.07); color:#263b5d;"><strong>Agent Router</strong></div>
+            <div class="flow-arrow">›</div>
+            <div class="flow-node" style="background:rgba(49,101,201,.07); color:#263b5d;"><strong>Allowed Tool</strong></div>
+            <div class="flow-arrow">›</div>
+            <div class="flow-node" style="background:rgba(49,101,201,.07); color:#263b5d;"><strong>Domain Service</strong></div>
+            <div class="flow-arrow">›</div>
+            <div class="flow-node" style="background:rgba(49,101,201,.07); color:#263b5d;"><strong>Pending / Execute</strong></div>
+          </div>
+          <div class="footer">
+            <span class="brand-mark"><i class="brand-dot" style="background:#3266c8;"></i> ALPHATRAGEN</span>
+            <span>22</span>
+          </div>
+        </div>
+        <aside class="speaker-note">
+          AgentRouter가 담당 에이전트를 선택하고, 에이전트는 허용된 Tool만 실행합니다.
+          데이터 변경은 PendingAction으로 저장한 뒤 사용자 확인 시 실행하며, 프론트는 반응형 UI와 PWA, 음성, 실시간 기능을 제공합니다.
+        </aside>
+      </section>
+
+      <!-- 23 -->
+      <section class="slide" data-title="테스트와 부하 테스트">
+        <div class="slide-inner">
+          <div class="topline">
+            <div class="eyebrow">QUALITY ASSURANCE</div>
+            <div class="section-number">FUNCTIONAL · SECURITY · PERFORMANCE</div>
+          </div>
+          <h2>정상 동작뿐 아니라<br><span class="mint">실패해야 할 상황까지 검증</span></h2>
+          <div class="grid-2" style="margin-top:3%; flex:1; grid-template-columns:.9fr 1.1fr;">
+            <div>
+              <div class="grid-2" style="gap:9px;">
+                <div class="card"><span class="icon-label">JUnit</span><h3>백엔드</h3><p>권한 · 룰 · 예외</p></div>
+                <div class="card"><span class="icon-label">Vitest</span><h3>프론트</h3><p>컴포넌트 · 입력</p></div>
+                <div class="card"><span class="icon-label">E2E</span><h3>Playwright</h3><p>실제 사용자 흐름</p></div>
+                <div class="card"><span class="icon-label">k6</span><h3>부하 테스트</h3><p>응답 · 처리량 · 오류</p></div>
+              </div>
+              <ul class="list" style="margin-top:16px;">
+                <li>다른 사용자 데이터 접근 차단</li>
+                <li>예약 · 투표 중복 방지</li>
+                <li>토큰 만료 · 네트워크 재연결</li>
+                <li>알림 중복 수신 방지</li>
+              </ul>
+            </div>
+            <div style="display:grid; grid-template-rows:1fr auto; gap:12px; min-height:0;">
+              <div class="load-chart">
+                <div class="bars">
+                  <i style="--h:28%"></i><i style="--h:41%"></i><i style="--h:52%"></i><i style="--h:65%"></i>
+                  <i style="--h:59%"></i><i style="--h:76%"></i><i style="--h:82%"></i><i style="--h:69%"></i>
+                  <i style="--h:88%"></i><i style="--h:73%"></i>
+                </div>
+                <div class="line-chart">
+                  <svg viewBox="0 0 500 180" aria-hidden="true">
+                    <polyline points="0,142 55,131 110,118 165,123 220,94 275,104 330,62 385,78 440,42 500,55"
+                      fill="none" stroke="#3ff2cb" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                    <circle cx="440" cy="42" r="6" fill="#3ff2cb"/>
+                  </svg>
+                </div>
+              </div>
+              <div class="grid-4">
+                <div class="result-metric"><strong>[입력]</strong><span>동시 사용자</span></div>
+                <div class="result-metric"><strong>[입력]</strong><span>평균 응답</span></div>
+                <div class="result-metric"><strong>[입력]</strong><span>P95</span></div>
+                <div class="result-metric"><strong>[입력]</strong><span>오류율</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="footer">
+            <span class="brand-mark"><i class="brand-dot"></i> ALPHATRAGEN</span>
+            <span>23</span>
+          </div>
+        </div>
+        <aside class="speaker-note">
+          단위, 통합, E2E 테스트로 권한과 비즈니스 룰, 실제 사용자 흐름을 검증했습니다.
+          부하 테스트에서는 동시 사용자 증가 시 평균 응답, P95, 처리량, 오류율, CPU와 메모리 사용량을 확인합니다.
+        </aside>
+      </section>
+
+      <!-- 24 -->
+      <section class="slide" data-title="주요 트러블슈팅">
+        <div class="slide-inner">
+          <div class="topline">
+            <div class="eyebrow">TROUBLESHOOTING</div>
+            <div class="section-number">PROBLEM → CAUSE → SOLUTION → RESULT</div>
+          </div>
+          <h2>증상만 고친 것이 아니라<br><span class="mint">재발 원인과 규칙까지 개선</span></h2>
+          <div style="display:grid; gap:11px; margin-top:3%; flex:1;">
+            <div class="trouble">
+              <div><small>PROBLEM</small><p>Third-Party Cookie<br>인증 실패</p></div>
+              <div><small>CAUSE</small><p>프론트·백 환경 차이와<br>쿠키 정책 충돌</p></div>
+              <div><small>SOLUTION</small><p>SameSite · Secure · CORS ·<br>credentials 통합 점검</p></div>
+              <div><small>RESULT</small><p>배포 환경<br>인증 정상화</p></div>
+            </div>
+            <div class="trouble">
+              <div><small>PROBLEM</small><p>Enum 저장 실패</p></div>
+              <div><small>CAUSE</small><p>Java Enum과 PostgreSQL<br>CHECK 불일치</p></div>
+              <div><small>SOLUTION</small><p>Flyway로 DB 제약조건<br>버전 관리</p></div>
+              <div><small>RESULT</small><p>코드·스키마<br>동기화</p></div>
+            </div>
+            <div class="trouble">
+              <div><small>PROBLEM</small><p>AI 컨텍스트 이탈</p></div>
+              <div><small>CAUSE</small><p>긴 대화와 복합 도구 호출로<br>현재 업무 혼동</p></div>
+              <div><small>SOLUTION</small><p>에이전트 분리 · 상태 관리 ·<br>도구 순차 실행</p></div>
+              <div><small>RESULT</small><p>예측 가능성<br>향상</p></div>
+            </div>
+            <div class="trouble">
+              <div><small>PROBLEM</small><p>합의 구현 누락</p></div>
+              <div><small>CAUSE</small><p>구두 논의에 의존한<br>완료 기준</p></div>
+              <div><small>SOLUTION</small><p>문서 · 담당자 · PR · QA를<br>하나의 작업으로 연결</p></div>
+              <div><small>RESULT</small><p>추적 가능성<br>확보</p></div>
+            </div>
+          </div>
+          <div class="footer">
+            <span class="brand-mark"><i class="brand-dot"></i> ALPHATRAGEN</span>
+            <span>24</span>
+          </div>
+        </div>
+        <aside class="speaker-note">
+          주요 문제는 Third-Party Cookie 인증, Java Enum과 DB 제약조건 불일치, AI 컨텍스트 이탈, 설계 합의 구현 누락이었습니다.
+          각 문제를 설정 수정에 그치지 않고 배포 정책, 마이그레이션, 에이전트 구조, 협업 규칙 개선으로 연결했습니다.
+        </aside>
+      </section>
+
+      <!-- 25 -->
+      <section class="slide" data-title="Git 브랜치 전략">
+        <div class="slide-inner">
+          <div class="topline">
+            <div class="eyebrow">COLLABORATION</div>
+            <div class="section-number">GIT STRATEGY</div>
+          </div>
+          <h2>충돌을 줄이고<br><span class="mint">변경을 추적하는 개발 흐름</span></h2>
+          <div class="flow" style="margin-top:4%; min-height:145px;">
+            <div class="flow-node"><strong>Issue</strong><small>작업 단위 정의</small></div>
+            <div class="flow-arrow">›</div>
+            <div class="flow-node"><strong>feature/*</strong><small>기능별 개발</small></div>
+            <div class="flow-arrow">›</div>
+            <div class="flow-node"><strong>Pull Request</strong><small>리뷰 · 테스트</small></div>
+            <div class="flow-arrow">›</div>
+            <div class="flow-node"><strong>dev</strong><small>통합 브랜치</small></div>
+            <div class="flow-arrow">›</div>
+            <div class="flow-node"><strong>main</strong><small>안정 버전</small></div>
+          </div>
+          <div class="grid-3" style="margin-top:3%;">
+            <div class="metric"><strong>01</strong><span>main 직접 push 제한</span></div>
+            <div class="metric" style="--metric-color:var(--cyan)"><strong>02</strong><span>병합 전 최신 dev 반영</span></div>
+            <div class="metric" style="--metric-color:var(--violet)"><strong>03</strong><span>PR 단위 리뷰와 이력 관리</span></div>
+          </div>
+          <div class="footer">
+            <span class="brand-mark"><i class="brand-dot"></i> ALPHATRAGEN</span>
+            <span>25</span>
+          </div>
+        </div>
+        <aside class="speaker-note">
+          각 기능은 feature 브랜치에서 개발하고 Pull Request와 테스트를 거쳐 dev에 병합했습니다.
+          main 브랜치 직접 push를 제한하고, 병합 전에 dev의 최신 변경 사항을 반영하도록 했습니다.
+        </aside>
+      </section>
+
+      <!-- 26 -->
+      <section class="slide light" data-title="협업 자동화">
+        <div class="slide-inner">
+          <div class="topline">
+            <div class="eyebrow">TEAM OPERATING SYSTEM</div>
+            <div class="section-number">GUIDE · REVIEW · DELIVERY</div>
+          </div>
+          <h2>사람의 기억이 아니라<br><span style="color:#3266c8;">문서와 자동화로 협업</span></h2>
+          <div class="grid-3" style="margin-top:4%; flex:1;">
+            <div class="card">
+              <span class="icon-label">GUIDE</span>
+              <h3>GUIDE.md</h3>
+              <p>실행 방법 · 브랜치 · 커밋 · API · 폴더 구조 · 테스트 기준</p>
+              <div class="tags" style="margin-top:15px;"><span class="tag">Single Source of Truth</span></div>
+            </div>
+            <div class="card">
+              <span class="icon-label">REVIEW</span>
+              <h3>PR + Gemini</h3>
+              <p>팀원 리뷰를 중심으로, AI가 누락과 잠재 오류를 보조 점검</p>
+              <div class="tags" style="margin-top:15px;"><span class="tag" style="--tag-color:var(--violet)">Human in the Loop</span></div>
+            </div>
+            <div class="card">
+              <span class="icon-label">AUTO</span>
+              <h3>Actions + Discord</h3>
+              <p>빌드·배포 결과를 자동 공유해 팀 전체가 상태를 빠르게 확인</p>
+              <div class="tags" style="margin-top:15px;"><span class="tag" style="--tag-color:var(--amber)">Fast Feedback</span></div>
+            </div>
+          </div>
+          <p class="quote" style="margin-top:2.5%; color:#15243b;">
+            “같은 문제를 <em style="color:#3266c8;">두 번 겪지 않는 팀</em>”
+          </p>
+          <div class="footer">
+            <span class="brand-mark"><i class="brand-dot" style="background:#3266c8;"></i> ALPHATRAGEN</span>
+            <span>26</span>
+          </div>
+        </div>
+        <aside class="speaker-note">
+          개발 규칙을 GUIDE.md로 문서화하고 새로운 문제가 발생하면 해결 방법을 추가했습니다.
+          PR에서는 팀원의 코드 리뷰와 Gemini 보조 리뷰를 활용했으며, 배포 결과는 Discord로 공유했습니다.
+        </aside>
+      </section>
+
+      <!-- 27 -->
+      <section class="slide qa" data-title="결과와 Q&A">
+        <div class="slide-inner">
+          <div class="eyebrow" style="position:absolute; top:8%; left:6.2%;">RESULT & NEXT</div>
+          <h1>ALPHA<span class="mint">TRAGEN</span></h1>
+          <p class="tagline">공간에 지능을 입히다 · 사는 곳을 넘어, 살아가는 공간으로</p>
+          <div class="grid-3" style="width:76%; margin-top:4%; text-align:left;">
+            <div class="card">
+              <span class="icon-label">01</span>
+              <h3>통합</h3><p>민원·시설·관리비·차량·커뮤니티를 하나의 플랫폼으로</p>
+            </div>
+            <div class="card">
+              <span class="icon-label">02</span>
+              <h3>실행</h3><p>AI가 답변을 넘어 기존 도메인 서비스를 안전하게 호출</p>
+            </div>
+            <div class="card">
+              <span class="icon-label">03</span>
+              <h3>확장</h3><p>운영 모니터링·AI 평가·주차 관제 연동으로 발전</p>
+            </div>
+          </div>
+          <p class="thanks">THANK YOU · Q&A</p>
+          <div class="footer">
+            <span class="brand-mark"><i class="brand-dot"></i> ALPHATRAGEN</span>
+            <span>27</span>
+          </div>
+        </div>
+        <aside class="speaker-note">
+          이번 프로젝트를 통해 여러 아파트 생활 기능을 하나의 플랫폼으로 통합하고,
+          AI가 도메인별 서비스를 호출해 실제 업무를 수행하는 구조를 구현했습니다.
+          향후에는 AI 평가 지표와 운영 모니터링, 실제 주차 관제 연동을 강화하겠습니다. 감사합니다.
+        </aside>
+      </section>
+    </div>
+
+    <div class="help">← → 넘김　F 전체화면　O 전체보기　N 발표자 노트</div>
+    <div class="controls" aria-label="슬라이드 컨트롤">
+      <button type="button" id="prev" title="이전 슬라이드">‹</button>
+      <div class="counter"><span id="current">01</span> / <span id="total">27</span></div>
+      <button type="button" id="next" title="다음 슬라이드">›</button>
+      <button type="button" id="overviewBtn" title="전체 보기">▦</button>
+      <button type="button" id="fullscreenBtn" title="전체 화면">⛶</button>
+    </div>
+    <div class="progress" id="progress"></div>
+    <div class="overview" id="overview" aria-label="슬라이드 전체 보기"></div>
+    <div class="notes-panel" id="notesPanel"></div>
+  </main>
+
+  <script>
+    (() => {
+      const slides = [...document.querySelectorAll(".slide")];
+      const currentEl = document.getElementById("current");
+      const totalEl = document.getElementById("total");
+      const progress = document.getElementById("progress");
+      const overview = document.getElementById("overview");
+      const notesPanel = document.getElementById("notesPanel");
+      let index = 0;
+      let notesOpen = false;
+
+      const pad = n => String(n).padStart(2, "0");
+
+      function render() {
+        slides.forEach((slide, i) => slide.classList.toggle("active", i === index));
+        currentEl.textContent = pad(index + 1);
+        totalEl.textContent = pad(slides.length);
+        progress.style.width = `${((index + 1) / slides.length) * 100}%`;
+        location.hash = `slide-${index + 1}`;
+        updateNotes();
+      }
+
+      function go(nextIndex) {
+        index = Math.max(0, Math.min(slides.length - 1, nextIndex));
+        render();
+      }
+
+      function updateNotes() {
+        const note = slides[index].querySelector(".speaker-note");
+        notesPanel.textContent = note ? note.textContent.trim() : "발표자 노트가 없습니다.";
+      }
+
+      function toggleOverview(force) {
+        const open = typeof force === "boolean" ? force : !overview.classList.contains("open");
+        overview.classList.toggle("open", open);
+      }
+
+      function toggleNotes() {
+        notesOpen = !notesOpen;
+        notesPanel.classList.toggle("open", notesOpen);
+        updateNotes();
+      }
+
+      function toggleFullscreen() {
+        if (!document.fullscreenElement) document.documentElement.requestFullscreen?.();
+        else document.exitFullscreen?.();
+      }
+
+      slides.forEach((slide, i) => {
+        const card = document.createElement("button");
+        card.type = "button";
+        card.className = "overview-card";
+        card.innerHTML = `<b>${pad(i + 1)}</b><span>${slide.dataset.title || "Slide"}</span>`;
+        card.addEventListener("click", () => { go(i); toggleOverview(false); });
+        overview.appendChild(card);
+      });
+
+      document.getElementById("prev").addEventListener("click", () => go(index - 1));
+      document.getElementById("next").addEventListener("click", () => go(index + 1));
+      document.getElementById("overviewBtn").addEventListener("click", () => toggleOverview());
+      document.getElementById("fullscreenBtn").addEventListener("click", toggleFullscreen);
+
+      document.addEventListener("keydown", event => {
+        if (overview.classList.contains("open") && event.key === "Escape") {
+          toggleOverview(false);
+          return;
+        }
+        if (["ArrowRight", "ArrowDown", "PageDown", " "].includes(event.key)) {
+          event.preventDefault();
+          go(index + 1);
+        } else if (["ArrowLeft", "ArrowUp", "PageUp"].includes(event.key)) {
+          event.preventDefault();
+          go(index - 1);
+        } else if (event.key === "Home") go(0);
+        else if (event.key === "End") go(slides.length - 1);
+        else if (event.key.toLowerCase() === "f") toggleFullscreen();
+        else if (event.key.toLowerCase() === "o") toggleOverview();
+        else if (event.key.toLowerCase() === "n") toggleNotes();
+        else if (event.key === "Escape" && notesOpen) toggleNotes();
+      });
+
+      let touchStartX = null;
+      document.addEventListener("touchstart", e => touchStartX = e.changedTouches[0].screenX, { passive: true });
+      document.addEventListener("touchend", e => {
+        if (touchStartX === null) return;
+        const delta = e.changedTouches[0].screenX - touchStartX;
+        if (Math.abs(delta) > 50) go(index + (delta < 0 ? 1 : -1));
+        touchStartX = null;
+      }, { passive: true });
+
+      const hashMatch = location.hash.match(/slide-(\d+)/);
+      if (hashMatch) index = Math.max(0, Math.min(slides.length - 1, Number(hashMatch[1]) - 1));
+      render();
+    })();
+  </script>
+</body>
+</html>
