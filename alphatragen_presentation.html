@@ -4083,49 +4083,83 @@
 
       
       <!-- 24 -->
-      <!-- <section class="slide" data-title="주요 트러블슈팅">
+      <!-- 32: TROUBLESHOOTING -->
+      <section class="slide light" data-title="주요 트러블슈팅">
         <div class="slide-inner">
           <div class="topline">
-            <div class="eyebrow">TROUBLESHOOTING</div>
-            <div class="section-number">PROBLEM → CAUSE → SOLUTION → RESULT</div>
+            <div class="eyebrow">TROUBLESHOOTING CASE STUDY</div>
+            <div class="section-number">DOCKER CI/CD AUTOMATION</div>
           </div>
-          <h2>증상만 고친 것이 아니라<br><span class="mint">재발 원인과 규칙까지 개선</span></h2>
-          <div style="display:grid; gap:11px; margin-top:3%; flex:1;">
-            <div class="trouble">
-              <div><small>PROBLEM</small><p>Third-Party Cookie<br>인증 실패</p></div>
-              <div><small>CAUSE</small><p>프론트·백 환경 차이와<br>쿠키 정책 충돌</p></div>
-              <div><small>SOLUTION</small><p>SameSite · Secure · CORS ·<br>credentials 통합 점검</p></div>
-              <div><small>RESULT</small><p>배포 환경<br>인증 정상화</p></div>
+          <h2>배포 자동화 과정의 <br><span class="mint">Docker Dangling 이미지 누적 & 디스크 용량 문제 해결</span></h2>
+
+          <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 2.8%; flex: 1; min-height: 0;">
+            <!-- 1. PROBLEM -->
+            <div class="card" style="border-top: 4px solid #de567c; background: #ffffff; padding: 20px; display: flex; flex-direction: column; justify-content: space-between;">
+              <div>
+                <span class="icon-label" style="color: #de567c; border-color: rgba(222, 86, 124, 0.3);">01 · PROBLEM</span>
+                <h3 style="font-size: clamp(17px, 1.25vw, 21px); color: #1e293b; margin-top: 10px;">서버 디스크 용량 부족</h3>
+                <p style="font-size: clamp(13.5px, 0.95vw, 16px); color: #475569; margin-top: 10px; line-height: 1.55;">
+                  지속적 배포(CI/CD) 시 새 Docker 이미지를 pull 받을 때 기존 이미지가 삭제되지 않고 <code style="color:#de567c; font-weight:700;">&lt;none&gt;:&lt;none&gt;</code> Dangling 이미지로 수십 GB 이상 계속 누적되어 서버 자원 부족 위기 발생.
+                </p>
+              </div>
+              <div style="margin-top: 12px; padding: 8px 12px; background: rgba(222, 86, 124, 0.08); border-radius: 6px; font-size: clamp(12px, 0.85vw, 14px); color: #de567c; font-weight: 700;">
+                🚨 개당 ~600MB 이미지 누적
+              </div>
             </div>
-            <div class="trouble">
-              <div><small>PROBLEM</small><p>Enum 저장 실패</p></div>
-              <div><small>CAUSE</small><p>Java Enum과 PostgreSQL<br>CHECK 불일치</p></div>
-              <div><small>SOLUTION</small><p>Flyway로 DB 제약조건<br>버전 관리</p></div>
-              <div><small>RESULT</small><p>코드·스키마<br>동기화</p></div>
+
+            <!-- 2. CAUSE -->
+            <div class="card" style="border-top: 4px solid #d48b21; background: #ffffff; padding: 20px; display: flex; flex-direction: column; justify-content: space-between;">
+              <div>
+                <span class="icon-label" style="color: #d48b21; border-color: rgba(212, 139, 33, 0.3);">02 · CAUSE</span>
+                <h3 style="font-size: clamp(17px, 1.25vw, 21px); color: #1e293b; margin-top: 10px;">Docker Tag Overwrite</h3>
+                <p style="font-size: clamp(13.5px, 0.95vw, 16px); color: #475569; margin-top: 10px; line-height: 1.55;">
+                  동일한 태그(<code style="color:#d48b21; font-weight:700;">:latest</code>)로 이미지 업데이트 시 이전 이미지가 삭제되는 것이 아니라 태그만 해제되어 Dangling 상태로 남아 디스크를 차지. 배포 스크립트에 자동 정리 미비.
+                </p>
+              </div>
+              <div style="margin-top: 12px; padding: 8px 12px; background: rgba(212, 139, 33, 0.08); border-radius: 6px; font-size: clamp(12px, 0.85vw, 14px); color: #d48b21; font-weight: 700;">
+                🔍 Tag 덮어쓰기 & 미정리
+              </div>
             </div>
-            <div class="trouble">
-              <div><small>PROBLEM</small><p>AI 컨텍스트 이탈</p></div>
-              <div><small>CAUSE</small><p>긴 대화와 복합 도구 호출로<br>현재 업무 혼동</p></div>
-              <div><small>SOLUTION</small><p>에이전트 분리 · 상태 관리 ·<br>도구 순차 실행</p></div>
-              <div><small>RESULT</small><p>예측 가능성<br>향상</p></div>
+
+            <!-- 3. ACTION -->
+            <div class="card" style="border-top: 4px solid #3266c8; background: #ffffff; padding: 20px; display: flex; flex-direction: column; justify-content: space-between;">
+              <div>
+                <span class="icon-label" style="color: #3266c8; border-color: rgba(50, 102, 200, 0.3);">03 · ACTION</span>
+                <h3 style="font-size: clamp(17px, 1.25vw, 21px); color: #1e293b; margin-top: 10px;">자동 Cleanup 스크립트</h3>
+                <p style="font-size: clamp(13.5px, 0.95vw, 16px); color: #475569; margin-top: 10px; line-height: 1.55;">
+                  CI/CD 배포 파이프라인 후속 단계에 <code style="color:#3266c8; font-weight:700;">docker image prune -f</code> 및 <code style="color:#3266c8; font-weight:700;">docker system prune -f</code> 명령어를 추가하여 배포 직후 잔여 이미지를 자동 삭제되도록 개선.
+                </p>
+              </div>
+              <div style="margin-top: 12px; padding: 8px 12px; background: rgba(50, 102, 200, 0.08); border-radius: 6px; font-size: clamp(12px, 0.85vw, 14px); color: #3266c8; font-weight: 700;">
+                🛠️ Prune 명령어 자동화
+              </div>
             </div>
-            <div class="trouble">
-              <div><small>PROBLEM</small><p>합의 구현 누락</p></div>
-              <div><small>CAUSE</small><p>구두 논의에 의존한<br>완료 기준</p></div>
-              <div><small>SOLUTION</small><p>문서 · 담당자 · PR · QA를<br>하나의 작업으로 연결</p></div>
-              <div><small>RESULT</small><p>추적 가능성<br>확보</p></div>
+
+            <!-- 4. RESULT -->
+            <div class="card" style="border-top: 4px solid #138c73; background: linear-gradient(145deg, rgba(19,140,115,0.06), rgba(63,242,203,0.02)); padding: 20px; display: flex; flex-direction: column; justify-content: space-between; border-color: rgba(19,140,115,0.3);">
+              <div>
+                <span class="icon-label" style="color: #138c73; border-color: rgba(19, 140, 115, 0.3);">04 · RESULT</span>
+                <h3 style="font-size: clamp(17px, 1.25vw, 21px); color: #1e293b; margin-top: 10px;">2.1GB 용량 확보 & 안정화</h3>
+                <p style="font-size: clamp(13.5px, 0.95vw, 16px); color: #475569; margin-top: 10px; line-height: 1.55;">
+                  누적되던 Dangling 이미지 일괄 정리로 <b>2.101 GB 디스크 즉시 확보</b>. 배포가 반복되어도 서버 용량이 일정하게 유지되는 무중단 배포 안정성 확보.
+                </p>
+              </div>
+              <div style="margin-top: 12px; padding: 8px 12px; background: rgba(19, 140, 115, 0.12); border-radius: 6px; font-size: clamp(12px, 0.85vw, 14px); color: #138c73; font-weight: 800;">
+                🎯 Reclaimed Space: 2.101 GB
+              </div>
             </div>
           </div>
+
           <div class="footer">
-            <span class="brand-mark"><i class="brand-dot"></i> ALPHATRAGEN</span>
-            <span>24</span>
+            <span class="brand-mark"><i class="brand-dot" style="background:#138c73;"></i> ALPHATRAGEN</span>
+            <span>32</span>
           </div>
         </div>
         <aside class="speaker-note">
-          주요 문제는 Third-Party Cookie 인증, Java Enum과 DB 제약조건 불일치, AI 컨텍스트 이탈, 설계 합의 구현 누락이었습니다.
-          각 문제를 설정 수정에 그치지 않고 배포 정책, 마이그레이션, 에이전트 구조, 협업 규칙 개선으로 연결했습니다.
+          CI/CD 배포 과정에서 Docker 이미지가 태그 덮어쓰기로 인해 &lt;none&gt; Dangling 상태로 디스크를 점유하던 트러블슈팅 사례입니다.
+          배포 파이프라인에 docker image prune -f 자동 정리 명령어를 반영하여 2.1GB의 디스크 공간을 즉시 확보하고 연속 배포 안정성을 확보했습니다.
         </aside>
-      </section> -->
+      </section>
 
       <!-- 25 -->
       <section class="slide" data-title="개발 과정과 작업 방식">
