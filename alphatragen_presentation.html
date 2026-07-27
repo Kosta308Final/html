@@ -4094,58 +4094,58 @@
 
           <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 2.8%; flex: 1; min-height: 0;">
             <!-- 1. PROBLEM -->
-            <div class="card" style="border-top: 4px solid #de567c; background: #ffffff; padding: 20px; display: flex; flex-direction: column; justify-content: space-between;">
+            <div class="card" style="border-top: 4px solid #de567c; background: #ffffff; padding: 16px; display: flex; flex-direction: column; justify-content: space-between;">
               <div>
                 <span class="icon-label" style="color: #de567c; border-color: rgba(222, 86, 124, 0.3);">01 · PROBLEM</span>
-                <h3 style="font-size: clamp(17px, 1.25vw, 21px); color: #1e293b; margin-top: 10px;">서버 디스크 용량 부족</h3>
-                <p style="font-size: clamp(13.5px, 0.95vw, 16px); color: #475569; margin-top: 10px; line-height: 1.55;">
+                <h3 style="font-size: clamp(16px, 1.15vw, 19px); color: #1e293b; margin-top: 8px;">서버 디스크 용량 부족</h3>
+                <p style="font-size: clamp(12.5px, 0.88vw, 14.5px); color: #475569; margin-top: 6px; line-height: 1.48;">
                   지속적 배포(CI/CD) 시 새 Docker 이미지를 pull 받을 때 기존 이미지가 삭제되지 않고 <code style="color:#de567c; font-weight:700;">&lt;none&gt;:&lt;none&gt;</code> Dangling 이미지로 수십 GB 이상 계속 누적되어 서버 자원 부족 위기 발생.
                 </p>
               </div>
-              <div style="margin-top: 12px; padding: 8px 12px; background: rgba(222, 86, 124, 0.08); border-radius: 6px; font-size: clamp(12px, 0.85vw, 14px); color: #de567c; font-weight: 700;">
-                🚨 개당 ~600MB 이미지 누적
+              <div class="image-frame" onclick="openImageModal('core_scenario_03/1.png', '01 PROBLEM - 서버 디스크 용량 부족')" style="margin-top: 10px; height: 130px; cursor: zoom-in; padding: 4px; border-radius: 8px; border: 1px solid rgba(222,86,124,0.2);">
+                <img src="core_scenario_03/1.png" alt="01 PROBLEM 이미지" style="width: 100%; height: 100%; object-fit: contain;" />
               </div>
             </div>
 
             <!-- 2. CAUSE -->
-            <div class="card" style="border-top: 4px solid #d48b21; background: #ffffff; padding: 20px; display: flex; flex-direction: column; justify-content: space-between;">
+            <div class="card" style="border-top: 4px solid #d48b21; background: #ffffff; padding: 16px; display: flex; flex-direction: column; justify-content: space-between;">
               <div>
                 <span class="icon-label" style="color: #d48b21; border-color: rgba(212, 139, 33, 0.3);">02 · CAUSE</span>
-                <h3 style="font-size: clamp(17px, 1.25vw, 21px); color: #1e293b; margin-top: 10px;">Docker Tag Overwrite</h3>
-                <p style="font-size: clamp(13.5px, 0.95vw, 16px); color: #475569; margin-top: 10px; line-height: 1.55;">
+                <h3 style="font-size: clamp(16px, 1.15vw, 19px); color: #1e293b; margin-top: 8px;">Docker Tag Overwrite</h3>
+                <p style="font-size: clamp(12.5px, 0.88vw, 14.5px); color: #475569; margin-top: 6px; line-height: 1.48;">
                   동일한 태그(<code style="color:#d48b21; font-weight:700;">:latest</code>)로 이미지 업데이트 시 이전 이미지가 삭제되는 것이 아니라 태그만 해제되어 Dangling 상태로 남아 디스크를 차지. 배포 스크립트에 자동 정리 미비.
                 </p>
               </div>
-              <div style="margin-top: 12px; padding: 8px 12px; background: rgba(212, 139, 33, 0.08); border-radius: 6px; font-size: clamp(12px, 0.85vw, 14px); color: #d48b21; font-weight: 700;">
-                🔍 Tag 덮어쓰기 & 미정리
+              <div class="image-frame" onclick="openImageModal('core_scenario_03/2.png', '02 CAUSE - Docker Tag Overwrite')" style="margin-top: 10px; height: 130px; cursor: zoom-in; padding: 4px; border-radius: 8px; border: 1px solid rgba(212,139,33,0.2);">
+                <img src="core_scenario_03/2.png" alt="02 CAUSE 이미지" style="width: 100%; height: 100%; object-fit: contain;" />
               </div>
             </div>
 
             <!-- 3. ACTION -->
-            <div class="card" style="border-top: 4px solid #3266c8; background: #ffffff; padding: 20px; display: flex; flex-direction: column; justify-content: space-between;">
+            <div class="card" style="border-top: 4px solid #3266c8; background: #ffffff; padding: 16px; display: flex; flex-direction: column; justify-content: space-between;">
               <div>
                 <span class="icon-label" style="color: #3266c8; border-color: rgba(50, 102, 200, 0.3);">03 · ACTION</span>
-                <h3 style="font-size: clamp(17px, 1.25vw, 21px); color: #1e293b; margin-top: 10px;">자동 Cleanup 스크립트</h3>
-                <p style="font-size: clamp(13.5px, 0.95vw, 16px); color: #475569; margin-top: 10px; line-height: 1.55;">
+                <h3 style="font-size: clamp(16px, 1.15vw, 19px); color: #1e293b; margin-top: 8px;">자동 Cleanup 스크립트</h3>
+                <p style="font-size: clamp(12.5px, 0.88vw, 14.5px); color: #475569; margin-top: 6px; line-height: 1.48;">
                   CI/CD 배포 파이프라인 후속 단계에 <code style="color:#3266c8; font-weight:700;">docker image prune -f</code> 및 <code style="color:#3266c8; font-weight:700;">docker system prune -f</code> 명령어를 추가하여 배포 직후 잔여 이미지를 자동 삭제되도록 개선.
                 </p>
               </div>
-              <div style="margin-top: 12px; padding: 8px 12px; background: rgba(50, 102, 200, 0.08); border-radius: 6px; font-size: clamp(12px, 0.85vw, 14px); color: #3266c8; font-weight: 700;">
-                🛠️ Prune 명령어 자동화
+              <div class="image-frame" onclick="openImageModal('core_scenario_03/3.png', '03 ACTION - 자동 Cleanup 스크립트')" style="margin-top: 10px; height: 130px; cursor: zoom-in; padding: 4px; border-radius: 8px; border: 1px solid rgba(50,102,200,0.2);">
+                <img src="core_scenario_03/3.png" alt="03 ACTION 이미지" style="width: 100%; height: 100%; object-fit: contain;" />
               </div>
             </div>
 
             <!-- 4. RESULT -->
-            <div class="card" style="border-top: 4px solid #138c73; background: linear-gradient(145deg, rgba(19,140,115,0.06), rgba(63,242,203,0.02)); padding: 20px; display: flex; flex-direction: column; justify-content: space-between; border-color: rgba(19,140,115,0.3);">
+            <div class="card" style="border-top: 4px solid #138c73; background: linear-gradient(145deg, rgba(19,140,115,0.06), rgba(63,242,203,0.02)); padding: 16px; display: flex; flex-direction: column; justify-content: space-between; border-color: rgba(19,140,115,0.3);">
               <div>
                 <span class="icon-label" style="color: #138c73; border-color: rgba(19, 140, 115, 0.3);">04 · RESULT</span>
-                <h3 style="font-size: clamp(17px, 1.25vw, 21px); color: #1e293b; margin-top: 10px;">2.1GB 용량 확보 & 안정화</h3>
-                <p style="font-size: clamp(13.5px, 0.95vw, 16px); color: #475569; margin-top: 10px; line-height: 1.55;">
+                <h3 style="font-size: clamp(16px, 1.15vw, 19px); color: #1e293b; margin-top: 8px;">2.1GB 용량 확보 & 안정화</h3>
+                <p style="font-size: clamp(12.5px, 0.88vw, 14.5px); color: #475569; margin-top: 6px; line-height: 1.48;">
                   누적되던 Dangling 이미지 일괄 정리로 <b>2.101 GB 디스크 즉시 확보</b>. 배포가 반복되어도 서버 용량이 일정하게 유지되는 무중단 배포 안정성 확보.
                 </p>
               </div>
-              <div style="margin-top: 12px; padding: 8px 12px; background: rgba(19, 140, 115, 0.12); border-radius: 6px; font-size: clamp(12px, 0.85vw, 14px); color: #138c73; font-weight: 800;">
-                🎯 Reclaimed Space: 2.101 GB
+              <div class="image-frame" onclick="openImageModal('core_scenario_03/4.png', '04 RESULT - 2.1GB 용량 확보')" style="margin-top: 10px; height: 130px; cursor: zoom-in; padding: 4px; border-radius: 8px; border: 1px solid rgba(19,140,115,0.3);">
+                <img src="core_scenario_03/4.png" alt="04 RESULT 이미지" style="width: 100%; height: 100%; object-fit: contain;" />
               </div>
             </div>
           </div>
