@@ -1420,12 +1420,12 @@
 
     .team-img-wrapper {
       width: 100%;
-      aspect-ratio: 1 / 1;
+      aspect-ratio: 3 / 4;
       border-radius: 14px;
       overflow: hidden;
-      background: #f1f5f9;
-      margin-bottom: 14px;
-      border: 1px solid rgba(203, 213, 225, 0.7);
+      background: #ffffff;
+      margin-bottom: 12px;
+      border: 1px solid rgba(203, 213, 225, 0.8);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -1435,19 +1435,20 @@
     .team-img-wrapper img {
       width: 100%;
       height: 100%;
-      object-fit: cover;
-      object-position: center top;
+      object-fit: contain;
+      object-position: center;
+      background: #ffffff;
       transition: transform 0.35s ease;
     }
 
     .team-card:hover .team-img-wrapper img {
-      transform: scale(1.06);
+      transform: scale(1.04);
     }
 
     .team-avatar-placeholder {
       width: 100%;
       height: 100%;
-      display: flex;
+      display: none;
       flex-direction: column;
       align-items: center;
       justify-content: center;
@@ -2912,7 +2913,7 @@
             <!-- 4. 이선혁 -->
             <div class="team-card">
               <div class="team-img-wrapper">
-                <img src="core_scenario_03/이선혁.png" alt="이선혁" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+                <img src="core_scenario_03/ㅇㅅㅎ1.png" alt="이선혁" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
                 <div class="team-avatar-placeholder">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
                   <span>프로필 사진</span>
@@ -5633,8 +5634,9 @@
       const stageEl = document.querySelector(".stage");
       const desiredOrder = [
         "표지",
-        "발표 순서",
         "팀 구성",
+        "발표 순서",
+        // "팀 구성",
         "기존 서비스 한계",
         "해결 전략",
         "프로젝트 소개",
