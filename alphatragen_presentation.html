@@ -2903,7 +2903,7 @@
             <!-- 3. 백승주 -->
             <div class="team-card">
               <div class="team-img-wrapper">
-                <img src="core_scenario_03/백승주.png" alt="백승주" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+                <img src="core_scenario_03/ㅄㅈ.png" alt="백승주" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
                 <div class="team-avatar-placeholder">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
                   <span>프로필 사진</span>
@@ -4697,7 +4697,7 @@
                 <strong style="font-size: clamp(19px, 1.4vw, 24px); color: #0f172a; font-weight: 850;">김혜진</strong>
               </div>
               <div style="flex: 1; font-size: clamp(17px, 1.25vw, 22px); color: #0f172a; font-weight: 600; line-height: 1.45;">
-                회고 내용을 입력해주세요.
+                AI를 못 믿게 되었습니다.
               </div>
             </div>
 
@@ -5551,10 +5551,47 @@
 
       
       <!-- CLOSING -->
-      <section class="slide image-slide" data-title="마무리" style="padding: 0 !important; overflow: hidden;">
-        <div class="slide-inner" style="padding: 0 !important; margin: 0 !important; max-width: 100% !important; width: 100% !important; height: 100% !important; border-radius: 0 !important;">
-          <div class="image-frame" onclick="openImageModal('core_scenario_03/Gemini_Generated_Image_t9k1d5t9k1d5t9k1.png', 'Q&A 마무리')" style="width: 100%; height: 100%; cursor: zoom-in; padding: 0; border: none; border-radius: 0; background: transparent; display: flex;">
-            <img src="core_scenario_03/Gemini_Generated_Image_t9k1d5t9k1d5t9k1.png" alt="Q&A 마무리" style="width: 100%; height: 100%; object-fit: cover; object-position: center; border-radius: 0;" onerror="this.src='Gemini_Generated_Image_t9k1d5t9k1d5t9k1.png';" />
+      <section class="slide section-slide" data-title="마무리">
+        <div class="slide-inner" style="position: relative; overflow: hidden; height: 100%; display: flex; flex-direction: column; justify-content: space-between;">
+          <div class="topline">
+            <div class="eyebrow" style="color:var(--mint);">ALPHATRAGEN · Q&A</div>
+            <div class="section-number">THANK YOU</div>
+          </div>
+
+          <!-- Flexbox parent container for left whiteboard image & right Q&A text -->
+          <div style="display: flex; flex-direction: row; align-items: center; justify-content: space-between; gap: 32px; flex: 1; min-height: 0; width: 100%; box-sizing: border-box; position: relative; z-index: 2; margin-top: 1.5%;">
+            <!-- Left: Whiteboard image with flex: 0 0 50% -->
+            <div class="image-frame" onclick="openImageModal('core_scenario_03/image.png', '프로젝트 완료 화이트보드')" style="flex: 0 0 50%; max-width: 50%; height: 100%; max-height: 460px; cursor: zoom-in; padding: 0; border: none; background: transparent; display: flex; align-items: center; justify-content: center; overflow: hidden;">
+              <img src="core_scenario_03/image.png" alt="프로젝트 완료 화이트보드" style="width: 100%; height: 100%; object-fit: contain; object-position: center;" />
+            </div>
+
+            <!-- Right: Q&A Text Box with flex: 1, min-width: 0, and word-break for no clipping -->
+            <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; justify-content: center; word-break: keep-all; word-wrap: break-word; overflow-wrap: break-word;">
+              <h2 style="line-height: 1.2; margin: 0;">
+                <span style="color: #ffffff; font-size: clamp(22px, 1.8vw, 28px); font-weight: 700; display: block;">프로젝트를 마치며</span>
+                <span class="mint" style="font-size: clamp(44px, 3.8vw, 62px); font-weight: 900; display: block; margin-top: 4px; letter-spacing: 0.02em;">Q&A</span>
+              </h2>
+
+              <div style="background: #F0FDF4; border-radius: 14px; padding: 18px 22px; margin-top: 20px; border: 1px solid rgba(0, 168, 132, 0.25); box-shadow: 0 6px 18px rgba(0, 168, 132, 0.08); width: 100%; box-sizing: border-box;">
+                <p style="font-size: clamp(15px, 1.05vw, 19px); color: #2D3748; font-weight: 500; margin: 0; line-height: 1.6; word-break: keep-all;">
+                  입주민의 <span style="color: #00A884; font-weight: 750;">더 스마트한 생활</span>과 관리자의 <span style="color: #00A884; font-weight: 750;">효율적인 운영</span>을 돕는 <strong style="color: #00A884; font-weight: 850;">ALPHATRAGEN</strong> 발표를 들어주셔서 감사합니다.
+                </p>
+              </div>
+
+              <div style="margin-top: 24px;">
+                <span class="tag" style="font-size: clamp(14px, 0.95vw, 16px); padding: 10px 22px; background: rgba(63, 242, 203, 0.15); color: var(--mint); border: 1.5px solid rgba(63, 242, 203, 0.4); font-weight: 800; border-radius: 30px; display: inline-flex; align-items: center; gap: 8px;">
+                  💬 자유로운 Q&A
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Background Watermark Graphic: Q&A -->
+          <div class="section-bg" style="right: 4%; bottom: 4%; font-size: clamp(160px, 26vw, 380px); color: rgba(255,255,255,0.038); pointer-events: none; user-select: none;">Q&A</div>
+
+          <div class="footer" style="position: relative; z-index: 2;">
+            <span class="brand-mark"><i class="brand-dot" style="background:var(--mint);"></i> ALPHATRAGEN</span>
+            <span>36</span>
           </div>
         </div>
         <aside class="speaker-note">
