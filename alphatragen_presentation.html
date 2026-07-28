@@ -1323,6 +1323,69 @@
       font-weight: 750;
     }
 
+    /* Table Grid Agenda Design System */
+    .agenda-table {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      max-width: 980px;
+      margin-top: 2.5vh;
+      border-top: 2.5px solid #0d9488;
+    }
+
+    .agenda-row {
+      display: grid;
+      grid-template-columns: 76px 1fr;
+      align-items: center;
+      padding: 0 12px;
+      height: 62px;
+      border-bottom: 1px solid rgba(203, 213, 225, 0.8);
+      box-sizing: border-box;
+      transition: background-color 0.2s ease, padding-left 0.2s ease;
+    }
+
+    .slide.light .agenda-row {
+      border-bottom-color: rgba(226, 232, 240, 0.9);
+    }
+
+    .agenda-row:hover {
+      background-color: rgba(13, 148, 136, 0.05);
+      padding-left: 18px;
+    }
+
+    .agenda-col-num {
+      color: #0d9488; /* 청록색 Teal */
+      font-size: clamp(17px, 1.35vw, 23px);
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      font-family: Inter, Pretendard, system-ui, sans-serif;
+      text-align: left;
+    }
+
+    .agenda-col-content {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      text-align: left;
+    }
+
+    .agenda-title {
+      font-size: clamp(16px, 1.25vw, 20px);
+      font-weight: 800;
+      color: #0f172a; /* 진한 네이비 */
+      white-space: nowrap;
+      min-width: 230px;
+    }
+
+    .agenda-desc {
+      font-size: clamp(14px, 1.0vw, 17px);
+      font-weight: 500;
+      color: #475569; /* 진한 다크 그레이 */
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
     .limit-slide .card {
       background: rgba(255,255,255,.96);
       border-color: rgba(28, 61, 108, .2);
@@ -2466,37 +2529,37 @@
       animation: lineShimmer 1.7s 480ms both ease;
     }
 
-    .slide.active :is(.grid-2, .grid-3, .grid-4, .brand-values, .team-strip, .agenda) > *,
+    .slide.active :is(.grid-2, .grid-3, .grid-4, .brand-values, .team-strip, .agenda, .agenda-table) > *,
     .slide.active :is(.timeline, .pipeline, .flow) > *,
     .slide.active :is(.problem-list, .solution-list, .feature-status, .result-metrics) > *,
     .slide.active .trouble {
       animation: riseIn 560ms both cubic-bezier(.2,.8,.2,1);
     }
 
-    .slide.active :is(.grid-2, .grid-3, .grid-4, .brand-values, .team-strip, .agenda) > *:nth-child(1),
+    .slide.active :is(.grid-2, .grid-3, .grid-4, .brand-values, .team-strip, .agenda, .agenda-table) > *:nth-child(1),
     .slide.active :is(.timeline, .pipeline, .flow) > *:nth-child(1),
     .slide.active :is(.problem-list, .solution-list, .feature-status, .result-metrics) > *:nth-child(1),
     .slide.active .trouble:nth-child(1) { animation-delay: 220ms; }
 
-    .slide.active :is(.grid-2, .grid-3, .grid-4, .brand-values, .team-strip, .agenda) > *:nth-child(2),
+    .slide.active :is(.grid-2, .grid-3, .grid-4, .brand-values, .team-strip, .agenda, .agenda-table) > *:nth-child(2),
     .slide.active :is(.timeline, .pipeline, .flow) > *:nth-child(2),
     .slide.active :is(.problem-list, .solution-list, .feature-status, .result-metrics) > *:nth-child(2),
     .slide.active .trouble:nth-child(2) { animation-delay: 285ms; }
 
-    .slide.active :is(.grid-2, .grid-3, .grid-4, .brand-values, .team-strip, .agenda) > *:nth-child(3),
+    .slide.active :is(.grid-2, .grid-3, .grid-4, .brand-values, .team-strip, .agenda, .agenda-table) > *:nth-child(3),
     .slide.active :is(.timeline, .pipeline, .flow) > *:nth-child(3),
     .slide.active :is(.problem-list, .solution-list, .feature-status, .result-metrics) > *:nth-child(3),
     .slide.active .trouble:nth-child(3) { animation-delay: 350ms; }
 
-    .slide.active :is(.grid-2, .grid-3, .grid-4, .brand-values, .team-strip, .agenda) > *:nth-child(4),
+    .slide.active :is(.grid-2, .grid-3, .grid-4, .brand-values, .team-strip, .agenda, .agenda-table) > *:nth-child(4),
     .slide.active :is(.timeline, .pipeline, .flow) > *:nth-child(4),
     .slide.active :is(.problem-list, .solution-list, .feature-status, .result-metrics) > *:nth-child(4),
     .slide.active .trouble:nth-child(4) { animation-delay: 415ms; }
 
-    .slide.active :is(.grid-2, .grid-3, .grid-4, .brand-values, .team-strip, .agenda) > *:nth-child(5),
+    .slide.active :is(.grid-2, .grid-3, .grid-4, .brand-values, .team-strip, .agenda, .agenda-table) > *:nth-child(5),
     .slide.active :is(.timeline, .pipeline, .flow) > *:nth-child(5) { animation-delay: 480ms; }
 
-    .slide.active :is(.grid-2, .grid-3, .grid-4, .brand-values, .team-strip, .agenda) > *:nth-child(n+6),
+    .slide.active :is(.grid-2, .grid-3, .grid-4, .brand-values, .team-strip, .agenda, .agenda-table) > *:nth-child(n+6),
     .slide.active :is(.timeline, .pipeline, .flow) > *:nth-child(n+6) { animation-delay: 545ms; }
 
     .slide.active .flow-arrow,
@@ -2636,32 +2699,62 @@
       </section>
 
       <!-- 02 -->
-      <section class="slide" data-title="발표 순서">
+      <section class="slide light" data-title="발표 순서">
         <div class="slide-inner">
           <div class="topline">
-            <div class="eyebrow">AGENDA</div>
-            <div class="section-number">00 — 05</div>
+            <div class="eyebrow" style="color: #0d9488;">AGENDA</div>
+            <div class="section-number">01 — 05</div>
           </div>
-          <h2>기능의 가치부터<br><span class="mint">실제 사용 흐름</span>까지</h2>
-          <div class="agenda">
-            <div class="agenda-item"><b>01</b><span>프로젝트 개요 · 기존 서비스의 불편과 기획 배경</span></div>
-            <div class="agenda-item"><b>02</b><span>서비스 소개 · ALPHATRAGEN이 제공하는 사용자 가치</span></div>
-            <div class="agenda-item"><b>03</b><span>핵심 기능 · AI 업무 처리, 자동 알림, 관리자 실시간 연결</span></div>
-            <div class="agenda-item"><b>04</b><span>대표 시나리오 · 시설·차량·관리비·민원·안내 방송</span></div>
-            <div class="agenda-item"><b>05</b><span>핵심 기술과 검증 · Agent Orchestration, Kafka, 테스트</span></div>
-            <div class="agenda-item"><b>06</b><span>마무리 · Q&A</span></div>
+          <h2 style="color: #0f172a;">프로젝트 개요부터<br><span style="color: #0d9488;">아키텍처 및 트러블 슈팅</span>까지</h2>
+
+          <div class="agenda-table">
+            <div class="agenda-row">
+              <div class="agenda-col-num">01</div>
+              <div class="agenda-col-content">
+                <span class="agenda-title">프로젝트 개요</span>
+                <span class="agenda-desc">기존 서비스의 불편과 기획 배경</span>
+              </div>
+            </div>
+            <div class="agenda-row">
+              <div class="agenda-col-num">02</div>
+              <div class="agenda-col-content">
+                <span class="agenda-title">핵심 기능</span>
+                <span class="agenda-desc">AI 업무 처리, 자동 알림, 관리자 실시간 연결 및 대표 시연 시나리오</span>
+              </div>
+            </div>
+            <div class="agenda-row">
+              <div class="agenda-col-num">03</div>
+              <div class="agenda-col-content">
+                <span class="agenda-title">요구사항 및 서비스 구조</span>
+                <span class="agenda-desc">요구사항 분석, 비즈니스 룰, 사용자 및 서비스 플로우</span>
+              </div>
+            </div>
+            <div class="agenda-row">
+              <div class="agenda-col-num">04</div>
+              <div class="agenda-col-content">
+                <span class="agenda-title">핵심 기술 구현 및 아키텍처</span>
+                <span class="agenda-desc">시스템 아키텍처</span>
+              </div>
+            </div>
+            <div class="agenda-row">
+              <div class="agenda-col-num">05</div>
+              <div class="agenda-col-content">
+                <span class="agenda-title">협업 및 트러블 슈팅</span>
+                <span class="agenda-desc">팀 협업 툴 및 개발 자동화</span>
+              </div>
+            </div>
           </div>
-          <p class="lead" style="margin-top:auto; max-width:680px;">
-            기술보다 먼저 <strong class="mint">사용자가 무엇을 더 쉽고 빠르게 해결하는지</strong>를 보여드립니다.
+
+          <p class="lead" style="margin-top:auto; max-width:760px; color:#475569;">
+            프로젝트 개요부터 <strong style="color: #0d9488;">핵심 기능, 아키텍처 설계, 협업 및 트러블슈팅 사례</strong>까지 순서대로 소개합니다.
           </p>
           <div class="footer">
-            <span class="brand-mark"><i class="brand-dot"></i> ALPHATRAGEN</span>
+            <span class="brand-mark"><i class="brand-dot" style="background: #0d9488;"></i> ALPHATRAGEN</span>
             <span>02</span>
           </div>
         </div>
         <aside class="speaker-note">
-          발표는 기존 서비스의 불편에서 시작해 ALPHATRAGEN의 세 가지 핵심 기능과 실제 사용 시나리오를 먼저 보여드립니다.
-          이후 이 기능을 가능하게 한 AI Agent Orchestration과 Kafka 알림 구조, 개발과 검증 결과를 설명하겠습니다.
+          발표는 프로젝트 개요 및 배경을 시작으로, 핵심 기능 및 사용 흐름, 요구사항 및 서비스 구조, 핵심 기술 구현 및 아키텍처, 그리고 팀 협업 및 주요 트러블 슈팅 사례 순서로 진행하겠습니다.
         </aside>
       </section>
 
@@ -2793,6 +2886,38 @@
         </aside>
       </section>
 
+
+      <!-- SECTION DIVIDER: CORE FEATURES -->
+      <section class="slide section-slide" data-title="핵심 기능">
+        <div class="slide-inner">
+          <div class="topline">
+            <div class="eyebrow">02 · CORE FEATURES</div>
+            <div class="section-number">02 · CORE FEATURES</div>
+          </div>
+          <div style="display: flex; flex-direction: column; justify-content: center; margin-top: auto; margin-bottom: auto;">
+            <h2 style="font-size: clamp(28px, 3.8vw, 58px); line-height: 1.15;">입주민과 관리자를 위한<br><span class="mint">ALPHATRAGEN 핵심 기능</span></h2>
+            <p class="lead" style="max-width:780px; margin-top:2.5%;">
+              음성 시설 예약부터 방문차량 등록, 관리비 분석, AI 민원 처리 및 실시간 관리자 연결까지 서비스 핵심 기능을 소개합니다.
+            </p>
+            <div class="tags" style="margin-top:3.5%;">
+              <span class="tag" style="--tag-color:var(--mint)">AI 음성 시설 예약</span>
+              <span class="tag" style="--tag-color:var(--cyan)">방문차량 등록 & 관리비 분석</span>
+              <span class="tag" style="--tag-color:var(--violet)">AI 민원 분류 & 중복 확인</span>
+              <span class="tag" style="--tag-color:var(--amber)">Kafka 실시간 알림 & 1:1 상담</span>
+            </div>
+          </div>
+          <div class="section-bg">02</div>
+          <div class="footer">
+            <span class="brand-mark"><i class="brand-dot"></i> ALPHATRAGEN</span>
+            <span>06</span>
+          </div>
+        </div>
+        <aside class="speaker-note">
+          지금부터는 ALPHATRAGEN이 제공하는 핵심 기능들을 상세히 소개하겠습니다.
+          입주민 음성 시설 예약, 방문차량 등록, 관리비 분석, AI 민원 자동 분류 및 실시간 상담 기능 순서로 설명하겠습니다.
+        </aside>
+      </section>
+
       <!-- 06 -->
       <section class="slide light" data-title="핵심 기능 세 가지">
         <div class="slide-inner">
@@ -2832,7 +2957,7 @@
           </div>
           <div class="footer">
             <span class="brand-mark"><i class="brand-dot" style="background:#138c73;"></i> ALPHATRAGEN</span>
-            <span>06</span>
+            <span>07</span>
           </div>
         </div>
         <aside class="speaker-note">
@@ -5335,6 +5460,7 @@
         "기존 서비스 한계",
         "해결 전략",
         "프로젝트 소개",
+        "핵심 기능",
         "핵심 기능 세 가지",
         "AI 기반 통합 생활 서비스",
         "대표 기능 전체 보기",
